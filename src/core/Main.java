@@ -11,7 +11,7 @@ public class Main extends StateBasedGame{
 
 	public Main(String name) {
 		super(name);
-		addState(new BuildState());
+		addStates();
 	}
 
 	/**
@@ -29,6 +29,10 @@ public class Main extends StateBasedGame{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	private void addStates(){
+		addState(new BuildState());
 	}
 
 	@Override

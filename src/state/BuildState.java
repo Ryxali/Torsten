@@ -6,26 +6,24 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class BuildState extends BasicGameState{
+import core.MouseInput;
+
+public class BuildState extends BasicState{
+
+	
 
 	@Override
-	public void init(GameContainer arg0, StateBasedGame arg1)
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		g.drawRect(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 100, 100);
 		
 	}
 
 	@Override
-	public void render(GameContainer arg0, StateBasedGame arg1, Graphics arg2)
+	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
+		//gc.getInput().setScale((float)zoom, (float)zoom);
 		
-	}
-
-	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2)
-			throws SlickException {
-		// TODO Auto-generated method stub
 		
 	}
 

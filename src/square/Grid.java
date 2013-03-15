@@ -13,7 +13,7 @@ public class Grid {
 	/**
 	 * The 2 dimensional array that stores the Squares.
 	 */
-	private Square[][] squares = new Square[50][50];
+	private short[][] squares = new short[50][50];
 	private Grid grid;
 	
 	private int x = 0;
@@ -33,7 +33,11 @@ public class Grid {
 	 * Draw the tiles on the screen
 	 */
 	public void draw(){
-		
+		for (int i = 0; i < squares.length; i++) {
+			for (int j = 0; j < squares[i].length; j++) {
+				
+			}
+		}
 	}
 	
 	public void update(Input input){
@@ -46,7 +50,7 @@ public class Grid {
 	 * @param yT the number of tiles in height
 	 */
 	public void setGridBounds(int xT, int yT, GameContainer gc){
-		squares = new Square[xT][yT];
+		squares = new short[xT][yT];
 		x = (xT*SquareType.DIMENSION)/2 + gc.getWidth()/2;
 		y = (yT*SquareType.DIMENSION)/2 - gc.getHeight()/2;
 	}

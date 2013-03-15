@@ -7,14 +7,31 @@ package square;
  *
  */
 public enum SquareType {
-	SEXYTHANG(new BasicSquare());
+	EMPTY(new BasicSquare(), 0);
 	public static final int DIMENSION = 32;
 	private final Square square;
-	private SquareType(Square square){
+	private final short id;
+	private SquareType(Square square, int id){
 		this.square = square;
+		this.id = (short)id;
+	}
+	public short getID(){
+		return id;
+	}
+	public Square getSquare(){
+		return square;
 	}
 	
 	public Square copy(){
 		return square.copy();
+	}
+	public static Square getSquareByID(int id){
+		SquareType[] squares = values();
+		for (int i = 0; i < squares.length; i++) {
+			if(squares[i].id == id){
+				return squares[i].square;
+			}
+		}
+		return EMPTY.square;
 	}
 }
