@@ -132,17 +132,4 @@ public class SliderButton extends Button {
 		return ButtonStore.MODE_SLIDER;
 	}
 
-	@Override
-	public void unload() {
-		sliderImg.unload();
-		sliderBar.unload();
-	}
-
-	@Override
-	public void reload() {
-		sliderImg.reload();
-		sliderBar.reload();
-		
-	}
-
 }

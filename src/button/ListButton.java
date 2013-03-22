@@ -134,20 +134,5 @@ public class ListButton extends Button {
 	public int getType() {
 		return ButtonStore.MODE_DROPDOWN;
 	}
-	
-	@Override
-	public void unload(){
-		idleImg.unload();
-		hoverImg.unload();
-		dList.getBgButton().getStoredImage().unload();
-	}
-
-	@Override
-	public void reload() {
-		idleImg.reload();
-		hoverImg.reload();
-		dList.getBgButton().getStoredImage().reload();
-		
-	}
 
 }

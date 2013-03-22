@@ -81,20 +81,5 @@ public class StandardButton extends Button {
 	public int getType() {
 		return ButtonStore.MODE_REGULAR;
 	}
-	
-	@Override
-	public void unload(){
-		idleImg.unload();
-		hoverImg.unload();
-		pressedImg.unload();
-	}
-	@Override
-	public void reload() {
-		System.out.println("Reloaded");
-		idleImg.reload();
-		hoverImg.reload();
-		pressedImg.reload();
-		
-	}
 
 }

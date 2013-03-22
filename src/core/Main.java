@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import state.BuildState;
+import state.StateList;
 
 public class Main extends StateBasedGame{
 
@@ -32,13 +33,13 @@ public class Main extends StateBasedGame{
 	}
 	
 	private void addStates(){
-		addState(new BuildState());
+		addState(StateList.BUILD.getState());
 	}
 
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
 		
-		enterState(0);		
+		enterState(StateList.BUILD.getID());		
 	}
 
 }

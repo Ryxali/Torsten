@@ -33,15 +33,6 @@ public enum ButtonStore {
 	public Button getButton(){
 		return button;
 	}
-	/**
-	 * Unloads all Image based resources used by these buttons.
-	 */
-	public static void unloadAll(){
-		ButtonStore[] temp = values();
-		for(int i = 0; i < temp.length; i++){
-			temp[i].getButton().unload();
-		}
-	}
 	
 	
 }

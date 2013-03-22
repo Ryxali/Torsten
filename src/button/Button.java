@@ -14,7 +14,7 @@ import core.Loadable;
 
 
 
-public abstract class Button implements Loadable{
+public abstract class Button{
 	protected int x;
 	protected int y;
 	
@@ -142,12 +142,4 @@ public abstract class Button implements Loadable{
 		}
 		return false;
 	}
-	/**
-	 * unloads all the Image-based resources used by this object.
-	 */
-	public abstract void unload();
-	/**
-	 * reloads all the Image-based resources used by this object.
-	 */
-	public abstract void reload();
 }
