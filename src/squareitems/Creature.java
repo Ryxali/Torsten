@@ -14,10 +14,16 @@ import image.DrawableXY;
  * @see square.Square
  *
  */
-public class Creature implements DrawableXY{
+public class Creature implements DrawableXY, Placeable{
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void put(Placeable placeable) {
 		// TODO Auto-generated method stub
 		
 	}
