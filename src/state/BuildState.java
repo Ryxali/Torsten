@@ -19,7 +19,7 @@ public class BuildState extends BasicState{
 			throws SlickException {
 		g.drawRect(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 100, 100);
 		ImageStore.DEFAULT.draw(50, 50);
-		square.Grid.get().draw(g);
+		square.Grid.get().draw(g, gc.getInput());
 	}
 
 	@Override

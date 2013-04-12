@@ -30,4 +30,11 @@ public class LootPile implements DrawableXY, Placeable{
 		
 	}
 
+	public int drawInfo(Graphics g, int x1, int y1, int textRow) {
+		// TODO Auto-generated method stub
+		
+		
+		return 0;
+	}
+
 }

@@ -1,5 +1,7 @@
 package squareitems;
 
-public interface Placeable {
+import image.DrawableXY;
+
+public interface Placeable extends DrawableXY{
 	public void put(Placeable placeable);
 }

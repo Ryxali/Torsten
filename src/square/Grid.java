@@ -13,7 +13,7 @@ import org.newdawn.slick.Input;
  * @author Niklas L
  *
  */
-public class Grid implements Drawable {
+public class Grid {
 	/**
 	 * The 2 dimensional array that stores the Squares.
 	 */
@@ -37,24 +37,25 @@ public class Grid implements Drawable {
 	/**
 	 * Draw the tiles that are present on the screen onto the screen.
 	 */
-	public void draw(Graphics g){
+	public void draw(Graphics g, Input input){
 		for (int x = 0 - baseX/Square.SQUARE_DIMENSION; x < squares.length && x*Square.SQUARE_DIMENSION+baseX < 1200; x++) {
 			for (int y = 0 - baseY/Square.SQUARE_DIMENSION; y < squares[x].length && y*Square.SQUARE_DIMENSION+baseY < 1200; y++) {
-				squares[x][y].draw(g, baseX+Square.SQUARE_DIMENSION*x, baseY+Square.SQUARE_DIMENSION*y);
+				squares[x][y].draw(g, baseX, baseY);
 			}
 		}
+		squares[(input.getMouseX()-baseX)/Square.SQUARE_DIMENSION][(input.getMouseY()-baseY)/Square.SQUARE_DIMENSION].drawTooltip(g, input);
 	}
 	
 	public void fillTiles(){
 		for (int x = 0; x < squares.length; x++) {
 			for (int y = 0; y < squares[x].length; y++) {
-				squares[x][y] = new Square(ImageStore.TILE_PLAIN);
+				squares[x][y] = new Square(ImageStore.TILE_PLAIN, baseX+Square.SQUARE_DIMENSION*x, baseY+Square.SQUARE_DIMENSION*y);
 			}
 		}
 	}
 	
 	public void update(Input input){
-		
+		//
 	}
 	
 	/**
