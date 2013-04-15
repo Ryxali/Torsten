@@ -2,6 +2,7 @@ package gui;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Rectangle;
 
 import image.DrawableXY;
 import image.ImageStore;
@@ -17,23 +18,32 @@ public class Palette implements DrawableXY{
 	private int sampleIndex;
 	private ImageStore frameImg;
 	private String name;
+	private Rectangle frameRect;
+	public static final int X_POS = 600;
+	public static final int WIDTH = 200;
+	public static final int Y_POS = 0;
+	public static final int HEIGHT = 500;
 	
 	public Palette(String name){
 		//this.frameImg = frameImg;
 		this.name = name;
+		samples = new Sample[5];
 	}
 	
 	public void draw(Graphics g, int x, int y){
-		frameImg.draw(x, y);
+		g.fillRect(x-200, 0, 200, 500);
+		//frameImg.draw(x-frameImg.getImage().getWidth(), y);
 		for (int i = 0; i < samples.length; i++) {
-			samples[i].draw(x, y, g);
+			if(samples[i] != null){
+				samples[i].draw(x-200, y, g);
+			}
 		}
 	}
 	public void add(Sample sample){
 		if(samples != null){
 			enlarge();
 		}
-		if(samples[samples.length] != null){
+		if(sampleIndex >= samples.length){
 			enlarge();
 		}
 		samples[sampleIndex] = sample;
@@ -52,7 +62,11 @@ public class Palette implements DrawableXY{
 	}
 	
 	public void update(Input input){
-		
+		for (int i = 0; i < samples.length; i++) {
+			if(samples[i] != null){
+				samples[i].buttonStateCheck(input);
+			}
+		}
 	}
 
 	public String getName() {

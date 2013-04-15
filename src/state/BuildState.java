@@ -1,5 +1,6 @@
 package state;
 
+import file.UserFileReader;
 import image.ImageStore;
 
 import org.newdawn.slick.GameContainer;
@@ -20,13 +21,14 @@ public class BuildState extends BasicState{
 		g.drawRect(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 100, 100);
 		ImageStore.DEFAULT.draw(50, 50);
 		square.Grid.get().draw(g, gc.getInput());
+		UserFileReader.get().get(0).draw(g, gc.getWidth(), 0);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		//gc.getInput().setScale((float)zoom, (float)zoom);
-		
+		UserFileReader.get().get(0).update(gc.getInput());
 		
 	}
 

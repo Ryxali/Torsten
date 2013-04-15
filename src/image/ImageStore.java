@@ -18,7 +18,10 @@ import org.newdawn.slick.SlickException;
  */
 public enum ImageStore {
 	DEFAULT(fetchImg("res/img/Default/Def1.png")),
-	TILE_PLAIN(fetchImg("res/img/Tile/GravelBlock.png"));
+	TILE_PLAIN(fetchImg("res/img/Tile/GravelBlock.png")),
+	SAMPLE_IDLE(fetchImg("res/img/sampleButton/Idle.png")),
+	SAMPLE_HOVER(fetchImg("res/img/sampleButton/Hover.png")),
+	SAMPLE_PRESSED(fetchImg("res/img/sampleButton/Pressed.png"));
 	/**
 	 * The image itself
 	 */
