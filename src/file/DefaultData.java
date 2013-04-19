@@ -2,7 +2,8 @@ package file;
 
 public enum DefaultData {
 	//TODO fill this shit out.
-	GOBLIN("Goblin", "userData/img/Creature/goblin.png", "Creature", "Sneaky git. Goblin Tactics"),
+	GOBLIN_MINION("Lesser Goblin", "userData/img/Creature/goblinMinion.png", "Creature", "Sneaky git. Goblin Tactics"),
+	GOBLIN_BOSS("Boss Goblin", "userData/img/Creature/bossGoblin.png", "Creature", "Sneaky boss git. Goblin Tactics"),
 	OGRE("Ogre", "userData/img/Creature/ogre.png", "Creature", "Big baddie.");
 	
 	

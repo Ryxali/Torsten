@@ -12,67 +12,38 @@ import image.DrawableXY;
  * 
  * @author Niklas L
  * @see square.Square
- * 
+ * @see gui.Sample
  */
-public class Creature implements DrawableXY, Placeable {
-	private Image image;
-	private String info = "Default String";
-	private String name;
-
+public class Creature extends SquareItem {
+	/**
+	 * Creates a new creature to exist in either a square or as a sample
+	 * piece.
+	 * @param name
+	 * @param image
+	 * @param info
+	 */
 	public Creature(String name, Image image, String info) {
-		this.image = image;
-		this.info = info;
-		this.name = name;
+		super(name, image, info);
 	}
-
+	/**
+	 * Draws this creature onto the screen at the specified point.
+	 * @param g the current graphics context
+	 * @param x the x position to draw at
+	 * @param y the y position to draw at
+	 */
 	@Override
 	public void draw(Graphics g, int x, int y) {
-		// TODO Auto-generated method stub
+		image.draw(x, y);
 
 	}
-
+	
+	
 	@Override
 	public void put(Placeable placeable) {
 		// TODO Auto-generated method stub
 
 	}
 
-	/**
-	 * Formats the string to split at given bounds
-	 * 
-	 * @param g
-	 * @param string
-	 * @return
-	 */
-	private String format(Graphics g, String string, int maxWidth) {
-		String[] temp = string.split(" ");
-		int width = 0;
-		int index = 0;
-		String product = "";
-		boolean running = true;
-		while (running) {
-			while (g.getFont().getWidth(temp[index]) + width > maxWidth) {
-				if(temp[index].contains("\n")){
-					width = 0;
-				}
-				product += temp[index];
-				index++;
-			}
-			if (index >= temp.length) {
-				return product;
-			}
-			product += "\n";
-			width = 0;
-		}
-
-		return "";
-	}
-
-	public int drawInfo(Graphics g, int x1, int y1, int textRow) {
-
-		g.drawString(format(g, info, 300), x1, y1);
-
-		return 0;
-	}
+	
 
 }

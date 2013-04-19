@@ -1,6 +1,7 @@
 package squareitems;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 import image.DrawableXY;
 
@@ -12,7 +13,12 @@ import image.DrawableXY;
  * @author Niklas L
  *
  */
-public class Obstacle implements DrawableXY, Placeable{
+public class Obstacle extends SquareItem{
+
+	public Obstacle(String name, Image image, String info) {
+		super(name, image, info);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
@@ -24,13 +30,6 @@ public class Obstacle implements DrawableXY, Placeable{
 	public void put(Placeable placeable) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public int drawInfo(Graphics g, int x1, int y1, int textRow) {
-		// TODO Auto-generated method stub
-		
-		
-		return 0;
 	}
 
 }

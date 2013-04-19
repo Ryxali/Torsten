@@ -4,6 +4,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Rectangle;
 
+import state.BuildState;
+
+import button.Button;
+
 import image.DrawableXY;
 import image.ImageStore;
 /**
@@ -14,7 +18,7 @@ import image.ImageStore;
  * @see gui.Sample
  */
 public class Palette implements DrawableXY{
-	private Sample[] samples;
+	protected Sample[] samples;
 	private int sampleIndex;
 	private ImageStore frameImg;
 	private String name;
@@ -24,18 +28,30 @@ public class Palette implements DrawableXY{
 	public static final int Y_POS = 0;
 	public static final int HEIGHT = 500;
 	
-	public Palette(String name){
+	private int width;
+	private int height;
+	
+	public Palette(String name, int width, int height){
 		//this.frameImg = frameImg;
 		this.name = name;
 		samples = new Sample[5];
+		this.width = width;
+		this.height = height;
 	}
 	
 	public void draw(Graphics g, int x, int y){
-		g.fillRect(x-200, 0, 200, 500);
+		g.fillRect(x, y, width, height);
 		//frameImg.draw(x-frameImg.getImage().getWidth(), y);
+		int widt = 0;
+		int heigh = 0;
 		for (int i = 0; i < samples.length; i++) {
 			if(samples[i] != null){
-				samples[i].draw(x-200, y, g);
+				samples[i].draw(g);//x+widt, y+heigh*samples[i].getStoredImage().getImage().getHeight(), 
+				widt += 64;
+				if(widt + 64 > width){
+					widt = 0;
+					heigh++;
+				}
 			}
 		}
 	}
@@ -67,6 +83,17 @@ public class Palette implements DrawableXY{
 				samples[i].buttonStateCheck(input);
 			}
 		}
+	}
+	
+	public Sample getClickedSample(BuildState bState){
+		for (int i = 0; i < samples.length; i++) {
+			if(samples[i] != null){
+				if(samples[i].hasBeenClicked() == Button.PRESSED_TRUE){
+					return samples[i];
+				}
+			}
+		}
+		return bState.getCurrentSample();
 	}
 
 	public String getName() {

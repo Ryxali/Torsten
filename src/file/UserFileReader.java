@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 import gui.Palette;
+import gui.PaletteStore;
 import gui.Sample;
 
 /**
@@ -39,48 +40,26 @@ public class UserFileReader {
 	}
 
 	public UserFileReader() {
-		readFile();
+		
 	}
-
-	/**
-	 * Note that the order of these palettes in the array matters
-	 */
-	private Palette[] palettes;
+	
 	public static final String USER_DATA_PATH = "userData/palettes.dat";
-
-	/**
-	 * Swaps the position in the array between one palette and another.
-	 * 
-	 * @param index1
-	 * @param index2
-	 */
-	public void swap(int index1, int index2) {
-		Palette temp = palettes[index1];
-		palettes[index1] = palettes[index2];
-		palettes[index2] = temp;
-	}
-	
-	public Palette[] getPalettes(){
-		return palettes;
-	}
-	
-	public Palette get(int index){
-		return palettes[index];
-	}
 
 	/**
 	 * Reads the palette info from base file.
 	 * 
 	 */
-	private void readFile() {
+	public Palette[] readFile() {
+		Palette[] tempPal = null;
 		try {
+			
 			Scanner indata = new Scanner(new File(USER_DATA_PATH));
 			int lines = 0;
 			while (indata.hasNextLine()) {
 				lines++;
 				indata.nextLine();
 			}
-			palettes = new Palette[lines];
+			tempPal = new Palette[lines];
 			int curLine = 0;
 			indata.close();
 			indata = new Scanner(new File(USER_DATA_PATH));
@@ -89,7 +68,7 @@ public class UserFileReader {
 				String line = indata.nextLine();
 				System.out.println(line);
 				String[] temp = line.split("; ");
-				palettes[curLine] = new Palette(temp[0]);
+				tempPal[curLine] = new Palette(temp[0], 200, 500);
 				int sampleCol = 0;
 				int sampleRow = 0;
 				for (int i = 1; i < temp.length; i++) {
@@ -101,7 +80,7 @@ public class UserFileReader {
 						sampleCol = 0;
 						sampleRow++;
 					}
-					palettes[curLine].add(new Sample(Palette.X_POS + sampleCol*64, Palette.Y_POS + sampleRow*64, sampleData[0],
+					tempPal[curLine].add(new Sample(Palette.X_POS + sampleCol*64, Palette.Y_POS + sampleRow*64, sampleData[0],
 							sampleData[1], sampleData[2], sampleData[3]));
 					sampleCol++;
 				}
@@ -112,7 +91,14 @@ public class UserFileReader {
 			System.out.println("makingDefaultfile");
 			makeDefFile();
 			readFile();
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
+		return tempPal;
 	}
 
 	/**
@@ -160,12 +146,12 @@ public class UserFileReader {
 			utdata = new PrintWriter(new BufferedWriter(new FileWriter(
 					USER_DATA_PATH)));
 
-			for (int i = 0; i < palettes.length; i++) {
-				utdata.print(palettes[i].getName() + "; ");
-				for (int j = 0; j < palettes[i].getSamples().length; j++) {
-					utdata.print(palettes[i].getSample(j).getName() + ", "
-							+ palettes[i].getSample(j).getType() + ", "
-							+ palettes[i].getSample(j).getInfo() + ";");
+			for (int i = 0; i < PaletteStore.get().getPalettes().length; i++) {
+				utdata.print(PaletteStore.get().get(i).getName() + "; ");
+				for (int j = 0; j < PaletteStore.get().get(i).getSamples().length; j++) {
+					utdata.print(PaletteStore.get().get(i).getSample(j).getName() + ", "
+							+ PaletteStore.get().get(i).getSample(j).getType() + ", "
+							+ PaletteStore.get().get(i).getSample(j).getInfo() + ";");
 				}
 				utdata.println();
 			}

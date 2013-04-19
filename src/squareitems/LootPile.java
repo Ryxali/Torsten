@@ -1,6 +1,7 @@
 package squareitems;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 import image.DrawableXY;
 
@@ -16,7 +17,12 @@ import image.DrawableXY;
  * @see square.Square
  *
  */
-public class LootPile implements DrawableXY, Placeable{
+public class LootPile extends SquareItem{
+
+	public LootPile(String name, Image image, String info) {
+		super(name, image, info);
+		// TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
@@ -28,13 +34,6 @@ public class LootPile implements DrawableXY, Placeable{
 	public void put(Placeable placeable) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public int drawInfo(Graphics g, int x1, int y1, int textRow) {
-		// TODO Auto-generated method stub
-		
-		
-		return 0;
 	}
 
 }

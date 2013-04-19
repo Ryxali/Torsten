@@ -1,7 +1,12 @@
 package image;
 
 import org.newdawn.slick.Graphics;
-
+/**
+ * An implement for all classes that uses position defined drawing
+ * @author Niklas L
+ * @see image.Drawable
+ * @see image.ImageStore
+ */
 public interface DrawableXY {
 	/**
 	 * Draws the content on the screen
