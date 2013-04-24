@@ -8,10 +8,12 @@ import org.newdawn.slick.Input;
 import button.StandardButton;
 
 import squareitems.Creature;
+import squareitems.Item;
 import squareitems.LootPile;
 import squareitems.Obstacle;
 import squareitems.Placeable;
 
+import gui.Tooltip;
 import image.Drawable;
 import image.DrawableXY;
 import image.ImageStore;
@@ -80,6 +82,7 @@ public class Square extends StandardButton implements DrawableXY{
 		this.x = x;
 		this.y = y;
 		this.squareImg = squareImg.getImage();
+		loot = new LootPile("Loot Pile", null, "");
 	}
 	/*
 	public Square(ImageStore squareImg, Creature creature){
@@ -124,14 +127,14 @@ public class Square extends StandardButton implements DrawableXY{
 	public void draw(Graphics g, int baseX, int baseY) {
 		
 		squareImg.draw(baseX + x, baseY + y);
-		if(creature != null){
-			creature.draw(g, baseX + x, baseY + y);
+		if(obstacle != null){
+			obstacle.draw(g, baseX + x, baseY + y);
 		}
 		if(loot != null){
 			loot.draw(g, baseX + x, baseY + y);
 		}
-		if(obstacle != null){
-			obstacle.draw(g, baseX + x, baseY + y);
+		if(creature != null){
+			creature.draw(g, baseX + x, baseY + y);
 		}
 		getStoredImage().draw(baseX + x, baseY + y);
 		
@@ -143,29 +146,7 @@ public class Square extends StandardButton implements DrawableXY{
 	 * @param input the current user input
 	 */
 	public void drawTooltip(Graphics g, Input input) {
-		int x1 = 0;
-		int y1 = 600;
-		g.setColor(Color.lightGray);
-		g.fillRect(x1, y1-150, 800, 150);
-		g.setColor(Color.black);
-		//Square Tile info
-		g.drawRect(x1, y1-150, 200, 150);
-		//Creature info
-		g.drawRect(x1+200, y1-150, 200, 150);
-		//Obstacle info
-		g.drawRect(x1+400, y1-150, 200, 150);
-		//Item info
-		g.drawRect(x1+600, y1-150, 200, 150);
-		
-		if(creature != null){
-			creature.drawInfo(g, x1+200, y1-150);
-		}
-		if(obstacle != null){
-		 obstacle.drawInfo(g, x1+400, y1-150);
-		}
-		if(loot != null){
-			loot.drawInfo(g, x1+600, y1-150);
-		}
+		Tooltip.get().draw(g, creature, obstacle, loot);
 		
 		//g.drawString(x + " :" + y, input.getMouseX(), input.getMouseY());
 		
@@ -178,6 +159,11 @@ public class Square extends StandardButton implements DrawableXY{
 	public void put(Placeable sample) {
 		if(sample instanceof Creature){
 			creature = (Creature) sample;
+			return;
+		}else if(sample instanceof Item){
+			loot.add((Item) sample);
+		}else if(sample instanceof Obstacle){
+			obstacle = (Obstacle) sample;
 		}
 	}
 }

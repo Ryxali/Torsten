@@ -8,6 +8,7 @@ import squareitems.Creature;
 import squareitems.Item;
 import squareitems.Obstacle;
 import squareitems.Placeable;
+import squareitems.SquareItem;
 import image.ImageStore;
 import button.StandardButton;
 
@@ -69,10 +70,10 @@ public class Sample extends StandardButton {
 				System.out.println("CREATURE");
 			}
 			if (type.toLowerCase().equals(TYPE_ITEM.toLowerCase())) {
-				//pObject = new Item(name, new Image(imageRef), info);
+				pObject = (Placeable) new Item(name, new Image(imageRef).getScaledCopy(64, 64), info);
 			}
 			if (type.toLowerCase().equals(TYPE_OBSTACLE.toLowerCase())) {
-				//pObject = new Obstacle(name, new Image(imageRef), info);
+				pObject = new Obstacle(name, new Image(imageRef).getScaledCopy(64, 64), info);
 			}
 		} catch (SlickException e) {
 		}
@@ -86,8 +87,15 @@ public class Sample extends StandardButton {
 	}
 	
 	public void draw(Graphics g){
-		slotImg.draw(x, y);
-		//super.draw(g);
+		draw(0, 0, g);
+	}
+	
+	public void draw(int x2, int y2, Graphics g){
+		slotImg.draw(x+x2, y+y2);
+		super.draw(g);
+		if(getState() == STATE_HOVER || getState() == STATE_PRESSED){
+			Tooltip.get().draw(g, (SquareItem)pObject);
+		}
 	}
 	
 	public String getName() {

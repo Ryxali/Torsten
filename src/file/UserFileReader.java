@@ -52,53 +52,63 @@ public class UserFileReader {
 	public Palette[] readFile() {
 		Palette[] tempPal = null;
 		try {
-			
-			Scanner indata = new Scanner(new File(USER_DATA_PATH));
-			int lines = 0;
-			while (indata.hasNextLine()) {
-				lines++;
-				indata.nextLine();
-			}
-			tempPal = new Palette[lines];
-			int curLine = 0;
-			indata.close();
-			indata = new Scanner(new File(USER_DATA_PATH));
-			while (indata.hasNextLine()) {
-
-				String line = indata.nextLine();
-				System.out.println(line);
-				String[] temp = line.split("; ");
-				tempPal[curLine] = new Palette(temp[0], 200, 500);
-				int sampleCol = 0;
-				int sampleRow = 0;
-				for (int i = 1; i < temp.length; i++) {
-					String[] sampleData = temp[i].split(", ");
-					for (int j = 0; j < sampleData.length; j++) {
-						System.out.println(sampleData[j] + " " + j);
-					}
-					if(sampleCol > 3){
-						sampleCol = 0;
-						sampleRow++;
-					}
-					tempPal[curLine].add(new Sample(Palette.X_POS + sampleCol*64, Palette.Y_POS + sampleRow*64, sampleData[0],
-							sampleData[1], sampleData[2], sampleData[3]));
-					sampleCol++;
-				}
-				curLine++;
-			}
-			indata.close();
+			//Scanner indata = new Scanner(new File(USER_DATA_PATH));
+			//indata = new Scanner(new File(USER_DATA_PATH));
+			tempPal = readContent(USER_DATA_PATH);
+			//indata.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("makingDefaultfile");
 			makeDefFile();
 			readFile();
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 		}
 		return tempPal;
+	}
+	
+	private int checkNumbPalettes(Scanner indata) {
+		int lines = 0;
+		System.out.println("Checkings!");
+		while (indata.hasNextLine()) {
+			String s = indata.nextLine();
+			System.out.println(">>>" + s);
+			if(s.contains(";")){
+				System.out.println("match");
+				lines++;
+			}
+		}
+		indata.close();
+		return lines;
+	}
+
+	private Palette[] readContent(String fPath) throws FileNotFoundException{
+		Palette[] tempPal = new Palette[checkNumbPalettes(new Scanner(new File(fPath)))];
+		int curLine = 0;
+		Scanner indata = new Scanner(new File(fPath));
+		while (indata.hasNextLine()) {
+			String line = indata.nextLine();
+			System.out.println(line);
+			String[] temp = line.split("; ");
+			System.out.println(">-->>>>->" + line.replace(temp[0], ""));
+			
+			tempPal[curLine] = createPalette(temp[0], line.replace(temp[0]+"; ", ""));
+			curLine++;
+		}
+		return tempPal;
+	}
+
+	private Palette createPalette(String name, String creatureData) {
+		Palette temp = new Palette(name, 200, 400);
+		String[] creatureValues = creatureData.split("; ");
+		
+		for (int i = 0; i < creatureValues.length; i++) {
+			temp.add(readSample(creatureValues[i], i));
+		}
+		return temp;
+	}
+
+	private Sample readSample(String sampleInfo, int curIndex) {
+		String[] sampleData = sampleInfo.split(", ");
+		return new Sample(Palette.X_POS + (curIndex%3)*64, Palette.Y_POS + (curIndex/3)*64, sampleData[0],
+				sampleData[1], sampleData[2], sampleData[3]);
 	}
 
 	/**
@@ -114,21 +124,23 @@ public class UserFileReader {
 			for (int i = 0; i < temp.length; i++) {
 				utdata.print(temp[i].getName() + ", " + temp[i].getImgRef()
 						+ ", " + temp[i].getType() + ", " + temp[i].getInfo()
-						+ "; \n");
+						+ "; ");
 			}
+			utdata.print("\n");
 			utdata.print("Obstacle; ");
 			DefaultData[] temp2 = DefaultData.listOfType("Obstacle");
-			for (int i = 0; i < temp.length; i++) {
-				utdata.print(temp[i].getName() + ", " + temp[i].getImgRef()
-						+ ", " + temp[i].getType() + ", " + temp[i].getInfo()
-						+ "; \n");
+			for (int i = 0; i < temp2.length; i++) {
+				utdata.print(temp2[i].getName() + ", " + temp2[i].getImgRef()
+						+ ", " + temp2[i].getType() + ", " + temp2[i].getInfo()
+						+ "; ");
 			}
+			utdata.print("\n");
 			utdata.print("Item; ");
 			DefaultData[] temp3 = DefaultData.listOfType("Item");
-			for (int i = 0; i < temp.length; i++) {
-				utdata.print(temp[i].getName() + ", " + temp[i].getImgRef()
-						+ ", " + temp[i].getType() + ", " + temp[i].getInfo()
-						+ "; \n");
+			for (int i = 0; i < temp3.length; i++) {
+				utdata.print(temp3[i].getName() + ", " + temp3[i].getImgRef()
+						+ ", " + temp3[i].getType() + ", " + temp3[i].getInfo()
+						+ "; ");
 			}
 			utdata.close();
 		} catch (IOException e) {
@@ -155,6 +167,7 @@ public class UserFileReader {
 				}
 				utdata.println();
 			}
+			utdata.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

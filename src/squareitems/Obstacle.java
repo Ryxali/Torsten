@@ -22,8 +22,7 @@ public class Obstacle extends SquareItem{
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
-		// TODO Auto-generated method stub
-		
+		image.draw(x, y);
 	}
 
 	@Override

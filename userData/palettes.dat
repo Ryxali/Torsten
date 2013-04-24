@@ -1,9 +1,3 @@
-Creature; Lesser Goblin, userData/img/Creature/goblinMinion.png, Creature, Sneaky git. Goblin Tactics; 
-Boss Goblin, userData/img/Creature/bossGoblin.png, Creature, Sneaky boss git. Goblin Tactics; 
-Ogre, userData/img/Creature/ogre.png, Creature, Big baddie.; 
-Obstacle; Lesser Goblin, userData/img/Creature/goblinMinion.png, Creature, Sneaky git. Goblin Tactics; 
-Boss Goblin, userData/img/Creature/bossGoblin.png, Creature, Sneaky boss git. Goblin Tactics; 
-Ogre, userData/img/Creature/ogre.png, Creature, Big baddie.; 
-Item; Lesser Goblin, userData/img/Creature/goblinMinion.png, Creature, Sneaky git. Goblin Tactics; 
-Boss Goblin, userData/img/Creature/bossGoblin.png, Creature, Sneaky boss git. Goblin Tactics; 
-Ogre, userData/img/Creature/ogre.png, Creature, Big baddie.; 
+Creature; Lesser Goblin, userData/img/Creature/goblinMinion.png, Creature, Sneaky git. Goblin Tactics and stuff beyond measure of sorts.; Boss Goblin, userData/img/Creature/bossGoblin.png, Creature, Sneaky boss git. Goblin Tactics; Ogre, userData/img/Creature/ogre.png, Creature, Big baddie.; 
+Obstacle; Rubble, userData/img/Obstacle/rubble.png, Obstacle, Roughy; 
+Item; Dawntreader, userData/img/Item/dawntreader.png, Item, Elky blade; 

@@ -1,5 +1,13 @@
 package square;
 
+import java.util.ArrayList;
+
+import gui.AdvancedEdit;
+import gui.Palette;
+import gui.PaletteStore;
+import gui.Toolbar;
+import gui.Toolbars;
+import gui.Tooltip;
 import image.Drawable;
 import image.ImageStore;
 
@@ -78,14 +86,29 @@ public class Grid {
 	 * @param input the current user input
 	 * @param sample the current sample the user is wielding
 	 */
-	public void update(Input input, Placeable sample){
+	public void update(Input input, Placeable sample, ArrayList<Thread> editWins){
+		if(input.getMouseX() > Palette.X_POS || input.getMouseY() > Tooltip.Y_POS){
+			//We don't want to do anything with the grid if we're currently interacting with the palettes.
+			//Same is true with tooltips.
+			for (int x = 0 - baseX/Square.SQUARE_DIMENSION; x < squares.length && x*Square.SQUARE_DIMENSION+baseX < 1200; x++) {
+				for (int y = 0 - baseY/Square.SQUARE_DIMENSION; y < squares[x].length && y*Square.SQUARE_DIMENSION+baseY < 1200; y++) {
+					squares[x][y].setState(Button.STATE_IDLE);
+				}
+			}
+			return;
+		}
 		for (int x = 0 - baseX/Square.SQUARE_DIMENSION; x < squares.length && x*Square.SQUARE_DIMENSION+baseX < 1200; x++) {
 			for (int y = 0 - baseY/Square.SQUARE_DIMENSION; y < squares[x].length && y*Square.SQUARE_DIMENSION+baseY < 1200; y++) {
 				squares[x][y].buttonStateCheck(input);
+				
 				//if(squares[x][y].hasBeenClicked() == Button.PRESSED_TRUE)squares[x][y].put(sample);
 			}
 		}
 		if(squares[(input.getMouseX()-baseX)/Square.SQUARE_DIMENSION][(input.getMouseY()-baseY)/Square.SQUARE_DIMENSION].hasBeenClicked()==Button.PRESSED_TRUE){
+			if(sample == null){
+				editWins.add(AdvancedEdit.getNew(squares[(input.getMouseX()-baseX)/Square.SQUARE_DIMENSION][(input.getMouseY()-baseY)/Square.SQUARE_DIMENSION]));
+				editWins.get(editWins.size()-1).start();
+			}
 			squares[(input.getMouseX()-baseX)/Square.SQUARE_DIMENSION][(input.getMouseY()-baseY)/Square.SQUARE_DIMENSION].put(sample);
 		}
 	}

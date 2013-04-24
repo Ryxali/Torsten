@@ -17,5 +17,7 @@ public class Toolbar extends Palette {
 	public void draw(Graphics g){
 		draw(g, x, y);
 	}
-
+	public int getY(){
+		return y;
+	}
 }

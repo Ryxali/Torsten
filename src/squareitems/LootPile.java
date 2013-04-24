@@ -1,5 +1,7 @@
 package squareitems;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -18,22 +20,32 @@ import image.DrawableXY;
  *
  */
 public class LootPile extends SquareItem{
-
+	private ArrayList<Item> items = new ArrayList<Item>();
 	public LootPile(String name, Image image, String info) {
 		super(name, image, info);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < items.size(); i++) {
+			items.get(i).draw(g, x, y);
+		}
 	}
 
 	@Override
 	public void put(Placeable placeable) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void add(Item sample) {
+		items.add(sample);
+		//info = name + "\n";
+		info = "";
+		for (int i = 0; i < items.size(); i++) {
+			info += items.get(i).name + "\n";
+			//info += items.get(i).info + "\n";
+		}
 	}
 
 }

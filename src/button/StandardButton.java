@@ -65,11 +65,15 @@ public class StandardButton extends Button {
 		int farY = getY() + getStoredImage().getImage().getHeight();
 
 		if (pointContains(getX(), mX, farX) && pointContains(getY(), mY, farY)) {
-			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && (getState() == STATE_HOVER || getState()==STATE_PRESSED)) {
 				setState(STATE_PRESSED);
 				setClicked(true);
 			} else {
-				setState(STATE_HOVER);
+				if(!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
+					setState(STATE_HOVER);
+				}else{
+					setState(STATE_IDLE);
+				}
 			}
 		} else if (!(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) 
 				&& getState() == STATE_PRESSED)) {

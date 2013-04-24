@@ -24,9 +24,7 @@ public class Palette implements DrawableXY{
 	private String name;
 	private Rectangle frameRect;
 	public static final int X_POS = 600;
-	public static final int WIDTH = 200;
-	public static final int Y_POS = 0;
-	public static final int HEIGHT = 500;
+	public static final int Y_POS = 50;
 	
 	private int width;
 	private int height;
@@ -45,23 +43,28 @@ public class Palette implements DrawableXY{
 		int widt = 0;
 		int heigh = 0;
 		for (int i = 0; i < samples.length; i++) {
+			//System.out.println(i);
 			if(samples[i] != null){
+				//System.out.println(i + " x");
 				samples[i].draw(g);//x+widt, y+heigh*samples[i].getStoredImage().getImage().getHeight(), 
 				widt += 64;
 				if(widt + 64 > width){
 					widt = 0;
-					heigh++;
+					heigh+=64;
 				}
 			}
 		}
 	}
 	public void add(Sample sample){
-		if(samples != null){
+		if(samples == null){
 			enlarge();
+			System.out.println("++");
 		}
 		if(sampleIndex >= samples.length){
+			System.out.println("++++");
 			enlarge();
 		}
+		System.out.println(name + "["+sampleIndex+"] = " + sample.getName() + ", " + sample.toString());
 		samples[sampleIndex] = sample;
 		sampleIndex++;
 	}
@@ -71,8 +74,11 @@ public class Palette implements DrawableXY{
 		sampleIndex = 0;
 		if(samps != null){
 			for (int i = 0; i < samps.length; i++) {
-				samples[i] = samps[i];
-				sampleIndex++;
+				if(samps[i] != null){
+					System.out.println(name +"["+i+"] = " + samps[i].getName() + ", " + samps[i].toString());
+					samples[i] = samps[i];
+					sampleIndex++;
+				}
 			}
 		}
 	}
@@ -109,5 +115,9 @@ public class Palette implements DrawableXY{
 	public Sample getSample(int j) {
 		// TODO Auto-generated method stub
 		return samples[j];
+	}
+
+	public int getWidth() {
+		return width;
 	}
 }

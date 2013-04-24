@@ -37,18 +37,24 @@ public abstract class SquareItem implements DrawableXY, Placeable {
 	 */
 	private String format(Graphics g, String string, int maxWidth) {
 		String[] temp = string.split(" ");
-		int width = 0;
+		float width = 0;
 		String product = "";
 		for (int i = 0; i < temp.length; i++) {
-			if ((width + g.getFont().getWidth(temp[i])) < maxWidth) {
-				width += g.getFont().getWidth(temp[i]);
-				product += temp[i] + " ";
+			//g.drawString(((width+g.getFont().getWidth(temp[i]+ " ")) + " : " + maxWidth), 100, i* 15);
+			//g.fillRect(5, 400, maxWidth, 50);
+			//g.fillRect(width, 300, g.getFont().getWidth(temp[i] + " "), 20);
+			if (width + g.getFont().getWidth(temp[i] + " ")*2 < maxWidth) {
+				//g.drawString(((width+g.getFont().getWidth(temp[i]+ " ")) + " : " + maxWidth), 220, i* 15);
+				width += g.getFont().getWidth(temp[i] + " ");
+				product += temp[i];
 				if (temp[i].contains("\n")) {
 					width = 0;
+				}else{
+					product += " ";
 				}
 				//System.out.println(width);
 			} else {
-				width = g.getFont().getWidth(temp[i]);
+				width = g.getFont().getWidth(temp[i] + " ");
 				product += "\n" + temp[i] + " ";
 			}
 			
@@ -68,12 +74,13 @@ public abstract class SquareItem implements DrawableXY, Placeable {
 	 * @param g
 	 * @param x1
 	 * @param y1
+	 * @param width 
 	 * @param textRow
 	 * @return the number of rows this text takes
 	 */
-	public void drawInfo(Graphics g, int x1, int y1) {
+	public void drawInfo(Graphics g, int x1, int y1, int width) {
 		String temp = name + "\n";
-		temp +=format(g, info, 200);
+		temp +=format(g, info, width);
 		g.drawString(temp, x1, y1);
 		
 		//return temp.split("\n").length;
