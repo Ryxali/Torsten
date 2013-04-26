@@ -23,7 +23,7 @@ import button.StandardButton;
 public class Sample extends StandardButton {
 	private byte elementPosX;
 	private short elementPosY;
-	private Placeable pObject;
+	private SquareItem pObject;
 	/**
 	 * The image of this sample's placeable object
 	 */
@@ -70,7 +70,7 @@ public class Sample extends StandardButton {
 				System.out.println("CREATURE");
 			}
 			if (type.toLowerCase().equals(TYPE_ITEM.toLowerCase())) {
-				pObject = (Placeable) new Item(name, new Image(imageRef).getScaledCopy(64, 64), info);
+				pObject = new Item(name, new Image(imageRef).getScaledCopy(64, 64), info);
 			}
 			if (type.toLowerCase().equals(TYPE_OBSTACLE.toLowerCase())) {
 				pObject = new Obstacle(name, new Image(imageRef).getScaledCopy(64, 64), info);
@@ -86,6 +86,10 @@ public class Sample extends StandardButton {
 		return pObject;
 	}
 	
+	public SquareItem getSquareItem(){
+		return pObject;
+	}
+	
 	public void draw(Graphics g){
 		draw(0, 0, g);
 	}
@@ -94,18 +98,12 @@ public class Sample extends StandardButton {
 		slotImg.draw(x+x2, y+y2);
 		super.draw(g);
 		if(getState() == STATE_HOVER || getState() == STATE_PRESSED){
-			Tooltip.get().draw(g, (SquareItem)pObject);
+			Tooltip.get().draw(g, pObject);
 		}
 	}
-	
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public String getInfo() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getPrintable() {
+		return pObject.getName() + ", " + pObject.getRef() + ", " + pObject.getType() + ", " + pObject.getInfo()+ "; ";
 	}
 
 }

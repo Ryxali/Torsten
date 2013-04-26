@@ -21,14 +21,16 @@ public class Main extends StateBasedGame{
 	public static void main(String[] args) {
 		AppGameContainer appgc;
 		try {
-			appgc = new AppGameContainer(new Main("TorstenFTW"));
+			appgc = new AppTorstenContainer(new Main("TorstenFTW"));
 			appgc.setTargetFrameRate(60);
 			appgc.setDisplayMode(800, 600, false);
+			appgc.setForceExit(false);
 			appgc.start();
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 	}
 	

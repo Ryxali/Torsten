@@ -26,6 +26,15 @@ public abstract class SquareItem implements DrawableXY, Placeable {
 		this.info = info;
 		this.name = name;
 	}
+	public SquareItem(String name, String imgRef, String info) {
+		try{
+			this.image = new Image(imgRef);
+		}catch(Exception e){
+			
+		}
+		this.info = info;
+		this.name = name;
+	}
 	
 	/**
 	 * Formats the string to split at given bounds
@@ -68,6 +77,18 @@ public abstract class SquareItem implements DrawableXY, Placeable {
 		 */
 
 		return product;
+	}
+	
+	public String getInfo(){
+		return info;
+	}
+	public String getName(){
+		return name;
+	}
+	public abstract String getType();
+	
+	public String getRef(){
+		return image.getResourceReference();
 	}
 	/**
 	 * Draws this objects text info into the text box

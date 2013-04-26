@@ -3,6 +3,7 @@ package squareitems;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import gui.Sample;
 import image.DrawableXY;
 
 /**
@@ -25,6 +26,9 @@ public class Creature extends SquareItem {
 	public Creature(String name, Image image, String info) {
 		super(name, image, info);
 	}
+	public Creature(String name, String imgRef, String info) {
+		super(name, imgRef, info);
+	}
 	/**
 	 * Draws this creature onto the screen at the specified point.
 	 * @param g the current graphics context
@@ -37,11 +41,24 @@ public class Creature extends SquareItem {
 
 	}
 	
+	private static Image getImg(String ref){
+		try{
+			return new Image(ref);
+		}catch(Exception e){
+			
+		}
+		return null;
+	}
 	
 	@Override
 	public void put(Placeable placeable) {
 		// TODO Auto-generated method stub
 
+	}
+	@Override
+	public String getType() {
+		// TODO Auto-generated method stub
+		return Sample.TYPE_CREATURE;
 	}
 
 	

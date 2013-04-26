@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import gui.Sample;
 import image.DrawableXY;
 
 /**
@@ -24,6 +25,7 @@ public class LootPile extends SquareItem{
 	public LootPile(String name, Image image, String info) {
 		super(name, image, info);
 	}
+	
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
@@ -37,7 +39,12 @@ public class LootPile extends SquareItem{
 		// TODO Auto-generated method stub
 		
 	}
-
+	public int size(){
+		return items.size();
+	}
+	public Item get(int index){
+		return items.get(index);
+	}
 	public void add(Item sample) {
 		items.add(sample);
 		//info = name + "\n";
@@ -46,6 +53,11 @@ public class LootPile extends SquareItem{
 			info += items.get(i).name + "\n";
 			//info += items.get(i).info + "\n";
 		}
+	}
+
+	@Override
+	public String getType() {
+		return Sample.TYPE_ITEM;
 	}
 
 }

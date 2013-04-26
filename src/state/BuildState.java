@@ -2,6 +2,8 @@ package state;
 
 import java.util.ArrayList;
 
+import file.FileReader;
+import file.FileSaver;
 import file.UserFileReader;
 import gui.PaletteStore;
 import gui.Sample;
@@ -60,6 +62,11 @@ public class BuildState extends BasicState{
 			}
 		}else{
 			Grid.get().update(gc.getInput(), null, advEdits);
+		}
+		if(gc.getInput().isKeyDown(Input.KEY_S) && gc.getInput().isKeyDown(Input.KEY_LCONTROL)){
+			FileSaver.saveAsDialogue();
+		}else if(gc.getInput().isKeyDown(Input.KEY_L) && gc.getInput().isKeyDown(Input.KEY_LCONTROL)){
+			FileReader.loadDialogue(gc);
 		}
 	}
 	

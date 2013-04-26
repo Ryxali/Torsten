@@ -3,6 +3,7 @@ package squareitems;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import gui.Sample;
 import image.DrawableXY;
 
 /**
@@ -19,6 +20,11 @@ public class Obstacle extends SquareItem{
 		super(name, image, info);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Obstacle(String name, String imgRef, String info){
+		super(name, imgRef, info);
+	}
+	
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
@@ -29,6 +35,11 @@ public class Obstacle extends SquareItem{
 	public void put(Placeable placeable) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getType() {
+		return Sample.TYPE_OBSTACLE;
 	}
 
 }

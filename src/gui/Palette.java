@@ -64,7 +64,7 @@ public class Palette implements DrawableXY{
 			System.out.println("++++");
 			enlarge();
 		}
-		System.out.println(name + "["+sampleIndex+"] = " + sample.getName() + ", " + sample.toString());
+		System.out.println(name + "["+sampleIndex+"] = " + sample.getSquareItem().getName() + ", " + sample.toString());
 		samples[sampleIndex] = sample;
 		sampleIndex++;
 	}
@@ -75,7 +75,7 @@ public class Palette implements DrawableXY{
 		if(samps != null){
 			for (int i = 0; i < samps.length; i++) {
 				if(samps[i] != null){
-					System.out.println(name +"["+i+"] = " + samps[i].getName() + ", " + samps[i].toString());
+					System.out.println(name +"["+i+"] = " + samps[i].getSquareItem().getName() + ", " + samps[i].toString());
 					samples[i] = samps[i];
 					sampleIndex++;
 				}
@@ -119,5 +119,16 @@ public class Palette implements DrawableXY{
 
 	public int getWidth() {
 		return width;
+	}
+
+	public String toPrintable() {
+		// TODO Auto-generated method stub
+		String samps = "";
+		for (int i = 0; i < samples.length; i++) {
+			if(samples[i] != null){
+				samps += samples[i].getPrintable();
+			}
+		}
+		return name + "; " + samps;
 	}
 }

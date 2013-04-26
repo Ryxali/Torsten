@@ -5,6 +5,7 @@ import image.ImageStore;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.MouseListener;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -31,6 +32,11 @@ public abstract class BasicState extends BasicGameState {
 		}
 		System.out.println(zoom);
 	}
-
+	@Override
+	public void leave(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		System.out.println("LELEE");
+		super.leave(container, game);
+	}
 	
 }

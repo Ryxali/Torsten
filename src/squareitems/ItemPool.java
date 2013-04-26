@@ -1,5 +1,7 @@
 package squareitems;
 
+import gui.Sample;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -34,6 +36,11 @@ public class ItemPool extends SquareItem{
 	public void put(Placeable placeable) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public String getType() {
+		return Sample.TYPE_ITEM;
 	}
 
 }

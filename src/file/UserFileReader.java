@@ -56,10 +56,16 @@ public class UserFileReader {
 			//indata = new Scanner(new File(USER_DATA_PATH));
 			tempPal = readContent(USER_DATA_PATH);
 			//indata.close();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			System.out.println("makingDefaultfile");
 			makeDefFile();
-			readFile();
+			try {
+				tempPal = readContent(USER_DATA_PATH);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				System.exit(0);
+			}
 		}
 		return tempPal;
 	}
@@ -153,18 +159,14 @@ public class UserFileReader {
 	 * Prints the current User data to file.
 	 */
 	public void printToFile() {
+		//System.exit(0);
 		PrintWriter utdata;
 		try {
 			utdata = new PrintWriter(new BufferedWriter(new FileWriter(
 					USER_DATA_PATH)));
 
 			for (int i = 0; i < PaletteStore.get().getPalettes().length; i++) {
-				utdata.print(PaletteStore.get().get(i).getName() + "; ");
-				for (int j = 0; j < PaletteStore.get().get(i).getSamples().length; j++) {
-					utdata.print(PaletteStore.get().get(i).getSample(j).getName() + ", "
-							+ PaletteStore.get().get(i).getSample(j).getType() + ", "
-							+ PaletteStore.get().get(i).getSample(j).getInfo() + ";");
-				}
+				utdata.print(PaletteStore.get().get(i).toPrintable());
 				utdata.println();
 			}
 			utdata.close();
