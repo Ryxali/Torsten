@@ -63,6 +63,7 @@ public class BuildState extends BasicState{
 		//gc.getInput().setScale((float)zoom, (float)zoom);
 		PaletteStore.get().update(gc.getInput());
 		curSample = PaletteStore.get().getActivePalette().getClickedSample(this);
+		
 		if(curSample != null){
 			if(gc.getInput().isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)){
 				curSample = null;

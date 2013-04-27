@@ -83,7 +83,7 @@ public class Sample extends StandardButton {
 	 * Retrieve the placeable object this sample is holding.
 	 * @return pObject the placeable object
 	 */
-	public Placeable getPlaceableObject(){
+	public SquareItem getPlaceableObject(){
 		return pObject;
 	}
 	

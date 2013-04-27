@@ -41,6 +41,11 @@ public class Grid {
 	 * The x position to base calculations of.
 	 */
 	private int baseX = 0;
+
+	private int mouseHoldX;
+	private int mouseHoldY;
+	private boolean dragging = false;
+
 	/**
 	 * The y position to base calculations of.
 	 */
@@ -71,10 +76,16 @@ public class Grid {
 	 * Draw the tiles that are present on the screen onto the screen.
 	 */
 	public void draw(Graphics g, Input input) {
-		drawRows(g, input);
-		squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
-				.getMouseY() - baseY) / Square.SQUARE_DIMENSION].drawTooltip(g,
-				input);
+		try {
+			drawRows(g, input);
+			squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
+					.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
+					.drawTooltip(g, input);
+			g.setColor(Color.lightGray);
+			g.drawString(baseX + " " + baseY, 300, 300);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
+		}
 	}
 
 	private void drawRows(Graphics g, Input input) {
@@ -102,9 +113,9 @@ public class Grid {
 	public void fillTiles() {
 		for (int x = 0; x < squares.length; x++) {
 			for (int y = 0; y < squares[x].length; y++) {
-				squares[x][y] = new Square(ImageStore.TILE_PLAIN, baseX
-						+ Square.SQUARE_DIMENSION * x, baseY
-						+ Square.SQUARE_DIMENSION * y);
+				squares[x][y] = new Square(ImageStore.TILE_PLAIN,
+						+Square.SQUARE_DIMENSION * x, +Square.SQUARE_DIMENSION
+								* y);
 			}
 		}
 	}
@@ -118,18 +129,35 @@ public class Grid {
 	 *            the current sample the user is wielding
 	 */
 	public void update(Input input, Placeable sample, ArrayList<Thread> editWins) {
-		if (input.getMouseX() > Palette.X_POS
-				|| input.getMouseY() > Tooltip.Y_POS) {
-			// We don't want to do anything with the grid if we're currently
-			// interacting with the palettes.
-			// Same is true with tooltips.
-			resetSquareStates();
-			return;
+		try {
+			if (input.getMouseX() > Palette.X_POS
+					|| input.getMouseY() > Tooltip.Y_POS) {
+				// We don't want to do anything with the grid if we're currently
+				// interacting with the palettes.
+				// Same is true with tooltips.
+
+				resetSquareStates();
+				return;
+			}
+			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !dragging) {
+				dragging = true;
+				mouseHoldX = input.getMouseX() - baseX;
+				mouseHoldY = input.getMouseY() - baseY;
+			} else if (!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+				dragging = false;
+			}
+			if (dragging) {
+				baseX = -(mouseHoldX - input.getMouseX());
+				baseY = -(mouseHoldY - input.getMouseY());
+			}
+			checkSquareStates(input);
+			checkSquareInterraction(input, sample, editWins);
+		} catch (ArrayIndexOutOfBoundsException e) {
+
 		}
-		checkSquareInterraction(input, sample, editWins);
 	}
-	
-	private void resetSquareStates(){
+
+	private void resetSquareStates() {
 		for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
 				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
 			for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
@@ -138,21 +166,22 @@ public class Grid {
 			}
 		}
 	}
-	
-	/*private void checkSquareStates(Input input){
+
+	private void checkSquareStates(Input input) {
 		for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
 				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
 			for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
 					&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
-				squares[x][y].buttonStateCheck(input);
+				squares[x][y].buttonStateCheck(baseX, baseY, input);
 
 				// if(squares[x][y].hasBeenClicked() ==
 				// Button.PRESSED_TRUE)squares[x][y].put(sample);
 			}
 		}
-	}*/
-	
-	private void checkSquareInterraction(Input input, Placeable sample, ArrayList<Thread> editWins){
+	}
+
+	private void checkSquareInterraction(Input input, Placeable sample,
+			ArrayList<Thread> editWins) {
 		if (squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
 				.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
 					.hasBeenClicked() == Button.PRESSED_TRUE) {
@@ -200,7 +229,8 @@ public class Grid {
 
 	public void setSquare(String string, int rowIndex, int colIndex) {
 		String[] squareInfo = string.split(": ");
-		//System.out.println("___________" + string);
+		// System.out.println("___________" + string);
+		System.out.println(rowIndex + " x " + colIndex);
 		squares[rowIndex][colIndex] = new Square(squareInfo, rowIndex * 64,
 				colIndex * 64);
 	}
@@ -213,7 +243,7 @@ public class Grid {
 	public int getBaseX() {
 		return baseX;
 	}
-	
+
 	public int getBaseY() {
 		return baseY;
 	}

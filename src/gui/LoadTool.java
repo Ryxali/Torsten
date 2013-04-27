@@ -4,8 +4,8 @@ import file.FileReader;
 
 public class LoadTool extends Tool{
 
-	public LoadTool() {
-		super();
+	public LoadTool(String text) {
+		super(text);
 		// TODO Auto-generated constructor stub
 	}
 

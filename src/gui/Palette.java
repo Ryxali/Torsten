@@ -94,6 +94,7 @@ public class Palette{
 		for (int i = 0; i < samples.length; i++) {
 			if(samples[i] != null){
 				if(samples[i].hasBeenClicked() == Button.PRESSED_TRUE){
+					System.out.println(i);
 					return samples[i];
 				}
 			}

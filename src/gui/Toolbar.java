@@ -25,6 +25,8 @@ public class Toolbar {
 	public Toolbar(String name, int x, int y, int width, int height, Tool... pObjects) {
 		this.x = x;
 		this.y = y;
+		this.width = width;
+		this.height = height;
 		this.pObjects =  (Tool[]) pObjects;
 	}
 	
@@ -33,12 +35,12 @@ public class Toolbar {
 	}
 	
 	public void draw(Graphics g, int x, int y, Input input){
-		g.setColor(Color.black);
-		g.fillRect(x, y, width, height);
 		g.setColor(Color.lightGray);
+		g.fillRect(x, y, width, height);
+		g.setColor(Color.black);
 		g.drawRect(x, y, width, height);
 		for (int i = 0; i < pObjects.length; i++) {
-			pObjects[i].draw(g, x, y,  input);
+			pObjects[i].draw(g, x+width*i/pObjects.length, y,  input);
 		}
 	}
 	

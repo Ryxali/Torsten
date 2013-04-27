@@ -91,7 +91,9 @@ public abstract class Button{
 			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)
 					&& (getState() == STATE_HOVER || getState() == STATE_PRESSED)) {
 				setState(STATE_PRESSED);
+				
 				setClicked(true);
+				System.out.println(clicked);
 			} else {
 				if (!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 					setState(STATE_HOVER);
@@ -133,9 +135,6 @@ public abstract class Button{
 	
 	protected void update(Graphics g, int x, int y, int width, int height, Input input) {
 		buttonStateCheck(input, x, y, width, height);
-		if(hasBeenClicked() == PRESSED_TRUE){
-			onClick(input);
-		}
 	}
 	
 	public abstract void onClick(Input input);
@@ -147,6 +146,7 @@ public abstract class Button{
 	public int hasBeenClicked(){
 		if(clicked && getState() == STATE_HOVER){
 			clicked = false;
+			System.out.println("MYES");
 			return PRESSED_TRUE;
 		}
 		return PRESSED_FALSE;

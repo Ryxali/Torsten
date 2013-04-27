@@ -5,12 +5,13 @@ import org.newdawn.slick.Input;
 
 import squareitems.Placeable;
 import button.GButton;
+import button.TextGButton;
 
-public abstract class Tool extends GButton {
+public abstract class Tool extends TextGButton {
 	public static final int WIDTH = 64;
 	public static final int HEIGHT = 64;
-	public Tool(){
-		super();
+	public Tool(String text){
+		super(text);
 	}
 	
 

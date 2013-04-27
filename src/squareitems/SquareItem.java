@@ -27,6 +27,7 @@ public abstract class SquareItem implements DrawableXY, Placeable {
 		this.name = name;
 	}
 	public SquareItem(String name, String imgRef, String info) {
+		System.out.println(name + " - " + imgRef + " - " + info);
 		try{
 			this.image = new Image(imgRef);
 		}catch(Exception e){

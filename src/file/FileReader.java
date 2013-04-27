@@ -19,7 +19,7 @@ public class FileReader {
 		String s = "";
 		while(s.equals("")){
 			s = JOptionPane.showInputDialog("File Name?");
-			JOptionPane.showMessageDialog(null, s);
+			//JOptionPane.showMessageDialog(null, s);
 			if(s == null){
 				return null;
 			}
@@ -40,7 +40,7 @@ public class FileReader {
 			//Grid.get().fillTiles();
 			int i = 0;
 			while(in.hasNextLine()){
-				constructRow(in.nextLine(), 0);
+				constructRow(in.nextLine(), i);
 				i++;
 			}
 		} catch (FileNotFoundException e) {
@@ -51,9 +51,10 @@ public class FileReader {
 	}
 	
 	private static void constructRow(String rowData, int row){
-		System.out.println("-_-_-_-"+rowData);
+		//System.out.println("-_-_-_-"+rowData);
 		String[] split = rowData.split("# ");
-		System.out.println(split[0]);
+		System.out.println(" _ --: . :: : " + split.length);
+		//System.out.println(split[0]);
 		for (int i = 0; i < split.length; i++) {
 			Grid.get().setSquare(split[i], row, i);
 		}

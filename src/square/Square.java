@@ -138,13 +138,20 @@ public class Square extends StandardButton {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		/*System.out.println("----::::----");
+		for (int i = 0; i < squareInfo.length; i++) {
+			System.out.println(squareInfo[i]);
+		}
+		System.out.println("----_____----" +
+				"");*/
 		if (!squareInfo[1].equals("")) {
 			String[] c = squareInfo[1].split(", ");
 			// Ignore saved type as it's redundant to put in.
 			creature = new Creature(c[0], c[1], c[3]);
 		}
 		if (!squareInfo[2].equals("")) {
-			String[] o = squareInfo[1].split(", ");
+			//System.out.println(squareInfo[2]);
+			String[] o = squareInfo[2].split(", ");
 			// Ignore saved type as it's redundant to put in.
 			obstacle = new Obstacle(o[0], o[1], o[3]);
 		}
@@ -202,8 +209,6 @@ public class Square extends StandardButton {
 	 * </ol>
 	 */
 	public void draw(Graphics g, int baseX, int baseY, Input input) {
-		super.draw(g, x + baseX, y + baseY, input);
-
 		squareImg.draw(baseX + x, baseY + y);
 		if (obstacle != null) {
 			obstacle.draw(g, baseX + x, baseY + y);
@@ -214,6 +219,7 @@ public class Square extends StandardButton {
 		if (creature != null) {
 			creature.draw(g, baseX + x, baseY + y);
 		}
+		super.draw(g, x + baseX, y + baseY, input);
 		//getStoredImage().draw(baseX + x, baseY + y);
 
 	}
@@ -249,5 +255,15 @@ public class Square extends StandardButton {
 		} else if (sample instanceof Obstacle) {
 			obstacle = (Obstacle) sample;
 		}
+	}
+	
+	@Override
+	protected void update(Graphics g, int x, int y, int width, int height,
+			Input input) {
+		onClick(input);
+	}
+
+	public void buttonStateCheck(int baseX, int baseY, Input input) {
+		super.buttonStateCheck(x + baseX, y + baseY, input);
 	}
 }

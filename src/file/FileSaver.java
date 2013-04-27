@@ -28,7 +28,7 @@ public class FileSaver {
 		String s = "";
 		while(s.equals("")){
 			s = JOptionPane.showInputDialog("Name your File:");
-			JOptionPane.showMessageDialog(null, s);
+			//JOptionPane.showMessageDialog(null, s);
 			if(s == null){
 				return null;
 			}
