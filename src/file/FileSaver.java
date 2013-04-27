@@ -28,11 +28,18 @@ public class FileSaver {
 		String s = "";
 		while(s.equals("")){
 			s = JOptionPane.showInputDialog("Name your File:");
+			JOptionPane.showMessageDialog(null, s);
+			if(s == null){
+				return null;
+			}
 		}
 		return s + ".grd";
 	}
 	
 	private static void saveData(String path){
+		if(path == null){
+			return;
+		}
 		path = path.replace("/", "").replace("\\", "");
 		
 		try {

@@ -64,20 +64,20 @@ public class PaletteStore {
 		return palettes[activePalette];
 	}
 
-	public void draw(Graphics g) {
+	public void draw(Graphics g, Input input) {
 		g.setColor(Color.lightGray);
 		g.fillRect(Palette.X_POS, Palette.Y_POS-50, getActivePalette().getWidth(), 50);
 		for (int i = 0; i < pButtons.length; i++) {
-			pButtons[i].draw(g, Palette.X_POS+getActivePalette().getWidth()/pButtons.length*i, Palette.Y_POS-50, getActivePalette().getWidth()/pButtons.length, 50);
+			pButtons[i].draw(g, Palette.X_POS+getActivePalette().getWidth()/pButtons.length*i, Palette.Y_POS-50, getActivePalette().getWidth()/pButtons.length, 50, input);
 			//g.setColor(Color.black);
 			//g.drawRect(Palette.X_POS, Palette.Y_POS-50,getActivePalette().getWidth()/palettes.length*i, 50);
 		}
-		getActivePalette().draw(g, Palette.X_POS, Palette.Y_POS);
+		getActivePalette().draw(g, Palette.X_POS, Palette.Y_POS, input);
 	}
 	
 	public void update(Input input){
 		for (int i = 0; i < pButtons.length; i++) {
-			pButtons[i].buttonStateCheck(input, Palette.X_POS+getActivePalette().getWidth()/pButtons.length*i, Palette.Y_POS-50, getActivePalette().getWidth()/pButtons.length);
+			//pButtons[i].buttonStateCheck(input, Palette.X_POS+getActivePalette().getWidth()/pButtons.length*i, Palette.Y_POS-50, getActivePalette().getWidth()/pButtons.length);
 			if(pButtons[i].hasBeenClicked() == Button.PRESSED_TRUE){
 				activePalette = i;
 			}

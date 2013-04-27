@@ -39,7 +39,7 @@ import image.ImageStore;
  * @see squareitems.LootPile
  * @see squareitems.Obstacle
  */
-public class Square extends StandardButton implements DrawableXY {
+public class Square extends StandardButton {
 	/**
 	 * The width and height of any square
 	 */
@@ -84,7 +84,7 @@ public class Square extends StandardButton implements DrawableXY {
 	 *            the y position of the square
 	 */
 	public Square(ImageStore squareImg, int x, int y) {
-		super(x, y, ImageStore.TILE_MARKER_IDLE, ImageStore.TILE_MARKER_HOVER,
+		super(ImageStore.TILE_MARKER_IDLE, ImageStore.TILE_MARKER_HOVER,
 				ImageStore.TILE_MARKER_PRESSED);
 		this.x = x;
 		this.y = y;
@@ -118,7 +118,7 @@ public class Square extends StandardButton implements DrawableXY {
 	 */
 	public Square(ImageStore squareImg, Creature creature, LootPile loot,
 			Obstacle obstacle, int x, int y) {
-		super(x, y, ImageStore.TILE_MARKER_IDLE, ImageStore.TILE_MARKER_HOVER,
+		super(ImageStore.TILE_MARKER_IDLE, ImageStore.TILE_MARKER_HOVER,
 				ImageStore.TILE_MARKER_PRESSED);
 		this.x = x;
 		this.y = y;
@@ -129,7 +129,7 @@ public class Square extends StandardButton implements DrawableXY {
 	}
 
 	public Square(String[] squareInfo, int x, int y) {
-		super(x, y, ImageStore.TILE_MARKER_IDLE, ImageStore.TILE_MARKER_HOVER,
+		super(ImageStore.TILE_MARKER_IDLE, ImageStore.TILE_MARKER_HOVER,
 				ImageStore.TILE_MARKER_PRESSED);
 		this.x = x;
 		this.y = y;
@@ -201,8 +201,8 @@ public class Square extends StandardButton implements DrawableXY {
 	 * <li>The Creature</li>
 	 * </ol>
 	 */
-	@Override
-	public void draw(Graphics g, int baseX, int baseY) {
+	public void draw(Graphics g, int baseX, int baseY, Input input) {
+		super.draw(g, x + baseX, y + baseY, input);
 
 		squareImg.draw(baseX + x, baseY + y);
 		if (obstacle != null) {
@@ -214,7 +214,7 @@ public class Square extends StandardButton implements DrawableXY {
 		if (creature != null) {
 			creature.draw(g, baseX + x, baseY + y);
 		}
-		getStoredImage().draw(baseX + x, baseY + y);
+		//getStoredImage().draw(baseX + x, baseY + y);
 
 	}
 

@@ -18,8 +18,7 @@ import org.newdawn.slick.Image;
 
 public enum DropdownList {
 	RESOLUTION(null, 
-			new StandardButton(
-					null, null, null), 
+			null, 
 			5);
 	/**
 	 * The List items for the dropdown list
@@ -96,7 +95,7 @@ public enum DropdownList {
 	 * @param b the button to draw alongside with
 	 */
 	public void draw(Graphics g, ButtonStore b){
-		int xDraw = b.getButton().getX()+b.getButton().getStoredImage().getImage().getWidth();
+		/*int xDraw = b.getButton().getX()+b.getButton().getStoredImage().getImage().getWidth();
 		for(int i = 0; i < items.length && i < listDispLength; i++){
 			if(bgButtons.get(i)==null){
 				bgButtons.set(i, bgButtons.get(0).copy());
@@ -106,7 +105,7 @@ public enum DropdownList {
 			bgButtons.get(i).getStoredImage().draw(xDraw, yDraw);
 			g.drawString(items[i], xDraw +bgButtons.get(i).getStoredImage().getImage().getWidth()/4, 
 					yDraw + bgButtons.get(i).getStoredImage().getImage().getHeight()/2);
-		}
+		}*/
 	}
 	
 	

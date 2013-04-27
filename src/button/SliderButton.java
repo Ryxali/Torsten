@@ -8,11 +8,15 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
+/**
+ * Needs revising
+ * @author Niklas L
+ *
+ */
+public class SliderButton extends ButtonXY {
 
-public class SliderButton extends Button {
-
-	private ImageStore sliderImg;
-	private ImageStore sliderBar;
+	private Image sliderImg;
+	private Image sliderBar;
 	private int imgX;
 	private int imgY;
 	private boolean facing;
@@ -26,6 +30,17 @@ public class SliderButton extends Button {
 			ImageStore sliderBar, boolean facing, String sliderVal) {
 		super(x, y);
 		perc = 0.5;
+		this.sliderImg = sliderImg.getImage();
+		this.sliderBar = sliderBar.getImage();
+		this.sliderVal = sliderVal;
+		this.facing = facing;
+		refreshImgPos();
+	}
+
+	public SliderButton(int x, int y, Image sliderImg, Image sliderBar,
+			boolean facing, String sliderVal) {
+		super(x, y);
+		perc = 0.5;
 		this.sliderImg = sliderImg;
 		this.sliderBar = sliderBar;
 		this.sliderVal = sliderVal;
@@ -36,17 +51,17 @@ public class SliderButton extends Button {
 	private void refreshImgPos() {
 		if (facing == ALIGN_HORIZONTAL) {
 			imgX = x
-					+ toInt(perc, sliderBar.getImage().getWidth()
-							+ sliderImg.getImage().getWidth());
+					+ toInt(perc, sliderBar.getWidth()
+							+ sliderImg.getWidth());
 					//- sliderImg.getImage().getWidth();
-			imgY = y + sliderBar.getImage().getHeight() / 2
-					- sliderImg.getImage().getHeight() / 2;
+			imgY = y + sliderBar.getHeight() / 2
+					- sliderImg.getHeight() / 2;
 		} else {
-			imgX = x + sliderBar.getImage().getWidth() / 2
-					- sliderImg.getImage().getWidth() / 2;
+			imgX = x + sliderBar.getWidth() / 2
+					- sliderImg.getWidth() / 2;
 			imgY = y
-					+ toInt(perc, sliderBar.getImage().getHeight()
-							+ sliderImg.getImage().getHeight());
+					+ toInt(perc, sliderBar.getHeight()
+							+ sliderImg.getHeight());
 					//- sliderImg.getImage().getHeight();
 		}
 	}
@@ -55,14 +70,6 @@ public class SliderButton extends Button {
 	public Button copy() {
 		return new SliderButton(getX(), getY(), sliderImg, sliderBar, facing,
 				sliderVal);
-	}
-
-	@Override
-	public void draw(Graphics g) {
-		if(renderBounds){
-			sliderBar.draw(x, y);
-		}
-		sliderImg.draw(imgX, imgY);
 	}
 	
 	public void setRenderBounds(boolean to){
@@ -89,14 +96,14 @@ public class SliderButton extends Button {
 		return (int) (imgY);
 	}
 
-	@Override
+	/*@Override
 	public void buttonStateCheck(Input input) {
 		int mX = input.getMouseX();
 		int mY = input.getMouseY();
 
-		if (pointContains(getX(), mX, getX() + sliderBar.getImage().getWidth())
+		if (pointContains(getX(), mX, getX() + sliderBar.getWidth())
 				&& pointContains(getY(), mY, getY()
-						+ sliderBar.getImage().getHeight())) {
+						+ sliderBar.getHeight())) {
 			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 				setState(STATE_PRESSED);
 				setClicked(true);
@@ -109,27 +116,40 @@ public class SliderButton extends Button {
 		}
 		if (getState() == STATE_PRESSED) {
 			if (facing == ALIGN_HORIZONTAL) {
-				perc = toPerc(mX - getX() - sliderImg.getImage().getWidth()/2
-						, sliderBar.getImage().getWidth()
-						- sliderImg.getImage().getWidth());
+				perc = toPerc(mX - getX() - sliderImg.getWidth()/2
+						, sliderBar.getWidth()
+						- sliderImg.getWidth());
 			} else {
-				perc = toPerc(mY - getY() - sliderImg.getImage().getWidth()/2
-						, sliderBar.getImage().getHeight()
-						- sliderImg.getImage().getHeight());
+				perc = toPerc(mY - getY() - sliderImg.getWidth()/2
+						, sliderBar.getHeight()
+						- sliderImg.getHeight());
 			}
 			refreshImgPos();
 		}
 
-	}
+	}*/
 
-	@Override
-	public ImageStore getStoredImage() {
+	public Image getStoredImage() {
 		return sliderImg;
 	}
 
 	@Override
 	public int getType() {
 		return ButtonStore.MODE_SLIDER;
+	}
+
+	@Override
+	public void draw(Graphics g, Input input) {
+		if(renderBounds){
+			sliderBar.draw(x, y);
+		}
+		sliderImg.draw(imgX, imgY);
+	}
+
+	@Override
+	public void onClick(Input input) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

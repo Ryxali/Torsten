@@ -22,5 +22,6 @@ public class AppTorstenContainer extends AppGameContainer{
 	public void start() throws SlickException {
 		super.start();
 		UserFileReader.get().printToFile();
+		System.exit(0);
 	};
 }

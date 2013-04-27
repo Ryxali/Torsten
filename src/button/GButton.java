@@ -4,15 +4,11 @@ import image.ImageStore;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
 public class GButton extends Button{
-	public GButton(int x, int y) {
-		super(x, y);
-		// TODO Auto-generated constructor stub
-	}
 	public GButton() {
-		super(0, 0);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,13 +17,9 @@ public class GButton extends Button{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public void draw(Graphics g) {
-		draw(g, x, y, 50, 50);
-	}
 	
-	public void draw(Graphics g, int x, int y, int width, int height){
+	public void draw(Graphics g, int x, int y, int width, int height, Input input){
+		update(g, x, y, width, height, input);
 		if(getState()==STATE_IDLE){
 			g.setColor(Color.gray);
 		}else if(getState()==STATE_HOVER){
@@ -41,6 +33,21 @@ public class GButton extends Button{
 	}
 
 	@Override
+	public int getType() {
+		return ButtonStore.MODE_REGULAR;
+	}
+
+	@Override
+	public void onClick(Input input) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	/*public void draw(Graphics g, int x, int y, int width, int height){
+		
+	}*/
+
+	/*@Override
 	public void buttonStateCheck(Input input) {
 		buttonStateCheck(input, x, y, 100);
 	}
@@ -68,18 +75,6 @@ public class GButton extends Button{
 			setState(STATE_IDLE);
 			setClicked(false);
 		}
-	}
-
-	@Override
-	public int getType() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ImageStore getStoredImage() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	}*/
 
 }

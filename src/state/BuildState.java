@@ -8,6 +8,7 @@ import file.UserFileReader;
 import gui.PaletteStore;
 import gui.Sample;
 import gui.Toolbar;
+import gui.Toolbars;
 import image.ImageStore;
 
 import org.newdawn.slick.GameContainer;
@@ -16,6 +17,9 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import button.Button;
+import button.GButton;
 
 import square.Grid;
 import squareitems.Placeable;
@@ -30,6 +34,9 @@ public class BuildState extends BasicState{
 	
 	private ArrayList<Thread> advEdits = new ArrayList<Thread>();
 	
+	//private GButton saveB = new GButton(10, 10);
+	//private GButton loadB = new GButton(110, 10);
+	
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
@@ -37,11 +44,13 @@ public class BuildState extends BasicState{
 		g.drawRect(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 100, 100);
 		ImageStore.DEFAULT.draw(50, 50);
 		Grid.get().draw(g, gc.getInput());
-		PaletteStore.get().draw(g);
+		PaletteStore.get().draw(g, gc.getInput());
 		if(curSample != null){
 			curSample.getPlaceableObject().draw(g, gc.getInput().getMouseX()-64, gc.getInput().getMouseY()-64);
 		}
-		
+		Toolbars.FILE.draw(g, gc.getInput());
+		//saveB.draw(g);
+		//loadB.draw(g);
 	}
 	
 	public void addWindow(Thread t){
@@ -63,11 +72,33 @@ public class BuildState extends BasicState{
 		}else{
 			Grid.get().update(gc.getInput(), null, advEdits);
 		}
+		Toolbars.FILE.update(gc.getInput());
+		//saveB.buttonStateCheck(gc.getInput());
+		//loadB.buttonStateCheck(gc.getInput());
+		/*
 		if(gc.getInput().isKeyDown(Input.KEY_S) && gc.getInput().isKeyDown(Input.KEY_LCONTROL)){
+			
+			System.out.println("HWWWAR");
+			gc.getInput().removeAllListeners();
 			FileSaver.saveAsDialogue();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else if(gc.getInput().isKeyDown(Input.KEY_L) && gc.getInput().isKeyDown(Input.KEY_LCONTROL)){
+			System.out.println("Hwat");
+			
 			FileReader.loadDialogue(gc);
-		}
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}*/
 	}
 	
 	public Sample getCurrentSample(){

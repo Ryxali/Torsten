@@ -2,6 +2,7 @@ package gui;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import squareitems.Creature;
@@ -49,8 +50,8 @@ public class Sample extends StandardButton {
 	 * @param type the type of the placeable object
 	 * @param info the info message of the placeable object
 	 */
-	public Sample(int x, int y, String name, String imageRef, String type, String info) {
-		super(x, y, ImageStore.SAMPLE_IDLE, ImageStore.SAMPLE_HOVER,
+	public Sample(String name, String imageRef, String type, String info) {
+		super(ImageStore.SAMPLE_IDLE, ImageStore.SAMPLE_HOVER,
 				ImageStore.SAMPLE_PRESSED);
 		try {
 			slotImg = new Image(imageRef).getScaledCopy(64, 64);
@@ -90,16 +91,14 @@ public class Sample extends StandardButton {
 		return pObject;
 	}
 	
-	public void draw(Graphics g){
-		draw(0, 0, g);
-	}
-	
-	public void draw(int x2, int y2, Graphics g){
-		slotImg.draw(x+x2, y+y2);
-		super.draw(g);
+	@Override
+	public void draw(Graphics g, int x, int y, Input input) {
+		slotImg.draw(x, y);
+		super.draw(g, x, y, input);
 		if(getState() == STATE_HOVER || getState() == STATE_PRESSED){
 			Tooltip.get().draw(g, pObject);
 		}
+		super.draw(g, x, y, input);
 	}
 
 	public String getPrintable() {

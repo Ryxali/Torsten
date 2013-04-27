@@ -113,7 +113,7 @@ public class UserFileReader {
 
 	private Sample readSample(String sampleInfo, int curIndex) {
 		String[] sampleData = sampleInfo.split(", ");
-		return new Sample(Palette.X_POS + (curIndex%3)*64, Palette.Y_POS + (curIndex/3)*64, sampleData[0],
+		return new Sample(sampleData[0],
 				sampleData[1], sampleData[2], sampleData[3]);
 	}
 

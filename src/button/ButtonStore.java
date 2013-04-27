@@ -13,8 +13,7 @@ import org.newdawn.slick.Input;
  *
  */
 public enum ButtonStore {
-	NEW_GAME(new StandardButton(247, 333,
-			null, null, null));
+	NEW_GAME(null);
 	
 	public static final int STATE_IDLE = 0;
 	public static final int STATE_HOVER = 1;

@@ -3,30 +3,24 @@ package button;
 import image.ImageStore;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 
 
-public class TextButton extends StandardButton{
+public class TextButton extends StandardButtonXY{
 	private String title;
 	public TextButton(String title, int x, int y, ImageStore idleImg, ImageStore hoverImg,
 			ImageStore pressedImg) {
 		super(x, y, idleImg, hoverImg, pressedImg);
 		this.title = title;
 	}
+	
 	@Override
-	public void draw(Graphics g){
-		draw(getX(), getY(), g);
-	}
-	@Override
-	public void draw(){
-		
-	}
-	@Override
-	public void draw(int x, int y, Graphics g){
-		getStoredImage().draw(x, y);
+	public void draw(Graphics g, Input input) {
+		super.draw(g, input);
 		g.drawString(title,
-				x + getStoredImage().getImage().getWidth() /2 -
+				x + getStoredImage().getWidth() /2 -
 				g.getFont().getWidth(title),
-				y + getStoredImage().getImage().getHeight() /2 -
+				y + getStoredImage().getHeight() /2 -
 				g.getFont().getHeight(title));
 	}
 	

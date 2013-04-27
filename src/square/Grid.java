@@ -1,6 +1,5 @@
 package square;
 
-
 import java.util.ArrayList;
 
 import gui.AdvancedEdit;
@@ -72,26 +71,28 @@ public class Grid {
 	 * Draw the tiles that are present on the screen onto the screen.
 	 */
 	public void draw(Graphics g, Input input) {
-		try {
-			for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
-					&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
-				g.setColor(Color.white);
-				
-				for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
-						&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
+		drawRows(g, input);
+		squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
+				.getMouseY() - baseY) / Square.SQUARE_DIMENSION].drawTooltip(g,
+				input);
+	}
 
-					squares[x][y].draw(g, baseX, baseY);
-					System.out.println(y + " y " + baseY);
-				}
-				System.out.println(x + " x " + baseX);
-			}
-			squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
-					.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
-					.drawTooltip(g, input);
-		} catch (Exception e) {
-			g.setColor(Color.white);
-			g.drawString("IS BAD " + e.getMessage() + " " + baseX + " x " + baseY, 200, 200);
-			g.setColor(Color.black);
+	private void drawRows(Graphics g, Input input) {
+		for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
+				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
+			// g.setColor(Color.white);
+			drawSquares(g, x, input);
+
+			// System.out.println(x + " x " + baseX);
+		}
+	}
+
+	private void drawSquares(Graphics g, int x, Input input) {
+		for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
+				&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
+
+			squares[x][y].draw(g, baseX, baseY, input);
+			// System.out.println(y + " y " + baseY);
 		}
 	}
 
@@ -117,46 +118,53 @@ public class Grid {
 	 *            the current sample the user is wielding
 	 */
 	public void update(Input input, Placeable sample, ArrayList<Thread> editWins) {
-		try {
-			if (input.getMouseX() > Palette.X_POS
-					|| input.getMouseY() > Tooltip.Y_POS) {
-				// We don't want to do anything with the grid if we're currently
-				// interacting with the palettes.
-				// Same is true with tooltips.
-				for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
-						&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
-					for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
-							&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
-						squares[x][y].setState(Button.STATE_IDLE);
-					}
-				}
-				return;
+		if (input.getMouseX() > Palette.X_POS
+				|| input.getMouseY() > Tooltip.Y_POS) {
+			// We don't want to do anything with the grid if we're currently
+			// interacting with the palettes.
+			// Same is true with tooltips.
+			resetSquareStates();
+			return;
+		}
+		checkSquareInterraction(input, sample, editWins);
+	}
+	
+	private void resetSquareStates(){
+		for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
+				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
+			for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
+					&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
+				squares[x][y].setState(Button.STATE_IDLE);
 			}
-			for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
-					&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
-				for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
-						&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
-					squares[x][y].buttonStateCheck(input);
+		}
+	}
+	
+	/*private void checkSquareStates(Input input){
+		for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
+				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
+			for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
+					&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
+				squares[x][y].buttonStateCheck(input);
 
-					// if(squares[x][y].hasBeenClicked() ==
-					// Button.PRESSED_TRUE)squares[x][y].put(sample);
-				}
+				// if(squares[x][y].hasBeenClicked() ==
+				// Button.PRESSED_TRUE)squares[x][y].put(sample);
 			}
-			if (squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
+		}
+	}*/
+	
+	private void checkSquareInterraction(Input input, Placeable sample, ArrayList<Thread> editWins){
+		if (squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
+				.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
+					.hasBeenClicked() == Button.PRESSED_TRUE) {
+			if (sample == null && input.isKeyDown(Input.KEY_LALT)) {
+				editWins.add(AdvancedEdit.getNew(squares[(input.getMouseX() - baseX)
+						/ Square.SQUARE_DIMENSION][(input.getMouseY() - baseY)
+						/ Square.SQUARE_DIMENSION]));
+				editWins.get(editWins.size() - 1).start();
+			}
+			squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
 					.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
-						.hasBeenClicked() == Button.PRESSED_TRUE) {
-				if (sample == null) {
-					editWins.add(AdvancedEdit.getNew(squares[(input.getMouseX() - baseX)
-							/ Square.SQUARE_DIMENSION][(input.getMouseY() - baseY)
-							/ Square.SQUARE_DIMENSION]));
-					editWins.get(editWins.size() - 1).start();
-				}
-				squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
-						.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
-						.put(sample);
-			}
-		} catch (Exception e) {
-
+					.put(sample);
 		}
 	}
 
@@ -171,11 +179,11 @@ public class Grid {
 	 * @param gc
 	 *            the game container
 	 */
-	public void setGridBounds(int xT, int yT, GameContainer gc) {
+	public void setGridBounds(int xT, int yT) {
 		squares = new Square[xT][yT];
 		fillTiles();
-		baseX = -((xT * Square.SQUARE_DIMENSION) / 2 - gc.getWidth() / 2);
-		baseY = -((yT * Square.SQUARE_DIMENSION) / 2 - gc.getHeight() / 2);
+		baseX = -((xT * Square.SQUARE_DIMENSION) / 2);
+		baseY = -((yT * Square.SQUARE_DIMENSION) / 2);
 	}
 
 	public int rows() {
@@ -192,7 +200,7 @@ public class Grid {
 
 	public void setSquare(String string, int rowIndex, int colIndex) {
 		String[] squareInfo = string.split(": ");
-		System.out.println("___________" + string);
+		//System.out.println("___________" + string);
 		squares[rowIndex][colIndex] = new Square(squareInfo, rowIndex * 64,
 				colIndex * 64);
 	}
@@ -200,6 +208,14 @@ public class Grid {
 	public int getCols() {
 		// TODO Auto-generated method stub
 		return squares[0].length;
+	}
+
+	public int getBaseX() {
+		return baseX;
+	}
+	
+	public int getBaseY() {
+		return baseY;
 	}
 
 }

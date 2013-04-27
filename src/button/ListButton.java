@@ -9,10 +9,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
-
-public class ListButton extends Button {
-	private ImageStore idleImg;
-	private ImageStore hoverImg;
+/**
+ * Needs Revising
+ * @author Niklas L
+ *
+ */
+public class ListButton extends ButtonXY {
+	private Image idleImg;
+	private Image hoverImg;
 	private DropdownList dList;
 	private boolean hovered = false;
 	private boolean isRevealed = false;
@@ -22,8 +26,8 @@ public class ListButton extends Button {
 	public ListButton(int x, int y, ImageStore idleImg, ImageStore hoverImg,
 			DropdownList dList) {
 		super(x, y);
-		this.idleImg = idleImg;
-		this.hoverImg = hoverImg;
+		this.idleImg = idleImg.getImage();
+		this.hoverImg = hoverImg.getImage();
 		this.dList = dList;
 	}
 
@@ -31,12 +35,12 @@ public class ListButton extends Button {
 		this.dList = dList;
 		states = new int[dList.getItems().length];
 	}
-	@Override
+	
 	public DropdownList getDList(){
 		return dList;
 	}
 
-	@Override
+	/*@Override
 	public void draw(Graphics g) {
 		getStoredImage().draw(x, y);
 		if (isRevealed) {
@@ -50,9 +54,9 @@ public class ListButton extends Button {
 						.getImage().getHeight() * i);
 			}
 		}
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public void buttonStateCheck(Input input) {
 		int mX = input.getMouseX();
 		int mY = input.getMouseY();
@@ -98,7 +102,7 @@ public class ListButton extends Button {
 			}
 		}
 
-	}
+	}*/
 	
 	@Override
 	public int hasBeenClicked(){
@@ -110,8 +114,7 @@ public class ListButton extends Button {
 		return -1;
 	}
 
-	@Override
-	public ImageStore getStoredImage() {
+	public Image getStoredImage() {
 		if (getState() == STATE_IDLE) {
 			return idleImg;
 		} else if (getState() == STATE_HOVER) {
@@ -122,17 +125,24 @@ public class ListButton extends Button {
 
 	@Override
 	public ListButton copy() {
-		try {
-			return (ListButton) this.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
 		return null;
 	}
 
 	@Override
 	public int getType() {
 		return ButtonStore.MODE_DROPDOWN;
+	}
+
+	@Override
+	public void draw(Graphics g, Input input) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onClick(Input input) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

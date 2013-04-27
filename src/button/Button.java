@@ -4,6 +4,9 @@ package button;
 
 
 
+import java.awt.Point;
+
+import image.DrawableXY;
 import image.ImageStore;
 
 import org.newdawn.slick.Graphics;
@@ -15,8 +18,7 @@ import core.Loadable;
 
 
 public abstract class Button{
-	protected int x;
-	protected int y;
+	
 	
 	private int state = 0;
 	private boolean clicked = false;
@@ -47,29 +49,9 @@ public abstract class Button{
 	 */
 	public static final int PRESSED_FALSE = 0;
 	/**
-	 * Constructs an button containing nothing else than the x and y
-	 * location of this component.
-	 * @param x
-	 * @param y
+	 * Constructs a new Button.
 	 */
-	public Button(int x, int y){
-		this.x = x;
-		this.y = y;
-	}
-	/**
-	 * Get the relative x location of this component.
-	 * @return the x value relative to screen size.
-	 */
-	public int getX(){
-		return (int) x;
-		
-	}
-	/**
-	 * Get the relative yy location of this component.
-	 * @return the y value relative to screen size.
-	 */
-	public int getY(){
-		return (int) y;
+	public Button(){
 	}
 	/**
 	 * Get the current state of this button.
@@ -90,23 +72,53 @@ public abstract class Button{
 	 * @return the copy of this button.
 	 */
 	public abstract Button copy();
-	/**
+	/*/**
 	 * Draws this button onto the screen.
 	 * @param g the graphics context
 	 */
-	public abstract void draw(Graphics g);
+	/*public abstract void draw(Graphics g);*/
+	
 	/**
-	 * checks the state of this button.
+	 * checks and sets the state of this button.
 	 * @param input the current input
+	 * @param butPosX the X position of this button
+	 * @param butPosY the Y position of this button
+	 * @param butWidth the width of this button
+	 * @param butHeight the height of this button
+	 */	
+	protected void buttonStateCheck(Input input, int butPosX, int butPosY, int butWidth, int butHeight){
+		if (contains(input.getMouseX(), input.getMouseY(), butPosX, butPosY, butPosX+butWidth, butPosY+butHeight)) {
+			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)
+					&& (getState() == STATE_HOVER || getState() == STATE_PRESSED)) {
+				setState(STATE_PRESSED);
+				setClicked(true);
+			} else {
+				if (!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+					setState(STATE_HOVER);
+				} else {
+					setState(STATE_IDLE);
+				}
+			}
+		} else if (!(input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && getState() == STATE_PRESSED)) {
+			setState(STATE_IDLE);
+			setClicked(false);
+		}
+	}
+	
+	/**
+	 * Checks if the point given is within the bounds of the button.
+	 * @param point a Point to check.
+	 * @return true if the point's x and y position is within the button area.
 	 */
-	public abstract void buttonStateCheck(Input input);
+	public boolean contains(int pointX, int pointY, int x, int y, int farX, int farY){
+		if(pointContains(x, pointX, farX) && pointContains(y, pointY, farY)){
+			return true;
+		}
+		return false;
+	}
 	
 	public abstract int getType();
-	/**
-	 * 
-	 * @return the appropriate image to be used for rendering
-	 */
-	public abstract ImageStore getStoredImage();
+	
 	/**
 	 * 
 	 * @return true of this button has been pressed
@@ -118,6 +130,16 @@ public abstract class Button{
 	public void setClicked(boolean value){
 		clicked = value;
 	}
+	
+	protected void update(Graphics g, int x, int y, int width, int height, Input input) {
+		buttonStateCheck(input, x, y, width, height);
+		if(hasBeenClicked() == PRESSED_TRUE){
+			onClick(input);
+		}
+	}
+	
+	public abstract void onClick(Input input);
+	
 	/**
 	 * check whether this button has been clicked.
 	 * @return PRESSED_TRUE or PRESSED_FALSE
@@ -133,10 +155,10 @@ public abstract class Button{
 	 * Retrieve the dropdown list of this button (if any).
 	 * @return the DropDown list object associated with this button.
 	 */
-	public DropdownList getDList(){
+	/*public DropdownList getDList(){
 		return null;
-	}
-	public boolean pointContains(int lBound, int point, int rBound){
+	}*/
+	private boolean pointContains(int lBound, int point, int rBound){
 		if(lBound <= point && point <= rBound){
 			return true;
 		}

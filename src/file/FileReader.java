@@ -11,21 +11,32 @@ import org.newdawn.slick.GameContainer;
 import square.Grid;
 
 public class FileReader {
-	public static void loadDialogue(GameContainer gc){
-		load(getLoadPath(), gc);
+	public static void loadDialogue(){
+		load(getLoadPath());
 	}
 	
 	private static String getLoadPath(){
-		String s = JOptionPane.showInputDialog("File Name?");
+		String s = "";
+		while(s.equals("")){
+			s = JOptionPane.showInputDialog("File Name?");
+			JOptionPane.showMessageDialog(null, s);
+			if(s == null){
+				return null;
+			}
+		}
+		
 		return s.replace("/", "").replace("\\", "") + ".grd";
 	}
 	
-	public static void load(String path, GameContainer gc){
+	public static void load(String path){
+		if(path == null){
+			return;
+		}
 		Scanner in;
 		try {
 			in = new Scanner(new File(FileSaver.SAVE_PATH + path));
 			String [] bounds = in.nextLine().split("x");
-			Grid.get().setGridBounds(Integer.valueOf(bounds[0]), Integer.valueOf(bounds[1]), gc);
+			Grid.get().setGridBounds(Integer.valueOf(bounds[0]), Integer.valueOf(bounds[1]));
 			//Grid.get().fillTiles();
 			int i = 0;
 			while(in.hasNextLine()){

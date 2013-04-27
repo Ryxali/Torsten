@@ -17,7 +17,7 @@ import image.ImageStore;
  * @author Niklas L
  * @see gui.Sample
  */
-public class Palette implements DrawableXY{
+public class Palette{
 	protected Sample[] samples;
 	private int sampleIndex;
 	private ImageStore frameImg;
@@ -37,20 +37,20 @@ public class Palette implements DrawableXY{
 		this.height = height;
 	}
 	
-	public void draw(Graphics g, int x, int y){
+	public void draw(Graphics g, int x, int y, Input input){
 		g.fillRect(x, y, width, height);
 		//frameImg.draw(x-frameImg.getImage().getWidth(), y);
-		int widt = 0;
-		int heigh = 0;
+		int row = 0;
+		int col = 0;
 		for (int i = 0; i < samples.length; i++) {
 			//System.out.println(i);
 			if(samples[i] != null){
 				//System.out.println(i + " x");
-				samples[i].draw(g);//x+widt, y+heigh*samples[i].getStoredImage().getImage().getHeight(), 
-				widt += 64;
-				if(widt + 64 > width){
-					widt = 0;
-					heigh+=64;
+				samples[i].draw(g, col+X_POS, row+Y_POS, input);//x+widt, y+heigh*samples[i].getStoredImage().getImage().getHeight(), 
+				col +=64;
+				if(col + 64 > width){
+					col = 0;
+					row+=64;
 				}
 			}
 		}
@@ -64,7 +64,7 @@ public class Palette implements DrawableXY{
 			System.out.println("++++");
 			enlarge();
 		}
-		System.out.println(name + "["+sampleIndex+"] = " + sample.getSquareItem().getName() + ", " + sample.toString());
+		//System.out.println(name + "["+sampleIndex+"] = " + sample.getSquareItem().getName() + ", " + sample.toString());
 		samples[sampleIndex] = sample;
 		sampleIndex++;
 	}
@@ -75,7 +75,7 @@ public class Palette implements DrawableXY{
 		if(samps != null){
 			for (int i = 0; i < samps.length; i++) {
 				if(samps[i] != null){
-					System.out.println(name +"["+i+"] = " + samps[i].getSquareItem().getName() + ", " + samps[i].toString());
+					//System.out.println(name +"["+i+"] = " + samps[i].getSquareItem().getName() + ", " + samps[i].toString());
 					samples[i] = samps[i];
 					sampleIndex++;
 				}
@@ -86,7 +86,6 @@ public class Palette implements DrawableXY{
 	public void update(Input input){
 		for (int i = 0; i < samples.length; i++) {
 			if(samples[i] != null){
-				samples[i].buttonStateCheck(input);
 			}
 		}
 	}

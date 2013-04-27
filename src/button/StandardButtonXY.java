@@ -8,13 +8,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
-public class StandardButton extends Button {
+public class StandardButtonXY extends ButtonXY {
 	private Image idleImg;
 	private Image hoverImg;
 	private Image pressedImg;
-	public StandardButton(ImageStore idleImg,
+
+	public StandardButtonXY(int x, int y, ImageStore idleImg,
 			ImageStore hoverImg, ImageStore pressedImg) {
-		super();
+		super(x, y);
 		this.idleImg = idleImg.getImage();
 		this.hoverImg = hoverImg.getImage();
 		this.pressedImg = pressedImg.getImage();
@@ -28,9 +29,9 @@ public class StandardButton extends Button {
 		this.pressedImg = pressedImg.getImage();
 	}*/
 
-	public StandardButton(Image idleImg, Image hoverImg,
+	public StandardButtonXY(int x, int y, Image idleImg, Image hoverImg,
 			Image pressedImg) {
-		super();
+		super(x, y);
 		this.idleImg = idleImg;
 		this.hoverImg = hoverImg;
 		this.pressedImg = pressedImg;
@@ -48,8 +49,8 @@ public class StandardButton extends Button {
 	}
 
 	@Override
-	public StandardButton copy() {
-		return new StandardButton(idleImg, hoverImg, pressedImg);
+	public StandardButtonXY copy() {
+		return new StandardButtonXY(x, y, idleImg, hoverImg, pressedImg);
 	}
 
 	/*@Override
@@ -82,22 +83,22 @@ public class StandardButton extends Button {
 		return ButtonStore.MODE_REGULAR;
 	}
 
-	public void draw(Graphics g, int x, int y, Input input) {
-		update(g, x, y, getStoredImage().getWidth(), getStoredImage().getHeight(), input);
+	public void draw(Graphics g, Input input) {
+		update(g, x, y, input);
 		getStoredImage().draw(x, y);
 	}
 
-	protected void buttonStateCheck(int x, int y, Input input) {
-		buttonStateCheck(input, x, y, getStoredImage().getWidth(), getStoredImage().getHeight());
+	protected void buttonStateCheck(Input input) {
+		buttonStateCheck(input, getStoredImage().getWidth(), getStoredImage().getHeight());
 	}
 
-	public boolean contains(int pointX, int pointY, int x, int y) {
-		return contains(pointX, pointY, x, y, getStoredImage().getWidth(),
+	public boolean contains(int pointX, int pointY) {
+		return contains(pointX, pointY, getStoredImage().getWidth(),
 				getStoredImage().getHeight());
 	}
 
-	public boolean contains(Point point, int x, int y) {
-		return contains((int) point.getX(), (int) point.getY(), x, y);
+	public boolean contains(Point point) {
+		return contains((int) point.getX(), (int) point.getY());
 	}
 
 	@Override
