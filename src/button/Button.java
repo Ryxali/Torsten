@@ -49,6 +49,19 @@ public abstract class Button{
 	 */
 	public static final int PRESSED_FALSE = 0;
 	/**
+	 * The type value corresponding with a regular button
+	 */
+	public static final int TYPE_REGULAR = 0;
+	/**
+	 * The type value corresponding with a dropdown list button
+	 */
+	public static final int TYPE_DROPDOWN = 1;
+	/**
+	 * The type value corresponding with a slider button
+	 */
+	public static final int TYPE_SLIDER = 2;
+	
+	/**
 	 * Constructs a new Button.
 	 */
 	public Button(){
@@ -117,7 +130,15 @@ public abstract class Button{
 		}
 		return false;
 	}
-	
+	/**
+	 * Return a value corresponding to this button type.
+	 * <ol> <b>Commonly used button types:</b>
+	 * <li>TYPE_REGULAR; a regular button</li>
+	 * <li>TYPE_SLIDER; a button with a slider</li>
+	 * <li>TYPE_DROPDOWN; a button with a dropdown list</li>
+	 * </ol>
+	 * @return a type value corresponding with this button
+	 */
 	public abstract int getType();
 	
 	/**
@@ -127,7 +148,10 @@ public abstract class Button{
 	public boolean isClicked(){
 		return clicked;
 	}
-	
+	/**
+	 * set whether this button is currently clicked
+	 * @param value the new clicked value
+	 */
 	public void setClicked(boolean value){
 		clicked = value;
 	}
@@ -135,7 +159,10 @@ public abstract class Button{
 	protected void update(Graphics g, int x, int y, int width, int height, Input input) {
 		buttonStateCheck(input, x, y, width, height);
 	}
-	
+	/**
+	 * An action this button has when it has been clicked.
+	 * @param input the current user input
+	 */
 	public abstract void onClick(Input input);
 	
 	/**

@@ -9,10 +9,28 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
 public class StandardButtonXY extends ButtonXY {
+	/**
+	 * The image displayed when this button is in its idle state.
+	 */
 	private Image idleImg;
+	/**
+	 * The image displayed when this button is in its hover state.
+	 */
 	private Image hoverImg;
+	/**
+	 * The image displayed when this button is in its pressed state.
+	 */
 	private Image pressedImg;
-
+	
+	/**
+	 * Creates a new StandardButton with three images to correspond with its
+	 * three states.
+	 * @param x the x position of this button.
+	 * @param y the y position of this button.
+	 * @param idleImg the image displayed when this button is in its idle state.
+	 * @param hoverImg the image displayed when this button is in its hover state.
+	 * @param pressedImg the image displayed when this button is in its pressed state.
+	 */
 	public StandardButtonXY(int x, int y, ImageStore idleImg,
 			ImageStore hoverImg, ImageStore pressedImg) {
 		super(x, y);
@@ -28,7 +46,15 @@ public class StandardButtonXY extends ButtonXY {
 		this.hoverImg = hoverImg.getImage();
 		this.pressedImg = pressedImg.getImage();
 	}*/
-
+	/**
+	 * Creates a new StandardButton with three images to correspond with its
+	 * three states.
+	 * @param x the x position of this button.
+	 * @param y the y position of this button.
+	 * @param idleImg the image displayed when this button is in its idle state.
+	 * @param hoverImg the image displayed when this button is in its hover state.
+	 * @param pressedImg the image displayed when this button is in its pressed state.
+	 */
 	public StandardButtonXY(int x, int y, Image idleImg, Image hoverImg,
 			Image pressedImg) {
 		super(x, y);
@@ -36,8 +62,14 @@ public class StandardButtonXY extends ButtonXY {
 		this.hoverImg = hoverImg;
 		this.pressedImg = pressedImg;
 	}
-
-	public Image getStoredImage() {
+	/**
+	 * Creates a new StandardButton with three images to correspond with its
+	 * three states.
+	 * @param idleImg the image displayed when this button is in its idle state.
+	 * @param hoverImg the image displayed when this button is in its hover state.
+	 * @param pressedImg the image displayed when this button is in its pressed state.
+	 */
+	public Image getProperImage() {
 		if (getState() == STATE_IDLE) {
 			return idleImg;
 		} else if (getState() == STATE_HOVER) {
@@ -85,16 +117,16 @@ public class StandardButtonXY extends ButtonXY {
 
 	public void draw(Graphics g, Input input) {
 		update(g, x, y, input);
-		getStoredImage().draw(x, y);
+		getProperImage().draw(x, y);
 	}
 
 	protected void buttonStateCheck(Input input) {
-		buttonStateCheck(input, getStoredImage().getWidth(), getStoredImage().getHeight());
+		buttonStateCheck(input, getProperImage().getWidth(), getProperImage().getHeight());
 	}
 
 	public boolean contains(int pointX, int pointY) {
-		return contains(pointX, pointY, getStoredImage().getWidth(),
-				getStoredImage().getHeight());
+		return contains(pointX, pointY, getProperImage().getWidth(),
+				getProperImage().getHeight());
 	}
 
 	public boolean contains(Point point) {

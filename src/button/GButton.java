@@ -8,16 +8,29 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
 public class GButton extends Button{
+	
+	/**
+	 * Constructs a new GButton
+	 */
 	public GButton() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public Button copy() {
-		// TODO Auto-generated method stub
-		return null;
+		super();
 	}
 	
+	@Override
+	public Button copy() {
+		return new GButton();
+	}
+	
+	/**
+	 * Updates the button state and then draws the button at the given
+	 * position with given width and height.
+	 * @param g the current graphics context
+	 * @param x the x position to draw this button at.
+	 * @param y the y position to draw this button at.
+	 * @param width the width to draw this button with.
+	 * @param height the height to draw this button with.
+	 * @param input the current user input.
+	 */
 	public void draw(Graphics g, int x, int y, int width, int height, Input input){
 		update(g, x, y, width, height, input);
 		if(getState()==STATE_IDLE){

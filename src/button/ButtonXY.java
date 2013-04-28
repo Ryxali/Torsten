@@ -7,16 +7,35 @@ import image.Drawable;
 
 public abstract class ButtonXY extends Button{
 	
+	/**
+	 * The x position of this button
+	 */
 	protected int x;
+	/**
+	 * The y position of this button
+	 */
 	protected int y;
 
+	/**
+	 * constructs a new button with an x and y position
+	 * @param x the x position of this button
+	 * @param y the y position of this button
+	 */
 	public ButtonXY(int x, int y) {
 		super();
 		this.x = x;
 		this.y = y;
 		// TODO Auto-generated constructor stub
 	}
-	
+	/**
+	 * Checks whether a point is within this button's position and a given
+	 * width and height
+	 * @param pointX the x position of the point to check
+	 * @param pointY the y position of the point to check
+	 * @param buttonWidth the 'width' of this button.
+	 * @param buttonHeight the 'height' of this button.
+	 * @return
+	 */
 	public boolean contains(int pointX, int pointY, int buttonWidth, int buttonHeight){
 		return contains(pointX, pointY, x, y, x+buttonWidth, y+buttonHeight);
 	}
@@ -53,6 +72,10 @@ public abstract class ButtonXY extends Button{
 	public int getY(){
 		return (int) y;
 	}
-	
+	/**
+	 * Draws the content onto the screen at this button's x and y position
+	 * @param g the current graphics context.
+	 * @param input the current user input.
+	 */
 	public abstract void draw(Graphics g, Input input);
 }

@@ -4,7 +4,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
 public class TextGButton extends GButton{
+	/**
+	 * The text that is displayed on this button.
+	 */
 	private String text;
+	/**
+	 * Creates a new TextGButton.
+	 * @param text the text to be displayed on this button.
+	 */
 	public TextGButton(String text){
 		super();
 		this.text = text;
