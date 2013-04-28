@@ -93,7 +93,6 @@ public abstract class Button{
 				setState(STATE_PRESSED);
 				
 				setClicked(true);
-				System.out.println(clicked);
 			} else {
 				if (!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 					setState(STATE_HOVER);

@@ -42,7 +42,6 @@ public class BuildState extends BasicState{
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		g.drawRect(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 100, 100);
-		ImageStore.DEFAULT.draw(50, 50);
 		Grid.get().draw(g, gc.getInput());
 		PaletteStore.get().draw(g, gc.getInput());
 		if(curSample != null){

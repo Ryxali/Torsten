@@ -84,12 +84,11 @@ public class Grid {
 			g.setColor(Color.lightGray);
 			g.drawString(baseX + " " + baseY, 300, 300);
 		} catch (ArrayIndexOutOfBoundsException e) {
-
 		}
 	}
 
 	private void drawRows(Graphics g, Input input) {
-		for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
+		for (int x = getDrawPosX(); x < squares.length
 				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
 			// g.setColor(Color.white);
 			drawSquares(g, x, input);
@@ -99,7 +98,7 @@ public class Grid {
 	}
 
 	private void drawSquares(Graphics g, int x, Input input) {
-		for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
+		for (int y = getDrawPosY(); y < squares[x].length
 				&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
 
 			squares[x][y].draw(g, baseX, baseY, input);
@@ -139,16 +138,9 @@ public class Grid {
 				resetSquareStates();
 				return;
 			}
-			if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && !dragging) {
-				dragging = true;
-				mouseHoldX = input.getMouseX() - baseX;
-				mouseHoldY = input.getMouseY() - baseY;
-			} else if (!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-				dragging = false;
-			}
-			if (dragging) {
-				baseX = -(mouseHoldX - input.getMouseX());
-				baseY = -(mouseHoldY - input.getMouseY());
+			
+			if (isDragging(input)) {
+				drag(input);
 			}
 			checkSquareStates(input);
 			checkSquareInterraction(input, sample, editWins);
@@ -156,22 +148,67 @@ public class Grid {
 
 		}
 	}
+	
+	private boolean isDragging(Input input){
+		if (input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)
+				&& input.isKeyDown(Input.KEY_LSHIFT) && !dragging) {
+			dragging = true;
+			setMouseHoldPos(input.getMouseX(), input.getMouseY());
+		} else if(input.isMouseButtonDown(Input.MOUSE_MIDDLE_BUTTON) && !dragging){
+			dragging = true;
+			setMouseHoldPos(input.getMouseX(), input.getMouseY());
+			System.out.println(input.getMouseX());
+		} else if ((!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)
+				|| !input.isKeyDown(Input.KEY_LSHIFT))
+				&& !input.isMouseButtonDown(Input.MOUSE_MIDDLE_BUTTON)) {
+			dragging = false;
+		}
+		return dragging;
+	}
+	
+	private void setMouseHoldPos(int x, int y){
+		mouseHoldX = x - baseX;
+		mouseHoldY = y - baseY;
+	}
+	
+	private void drag(Input input){
+		baseX = -(mouseHoldX - input.getMouseX());
+		baseY = -(mouseHoldY - input.getMouseY());
+	}
 
 	private void resetSquareStates() {
-		for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
+		for (int x = getDrawPosX(); x < squares.length
 				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
-			for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
+			for (int y = getDrawPosY(); y < squares[x].length
 					&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
 				squares[x][y].setState(Button.STATE_IDLE);
 			}
 		}
 	}
 
+	private int getDrawPosX() {
+		if (-baseX < 0) {
+			return 0;
+		}
+		return (-baseX / Square.SQUARE_DIMENSION);
+	}
+
+	private int getDrawPosY() {
+		if (-baseY < 0) {
+			return 0;
+		}
+		return (-baseY / Square.SQUARE_DIMENSION);
+	}
+
 	private void checkSquareStates(Input input) {
-		for (int x = 0 - baseX / Square.SQUARE_DIMENSION; x < squares.length
+		for (int x = getDrawPosX(); x < squares.length
 				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
-			for (int y = 0 - baseY / Square.SQUARE_DIMENSION; y < squares[x].length
+			if (x < 0)
+				x = 0;
+			for (int y = getDrawPosY(); y < squares[x].length
 					&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
+				if (y < 0)
+					y = 0;
 				squares[x][y].buttonStateCheck(baseX, baseY, input);
 
 				// if(squares[x][y].hasBeenClicked() ==
