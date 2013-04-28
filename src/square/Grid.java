@@ -157,7 +157,7 @@ public class Grid {
 		} else if(input.isMouseButtonDown(Input.MOUSE_MIDDLE_BUTTON) && !dragging){
 			dragging = true;
 			setMouseHoldPos(input.getMouseX(), input.getMouseY());
-			System.out.println(input.getMouseX());
+			//System.out.println(input.getMouseX());
 		} else if ((!input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)
 				|| !input.isKeyDown(Input.KEY_LSHIFT))
 				&& !input.isMouseButtonDown(Input.MOUSE_MIDDLE_BUTTON)) {
