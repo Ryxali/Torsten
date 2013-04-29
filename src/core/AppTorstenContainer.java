@@ -4,7 +4,8 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Game;
 import org.newdawn.slick.SlickException;
 
-import file.UserFileReader;
+import core.file.UserFileReader;
+
 
 public class AppTorstenContainer extends AppGameContainer{
 

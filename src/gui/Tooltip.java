@@ -1,20 +1,20 @@
 package gui;
 
+import gui.square.item.Creature;
+import gui.square.item.LootPile;
+import gui.square.item.Obstacle;
+import gui.square.item.SquareItem;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-import squareitems.Creature;
-import squareitems.LootPile;
-import squareitems.Obstacle;
-import squareitems.SquareItem;
+import core.image.Drawable;
 
-import image.Drawable;
+
 
 public class Tooltip {
 	
 	public static final int X_POS = 0;
-	public static final int Y_POS = 450;
-	public static final int WIDTH = 800;
 	public static final int HEIGHT = 150;
 	private static Tooltip tTip;
 	
@@ -28,16 +28,16 @@ public class Tooltip {
 		return tTip;
 	}
 	
-	public void draw(Graphics g, SquareItem... items) {
+	public void draw(Graphics g, int screenWidth, int screenHeight, SquareItem... items) {
 		g.setColor(Color.lightGray);
-		g.fillRect(X_POS, Y_POS, WIDTH, HEIGHT);
+		g.fillRect(X_POS, screenHeight-HEIGHT, screenWidth, HEIGHT);
 		g.setColor(Color.black);
 		
 		for (int i = 0; i < items.length; i++) {
 			
-			g.drawRect(X_POS + (WIDTH/items.length)*i, Y_POS, WIDTH, HEIGHT);
+			g.drawRect(X_POS + (screenWidth/items.length)*i, screenHeight-HEIGHT, screenWidth, HEIGHT);
 			if(items[i] != null){
-				items[i].drawInfo(g, X_POS + 5 + (WIDTH/items.length)*i, Y_POS, WIDTH/items.length - 10);
+				items[i].drawInfo(g, X_POS + 5 + (screenWidth/items.length)*i, screenHeight-HEIGHT, screenWidth/items.length - 10);
 			}
 		}
 		/*

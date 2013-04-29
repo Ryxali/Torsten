@@ -1,10 +1,11 @@
 package gui;
 
+import gui.square.Square;
+
 import java.awt.Frame;
 
 import javax.swing.JOptionPane;
 
-import square.Square;
 /**
  * I intend for this to be an XML using editor for a specific square
  * @author freetimer
