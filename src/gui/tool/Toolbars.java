@@ -19,7 +19,15 @@ public enum Toolbars {
 	public static void update(Input input){
 		
 	}
-	
+	public static boolean contains(int pointX, int pointY, int screenWidth, int screenHeight){
+		Toolbars[] temp = values();
+		for (int i = 0; i < temp.length; i++) {
+			if(temp[i].toolbar.contains(pointX, pointY, screenWidth, screenHeight)){
+				return true;
+			}
+		}
+		return false;
+	}
 	public static Placeable getCurrentTool(Placeable p){
 		Toolbars[] temp = values();
 		for (int i = 0; i < temp.length; i++) {

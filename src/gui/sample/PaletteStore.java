@@ -64,8 +64,18 @@ public class PaletteStore {
 	public Palette getActivePalette(){
 		return palettes[activePalette];
 	}
+	
+	public boolean contains(int pointX, int pointY, int screenWidth, int screenHeight){
+		if(screenWidth-200 <= pointX && pointX <= screenWidth){
+			if(getActivePalette().getHeight() + Palette.Y_POS <= pointY && pointY <= 0){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public void draw(Graphics g, int screenWidth, int screenHeight, Input input) {
+		
 		g.setColor(Color.lightGray);
 		g.fillRect(screenWidth-200, Palette.Y_POS-50, getActivePalette().getWidth(), 50);
 		for (int i = 0; i < pButtons.length; i++) {

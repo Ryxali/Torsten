@@ -22,6 +22,7 @@ public abstract class BasicState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) {
 		//makeMouseListener(gc.getInput());
 		//sbg.setInput(new GameInput(gc.getScreenHeight()));
+		gc.setAlwaysRender(false);
 	}
 	
 	@Override

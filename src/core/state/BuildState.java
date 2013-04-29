@@ -43,6 +43,7 @@ public class BuildState extends BasicState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
+		boolean doRender = false;
 		g.drawRect(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 100,
 				100);
 		Grid.get().draw(g, width, height, gc.getInput());
@@ -77,7 +78,7 @@ public class BuildState extends BasicState {
 		if (gc.getInput().isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
 			curPlaceable = null;
 		}
-		Grid.get().update(gc.getInput(), curPlaceable, height, advEdits);
+		Grid.get().update(gc.getInput(), curPlaceable, width, height, advEdits);
 
 		Toolbars.update(gc.getInput());
 		// saveB.buttonStateCheck(gc.getInput());

@@ -36,6 +36,7 @@ public class Main extends StateBasedGame{
 			apptc.setTargetFrameRate(60);
 			apptc.setDisplayMode(800, 600, false);
 			apptc.setForceExit(false);
+			
 			apptc.start();
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block

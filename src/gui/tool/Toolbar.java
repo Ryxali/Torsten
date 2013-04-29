@@ -17,8 +17,8 @@ import core.image.DrawableXY;
 public class Toolbar {
 	protected int x;
 	protected int y;
-	private int width;
-	private int height;
+	protected int width;
+	protected int height;
 	
 	private Tool[] pObjects;
 	private Tool curTool;

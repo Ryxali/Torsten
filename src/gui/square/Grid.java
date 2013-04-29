@@ -129,10 +129,17 @@ public class Grid {
 	 * @param sample
 	 *            the current sample the user is wielding
 	 */
-	public void update(Input input, Placeable sample, int screenWidth, ArrayList<Thread> editWins) {
+	public void update(Input input, Placeable sample, int screenWidth,
+			int screenHeight, ArrayList<Thread> editWins) {
 		try {
-			if (input.getMouseX() > Palette.X_POS
-					|| input.getMouseY() > screenWidth-Tooltip.HEIGHT) {
+			/*
+			 * input.getMouseX() > Palette.X_POS || input.getMouseY() >
+			 * screenWidth-Tooltip.HEIGHT)
+			 */
+			if (Toolbars.contains(input.getMouseX(), input.getMouseY(),
+					screenWidth, screenHeight)
+					&& PaletteStore.get().contains(input.getMouseX(),
+							input.getMouseY(), screenWidth, screenHeight)) {
 				// We don't want to do anything with the grid if we're currently
 				// interacting with the palettes.
 				// Same is true with tooltips.

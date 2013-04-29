@@ -85,6 +85,9 @@ public class Palette{
 			}
 		}
 	}
+	public int getHeight(){
+		return height;
+	}
 	
 	public void update(Input input){
 		for (int i = 0; i < samples.length; i++) {

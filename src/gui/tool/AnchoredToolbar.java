@@ -45,4 +45,17 @@ public class AnchoredToolbar extends Toolbar {
 		return height;
 	}
 
+	public boolean contains(int pointX, int pointY, int screenWidth,
+			int screenHeight) {
+		screenWidth = determineWidth(screenWidth);
+		screenHeight = determineHeight(screenHeight);
+		if(screenWidth+x <= pointX && pointX <= screenWidth+x+width){
+			if(screenHeight+y <= pointY && pointY <= screenHeight+y+height){
+				return true;
+			}
+		}
+		return false;
+		
+	}
+
 }
