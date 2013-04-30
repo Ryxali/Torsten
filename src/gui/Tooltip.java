@@ -61,6 +61,15 @@ public class Tooltip {
 		}*/
 		
 	}
+	public boolean contains(int mouseX, int mouseY, int screenWidth,
+			int screenHeight) {
+		if(X_POS <= mouseX && mouseX <= X_POS + screenWidth){
+			if(screenHeight >= mouseY && mouseY >= screenHeight-HEIGHT){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 }

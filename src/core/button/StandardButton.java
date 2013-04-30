@@ -129,6 +129,7 @@ public class StandardButton extends Button {
 	 * @param x the x position for this button.
 	 * @param y the y position for this button.
 	 * @param input the current user input.
+	 * @return 
 	 */
 	protected void buttonStateCheck(int x, int y, Input input) {
 		buttonStateCheck(input, x, y, getProperImage().getWidth(), getProperImage().getHeight());

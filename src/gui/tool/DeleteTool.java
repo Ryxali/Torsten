@@ -23,7 +23,7 @@ public class DeleteTool extends Tool{
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
-		g.drawString("DEL", x, y);
+		g.drawString("DEL", x-g.getFont().getWidth("DEL"), y-g.getFont().getHeight("DEL"));
 	}
 	
 }

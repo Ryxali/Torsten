@@ -109,7 +109,7 @@ public class Sample extends StandardButton implements Placeable {
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
-		slotImg.draw(x, y);
+		slotImg.draw(x-slotImg.getWidth(), y-slotImg.getHeight());
 	}
 
 	@Override

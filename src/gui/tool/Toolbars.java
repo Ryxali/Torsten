@@ -16,8 +16,8 @@ public enum Toolbars {
 		this.toolbar = toolbar;
 	}
 	
-	public static void update(Input input){
-		
+	public static boolean update(Input input){
+		return false;
 	}
 	public static boolean contains(int pointX, int pointY, int screenWidth, int screenHeight){
 		Toolbars[] temp = values();

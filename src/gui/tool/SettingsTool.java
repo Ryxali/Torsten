@@ -2,6 +2,7 @@ package gui.tool;
 
 import javax.swing.JOptionPane;
 
+import gui.dialogue.ScreenResolutionDialogue;
 import gui.square.Square;
 
 import org.newdawn.slick.Graphics;
@@ -20,8 +21,8 @@ public class SettingsTool extends Tool {
 		boolean b = true;
 		while (b) {
 			try {
-				String[] newB = JOptionPane.showInputDialog(
-						"New Screen Size (RESxRES)").split("x");
+				String[] newB = ScreenResolutionDialogue.show().split("x");/*JOptionPane.showInputDialog(
+						"New Screen Size (RESxRES)").split("x");*/
 				StateList.BUILD.getState().setBounds(Integer.valueOf(newB[0]),
 						Integer.valueOf(newB[1]));
 				b = false;

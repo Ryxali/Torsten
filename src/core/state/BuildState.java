@@ -49,8 +49,8 @@ public class BuildState extends BasicState {
 		Grid.get().draw(g, width, height, gc.getInput());
 		PaletteStore.get().draw(g, width, height, gc.getInput());
 		if (curPlaceable != null) {
-			curPlaceable.draw(g, gc.getInput().getMouseX() - 64, gc.getInput()
-					.getMouseY() - 64);
+			curPlaceable.draw(g, gc.getInput().getMouseX(), gc.getInput()
+					.getMouseY());
 		}
 		Toolbars.draw(g, width, height, gc.getInput());
 		// saveB.draw(g);

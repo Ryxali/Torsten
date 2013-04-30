@@ -79,7 +79,7 @@ public class Grid {
 	 */
 	public void draw(Graphics g, int screenWidth, int screenHeight, Input input) {
 		try {
-			drawRows(g, input);
+			drawRows(g, screenWidth, screenHeight, input);
 			squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
 					.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
 					.drawTooltip(g, screenWidth, screenHeight, input);
@@ -89,19 +89,20 @@ public class Grid {
 		}
 	}
 
-	private void drawRows(Graphics g, Input input) {
+	private void drawRows(Graphics g, int screenWidth, int screenHeight,
+			Input input) {
 		for (int x = getDrawPosX(); x < squares.length
-				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
+				&& x * Square.SQUARE_DIMENSION + baseX < screenWidth; x++) {
 			// g.setColor(Color.white);
-			drawSquares(g, x, input);
+			drawSquares(g, x, screenHeight, input);
 
 			// System.out.println(x + " x " + baseX);
 		}
 	}
 
-	private void drawSquares(Graphics g, int x, Input input) {
+	private void drawSquares(Graphics g, int x, int screenHeight, Input input) {
 		for (int y = getDrawPosY(); y < squares[x].length
-				&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
+				&& y * Square.SQUARE_DIMENSION + baseY < screenHeight; y++) {
 
 			squares[x][y].draw(g, baseX, baseY, input);
 			// System.out.println(y + " y " + baseY);
@@ -136,26 +137,35 @@ public class Grid {
 			 * input.getMouseX() > Palette.X_POS || input.getMouseY() >
 			 * screenWidth-Tooltip.HEIGHT)
 			 */
-			if (Toolbars.contains(input.getMouseX(), input.getMouseY(),
-					screenWidth, screenHeight)
-					&& PaletteStore.get().contains(input.getMouseX(),
-							input.getMouseY(), screenWidth, screenHeight)) {
-				// We don't want to do anything with the grid if we're currently
-				// interacting with the palettes.
-				// Same is true with tooltips.
-
-				resetSquareStates();
+			if (mouseOccupied(screenWidth, screenHeight, input)) {
+				resetSquareStates(screenWidth, screenHeight);
 				return;
 			}
 
 			if (isDragging(input)) {
 				drag(input);
 			}
-			checkSquareStates(input);
+			checkSquareStates(screenWidth, screenHeight, input);
 			checkSquareInterraction(input, sample, editWins);
 		} catch (ArrayIndexOutOfBoundsException e) {
 
 		}
+	}
+
+	private boolean mouseOccupied(int screenWidth, int screenHeight, Input input) {
+		if (Toolbars.contains(input.getMouseX(), input.getMouseY(),
+				screenWidth, screenHeight)) {
+			return true;
+		}
+		if (PaletteStore.get().contains(input.getMouseX(), input.getMouseY(),
+				screenWidth, screenHeight)) {
+			return true;
+		}
+		if (Tooltip.get().contains(input.getMouseX(), input.getMouseY(),
+				screenWidth, screenHeight)) {
+			return true;
+		}
+		return false;
 	}
 
 	private boolean isDragging(Input input) {
@@ -186,11 +196,11 @@ public class Grid {
 		baseY = -(mouseHoldY - input.getMouseY());
 	}
 
-	private void resetSquareStates() {
+	private void resetSquareStates(int screenWidth, int screenHeight) {
 		for (int x = getDrawPosX(); x < squares.length
-				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
+				&& x * Square.SQUARE_DIMENSION + baseX < screenWidth; x++) {
 			for (int y = getDrawPosY(); y < squares[x].length
-					&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
+					&& y * Square.SQUARE_DIMENSION + baseY < screenHeight; y++) {
 				squares[x][y].setState(Button.STATE_IDLE);
 			}
 		}
@@ -210,13 +220,14 @@ public class Grid {
 		return (-baseY / Square.SQUARE_DIMENSION);
 	}
 
-	private void checkSquareStates(Input input) {
+	private void checkSquareStates(int screenWidth, int screenHeight,
+			Input input) {
 		for (int x = getDrawPosX(); x < squares.length
-				&& x * Square.SQUARE_DIMENSION + baseX < 1200; x++) {
+				&& x * Square.SQUARE_DIMENSION + baseX < screenWidth; x++) {
 			if (x < 0)
 				x = 0;
 			for (int y = getDrawPosY(); y < squares[x].length
-					&& y * Square.SQUARE_DIMENSION + baseY < 1200; y++) {
+					&& y * Square.SQUARE_DIMENSION + baseY < screenHeight; y++) {
 				if (y < 0)
 					y = 0;
 				squares[x][y].buttonStateCheck(baseX, baseY, input);

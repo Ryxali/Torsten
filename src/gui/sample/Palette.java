@@ -61,10 +61,8 @@ public class Palette{
 	public void add(Sample sample){
 		if(samples == null){
 			enlarge();
-			System.out.println("++");
 		}
 		if(sampleIndex >= samples.length){
-			System.out.println("++++");
 			enlarge();
 		}
 		//System.out.println(name + "["+sampleIndex+"] = " + sample.getSquareItem().getName() + ", " + sample.toString());

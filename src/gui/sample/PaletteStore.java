@@ -14,6 +14,8 @@ public class PaletteStore {
 	
 	private static PaletteStore pStore;
 	private GButton[] pButtons;
+	public static final int HEIGHT = 50;
+	
 	public static PaletteStore get(){
 		if(pStore == null){
 			pStore = new PaletteStore();
@@ -66,24 +68,28 @@ public class PaletteStore {
 	}
 	
 	public boolean contains(int pointX, int pointY, int screenWidth, int screenHeight){
-		if(screenWidth-200 <= pointX && pointX <= screenWidth){
-			if(getActivePalette().getHeight() + Palette.Y_POS <= pointY && pointY <= 0){
+		if(screenWidth-getActivePalette().getWidth() <= pointX && pointX <= screenWidth){
+			if(getActivePalette().getHeight() + Palette.Y_POS >= pointY && pointY >= 0){
 				return true;
 			}
 		}
 		return false;
 	}
+	
+	public int getY(){
+		return Palette.Y_POS-HEIGHT;
+	}
 
 	public void draw(Graphics g, int screenWidth, int screenHeight, Input input) {
 		
 		g.setColor(Color.lightGray);
-		g.fillRect(screenWidth-200, Palette.Y_POS-50, getActivePalette().getWidth(), 50);
+		g.fillRect(screenWidth-getActivePalette().getWidth(), getY(), getActivePalette().getWidth(), 50);
 		for (int i = 0; i < pButtons.length; i++) {
-			pButtons[i].draw(g, screenWidth-200+getActivePalette().getWidth()/pButtons.length*i, Palette.Y_POS-50, getActivePalette().getWidth()/pButtons.length, 50, input);
+			pButtons[i].draw(g, screenWidth-getActivePalette().getWidth()+getActivePalette().getWidth()/pButtons.length*i, Palette.Y_POS-HEIGHT, getActivePalette().getWidth()/pButtons.length, HEIGHT, input);
 			//g.setColor(Color.black);
 			//g.drawRect(Palette.X_POS, Palette.Y_POS-50,getActivePalette().getWidth()/palettes.length*i, 50);
 		}
-		getActivePalette().draw(g, screenWidth-200, Palette.Y_POS, screenWidth, screenHeight, input);
+		getActivePalette().draw(g, screenWidth-getActivePalette().getWidth(), Palette.Y_POS, screenWidth, screenHeight, input);
 	}
 	
 	public void update(Input input){
