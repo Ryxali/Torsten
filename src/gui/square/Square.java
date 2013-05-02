@@ -262,7 +262,7 @@ public class Square extends StandardButton {
 	
 	public void clear(){
 		creature = null;
-		loot = null;
+		loot = new LootPile("Loot:", null, "");
 		obstacle = null;
 	}
 	
