@@ -1,5 +1,6 @@
 package gui.sample;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -107,12 +108,13 @@ public class Sample extends StandardButton implements Placeable {
 	}
 	
 	public void draw(Graphics g, int x, int y, int screenWidth, int screenHeight, Input input) {
+		//g.setColor(Color.lightGray);
+		//g.drawRect(x, y, 64, 64);
 		slotImg.draw(x, y);
 		super.draw(g, x, y, input);
 		if(getState() == STATE_HOVER || getState() == STATE_PRESSED){
 			Tooltip.get().draw(g, screenWidth, screenHeight, sampleItem);
 		}
-		super.draw(g, x, y, input);
 	}
 	/**
 	 * Fetch a printable line of string that is primarily used for saving in palettes.
