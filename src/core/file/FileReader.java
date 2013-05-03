@@ -53,7 +53,7 @@ public class FileReader {
 	
 	private static void constructRow(String rowData, int row){
 		//System.out.println("-_-_-_-"+rowData);
-		String[] split = rowData.split("# ");
+		String[] split = rowData.split(Convention.LAYER_0);
 		System.out.println(" _ --: . :: : " + split.length);
 		//System.out.println(split[0]);
 		for (int i = 0; i < split.length; i++) {

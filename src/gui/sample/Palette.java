@@ -28,20 +28,17 @@ public class Palette{
 	private Rectangle frameRect;
 	public static final int X_POS = 600;
 	public static final int Y_POS = 50;
+	public static final int WIDTH = 200;
+	public static final int HEIGHT = 400;
 	
-	private int width;
-	private int height;
-	
-	public Palette(String name, int width, int height){
+	public Palette(String name){
 		//this.frameImg = frameImg;
 		this.name = name;
 		samples = new Sample[5];
-		this.width = width;
-		this.height = height;
 	}
 	
 	public void draw(Graphics g, int x, int y, int screenWidth, int screenHeight, Input input){
-		g.fillRect(x, y, width, height);
+		g.fillRect(x, y, WIDTH, HEIGHT);
 		//frameImg.draw(x-frameImg.getImage().getWidth(), y);
 		int row = 0;
 		int col = 0;
@@ -49,9 +46,9 @@ public class Palette{
 			//System.out.println(i);
 			if(samples[i] != null){
 				//System.out.println(i + " x");
-				samples[i].draw(g, col+screenWidth-width, row+Y_POS, screenWidth, screenHeight, input);//x+widt, y+heigh*samples[i].getStoredImage().getImage().getHeight(), 
+				samples[i].draw(g, col+screenWidth-WIDTH, row+Y_POS, screenWidth, screenHeight, input);//x+widt, y+heigh*samples[i].getStoredImage().getImage().getHeight(), 
 				col +=64;
-				if(col + 64 > width){
+				if(col + 64 > WIDTH){
 					col = 0;
 					row+=64;
 				}
@@ -84,7 +81,7 @@ public class Palette{
 		}
 	}
 	public int getHeight(){
-		return height;
+		return HEIGHT;
 	}
 	
 	public void update(Input input){
@@ -106,8 +103,7 @@ public class Palette{
 	}
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 
 	public Sample[] getSamples() {
@@ -121,7 +117,7 @@ public class Palette{
 	}
 
 	public int getWidth() {
-		return width;
+		return WIDTH;
 	}
 
 	public String toPrintable() {
@@ -132,6 +128,6 @@ public class Palette{
 				samps += samples[i].getPrintable();
 			}
 		}
-		return name + "; " + samps;
+		return name + "#! " + samps;
 	}
 }

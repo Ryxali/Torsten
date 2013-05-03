@@ -76,7 +76,7 @@ public class UserFileReader {
 		while (indata.hasNextLine()) {
 			String s = indata.nextLine();
 			System.out.println(">>>" + s);
-			if(s.contains(";")){
+			if(s.contains(Convention.LAYER_1)){
 				System.out.println("match");
 				lines++;
 			}
@@ -92,18 +92,18 @@ public class UserFileReader {
 		while (indata.hasNextLine()) {
 			String line = indata.nextLine();
 			System.out.println(line);
-			String[] temp = line.split("; ");
+			String[] temp = line.split(Convention.LAYER_1);
 			System.out.println(">-->>>>->" + line.replace(temp[0], ""));
 			
-			tempPal[curLine] = createPalette(temp[0], line.replace(temp[0]+"; ", ""));
+			tempPal[curLine] = createPalette(temp[0], line.replace(temp[0]+Convention.LAYER_1, ""));
 			curLine++;
 		}
 		return tempPal;
 	}
 
 	private Palette createPalette(String name, String creatureData) {
-		Palette temp = new Palette(name, 200, 400);
-		String[] creatureValues = creatureData.split("; ");
+		Palette temp = new Palette(name);
+		String[] creatureValues = creatureData.split(Convention.LAYER_1);
 		
 		for (int i = 0; i < creatureValues.length; i++) {
 			temp.add(readSample(creatureValues[i], i));
@@ -112,7 +112,10 @@ public class UserFileReader {
 	}
 
 	private Sample readSample(String sampleInfo, int curIndex) {
-		String[] sampleData = sampleInfo.split(", ");
+		String[] sampleData = sampleInfo.split(Convention.LAYER_2);
+		for (int i = 0; i < sampleData.length; i++) {
+			System.out.println("<============== " + sampleData[i]);
+		}
 		return new Sample(sampleData[0],
 				sampleData[1], sampleData[2], sampleData[3]);
 	}
@@ -125,28 +128,28 @@ public class UserFileReader {
 			PrintWriter utdata = new PrintWriter(new BufferedWriter(new FileWriter(
 					USER_DATA_PATH)));
 
-			utdata.print("Creature; ");
+			utdata.print("Creature" + Convention.LAYER_1);
 			DefaultData[] temp = DefaultData.listOfType("Creature");
 			for (int i = 0; i < temp.length; i++) {
-				utdata.print(temp[i].getName() + ", " + temp[i].getImgRef()
-						+ ", " + temp[i].getType() + ", " + temp[i].getInfo()
-						+ "; ");
+				utdata.print(temp[i].getName() + Convention.LAYER_2 + temp[i].getImgRef()
+						+ Convention.LAYER_2 + temp[i].getType() + Convention.LAYER_2 + temp[i].getInfo()
+						+ Convention.LAYER_1);
 			}
 			utdata.print("\n");
-			utdata.print("Obstacle; ");
+			utdata.print("Obstacle"+ Convention.LAYER_1);
 			DefaultData[] temp2 = DefaultData.listOfType("Obstacle");
 			for (int i = 0; i < temp2.length; i++) {
-				utdata.print(temp2[i].getName() + ", " + temp2[i].getImgRef()
-						+ ", " + temp2[i].getType() + ", " + temp2[i].getInfo()
-						+ "; ");
+				utdata.print(temp2[i].getName() + Convention.LAYER_2 + temp2[i].getImgRef()
+						+ Convention.LAYER_2 + temp2[i].getType() + Convention.LAYER_2 + temp2[i].getInfo()
+						+ Convention.LAYER_1);
 			}
 			utdata.print("\n");
-			utdata.print("Item; ");
+			utdata.print("Item"+ Convention.LAYER_1);
 			DefaultData[] temp3 = DefaultData.listOfType("Item");
 			for (int i = 0; i < temp3.length; i++) {
-				utdata.print(temp3[i].getName() + ", " + temp3[i].getImgRef()
-						+ ", " + temp3[i].getType() + ", " + temp3[i].getInfo()
-						+ "; ");
+				utdata.print(temp3[i].getName() + Convention.LAYER_2 + temp3[i].getImgRef()
+						+ Convention.LAYER_2 + temp3[i].getType() + Convention.LAYER_2 + temp3[i].getInfo()
+						+ Convention.LAYER_1);
 			}
 			utdata.close();
 		} catch (IOException e) {

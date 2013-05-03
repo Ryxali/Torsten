@@ -7,6 +7,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import core.button.StandardButton;
+import core.file.Convention;
 import core.image.Drawable;
 import core.image.DrawableXY;
 import core.image.ImageStore;
@@ -148,13 +149,13 @@ public class Square extends StandardButton {
 		System.out.println("----_____----" +
 				"");*/
 		if (!squareInfo[1].equals("")) {
-			String[] c = squareInfo[1].split(", ");
+			String[] c = squareInfo[1].split(Convention.LAYER_2);
 			// Ignore saved type as it's redundant to put in.
 			creature = new Creature(c[0], c[1], c[3]);
 		}
 		if (!squareInfo[2].equals("")) {
 			//System.out.println(squareInfo[2]);
-			String[] o = squareInfo[2].split(", ");
+			String[] o = squareInfo[2].split(Convention.LAYER_2);
 			// Ignore saved type as it's redundant to put in.
 			obstacle = new Obstacle(o[0], o[1], o[3]);
 		}
@@ -166,7 +167,7 @@ public class Square extends StandardButton {
 	private static void setLoot(String lootInfo, LootPile loot) {
 		lootInfo = lootInfo.replace("{", "").replace("}", "");
 		if (!lootInfo.equals("")) {
-			String[] l = lootInfo.split("; ");
+			String[] l = lootInfo.split(Convention.LAYER_4);
 			for (int i = 0; i < l.length; i++) {
 				loot.add(getLoot(l[i]));
 			}
@@ -174,31 +175,32 @@ public class Square extends StandardButton {
 	}
 
 	private static Item getLoot(String itemInfo) {
-		System.out.println(":--__" + itemInfo);
-		String[] i = itemInfo.split(", ");
+		String[] i = itemInfo.split(Convention.LAYER_3);
+		for (int j = 0; j < i.length; j++) {
+		}
 		return new Item(i[0], i[1], i[3]);
 	}
 
 	public String concatInfo() {
-		String temp = squareImg.getResourceReference() + ": ";
+		String temp = squareImg.getResourceReference() + Convention.LAYER_1;
 		if (creature != null) {
-			temp += creature.getName() + ", " + creature.getRef() + ", "
-					+ creature.getType() + ", " + creature.getInfo();
+			temp += creature.getName() + Convention.LAYER_2 + creature.getRef() + Convention.LAYER_2
+					+ creature.getType() + Convention.LAYER_2 + creature.getInfo();
 		}
-		temp += ": ";
+		temp += "#! ";
 		if (obstacle != null) {
-			temp += obstacle.getName() + ", " + obstacle.getRef() + ", "
-					+ obstacle.getType() + ", " + obstacle.getInfo();
+			temp += obstacle.getName() + Convention.LAYER_2 + obstacle.getRef() + Convention.LAYER_2
+					+ obstacle.getType() + Convention.LAYER_2 + obstacle.getInfo();
 		}
-		temp += ": {";
+		temp += Convention.LAYER_1 + "{";
 		if (loot != null) {
 			for (int i = 0; i < loot.size(); i++) {
-				temp += loot.get(i).getName() + ", " + loot.get(i).getRef()
-						+ ", " + loot.get(i).getType() + ", "
-						+ loot.get(i).getInfo() + "; ";
+				temp += loot.get(i).getName() + Convention.LAYER_2 + loot.get(i).getRef()
+						+ Convention.LAYER_2 + loot.get(i).getType() + Convention.LAYER_2
+						+ loot.get(i).getInfo() + Convention.LAYER_3;
 			}
 		}
-		temp += "}# ";
+		temp += "}" + Convention.LAYER_0;
 		return temp;
 	}
 

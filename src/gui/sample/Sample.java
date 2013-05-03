@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 import core.button.StandardButton;
+import core.file.Convention;
 import core.image.ImageStore;
 
 import gui.Tooltip;
@@ -27,7 +28,7 @@ import gui.square.item.SquareItem;
 public class Sample extends StandardButton implements Placeable {
 	private byte elementPosX;
 	private short elementPosY;
-	private SquareItem pObject;
+	private SquareItem sampleItem;
 	/**
 	 * The image of this sample's placeable object
 	 */
@@ -62,22 +63,29 @@ public class Sample extends StandardButton implements Placeable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		setPlaceableObject(name, imageRef, type, info);
+		setSquareItem(name, imageRef, type, info);
 	}
-
-	private void setPlaceableObject(String name, String imageRef, String type,
+	/**
+	 * Creates a squareItem and connects it with this sample.
+	 * @param name the name of the item.
+	 * @param imageRef the image reference of the item.
+	 * @param type the type of the item.
+	 * @param info the info of the item.
+	 */
+	private void setSquareItem(String name, String imageRef, String type,
 			String info) {
 		//System.out.println("WAT");
 		try {
 			if (type.toLowerCase().equals(TYPE_CREATURE.toLowerCase())) {
-				pObject = new Creature(name, new Image(imageRef).getScaledCopy(64, 64), info);
+				sampleItem = new Creature(name, new Image(imageRef).getScaledCopy(64, 64), info);
 				System.out.println("CREATURE");
 			}
 			if (type.toLowerCase().equals(TYPE_ITEM.toLowerCase())) {
-				pObject = new Item(name, new Image(imageRef).getScaledCopy(64, 64), info);
+				sampleItem = new Item(name, new Image(imageRef).getScaledCopy(64, 64), info);
 			}
 			if (type.toLowerCase().equals(TYPE_OBSTACLE.toLowerCase())) {
-				pObject = new Obstacle(name, new Image(imageRef).getScaledCopy(64, 64), info);
+				System.out.println("AYE");
+				sampleItem = new Obstacle(name, new Image(imageRef).getScaledCopy(64, 64), info);
 			}
 		} catch (SlickException e) {
 		}
@@ -85,36 +93,46 @@ public class Sample extends StandardButton implements Placeable {
 	/**
 	 * Retrieve the placeable object this sample is holding.
 	 * @return pObject the placeable object
+	 * @deprecated placeableobject is no longer used in this manner and so this method is not proper to use.
 	 */
 	public SquareItem getPlaceableObject(){
-		return pObject;
+		return sampleItem;
 	}
-	
+	/**
+	 * Get the square item this sample is representing.
+	 * @return sampleItem the square item this sample is representing.
+	 */
 	public SquareItem getSquareItem(){
-		return pObject;
+		return sampleItem;
 	}
 	
 	public void draw(Graphics g, int x, int y, int screenWidth, int screenHeight, Input input) {
 		slotImg.draw(x, y);
 		super.draw(g, x, y, input);
 		if(getState() == STATE_HOVER || getState() == STATE_PRESSED){
-			Tooltip.get().draw(g, screenWidth, screenHeight, pObject);
+			Tooltip.get().draw(g, screenWidth, screenHeight, sampleItem);
 		}
 		super.draw(g, x, y, input);
 	}
-
+	/**
+	 * Fetch a printable line of string that is primarily used for saving in palettes.
+	 * @return a line of string that can be printed/read in a palette.dat file.
+	 * @see core.file.UserFileReader
+	 */
 	public String getPrintable() {
-		return pObject.getName() + ", " + pObject.getRef() + ", " + pObject.getType() + ", " + pObject.getInfo()+ "; ";
+		return sampleItem.getName() + Convention.LAYER_2 + sampleItem.getRef() + Convention.LAYER_2 + sampleItem.getType() + Convention.LAYER_2 + sampleItem.getInfo()+ Convention.LAYER_1;
 	}
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
 		slotImg.draw(x-slotImg.getWidth(), y-slotImg.getHeight());
 	}
-
+	/**
+	 * Puts this sample's content onto the specified square.
+	 */
 	@Override
 	public void onUse(Square square) {
-		square.put(pObject);
+		square.put(sampleItem);
 		
 	}
 

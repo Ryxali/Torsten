@@ -19,6 +19,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
 import core.button.Button;
+import core.file.Convention;
 import core.image.Drawable;
 import core.image.ImageStore;
 
@@ -83,8 +84,6 @@ public class Grid {
 			squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
 					.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
 					.drawTooltip(g, screenWidth, screenHeight, input);
-			g.setColor(Color.lightGray);
-			g.drawString(baseX + " " + baseY, 300, 300);
 		} catch (ArrayIndexOutOfBoundsException e) {
 		}
 	}
@@ -303,9 +302,12 @@ public class Grid {
 	}
 
 	public void setSquare(String string, int rowIndex, int colIndex) {
-		String[] squareInfo = string.split(": ");
+		String[] squareInfo = string.split(Convention.LAYER_1);
 		// System.out.println("___________" + string);
 		System.out.println(rowIndex + " x " + colIndex);
+		for (int i = 0; i < squareInfo.length; i++) {
+			System.out.println(" ()()()(()()()()())() " + squareInfo[i]);
+		}
 		squares[rowIndex][colIndex] = new Square(squareInfo, rowIndex * 64,
 				colIndex * 64);
 	}

@@ -13,7 +13,7 @@ import core.file.UserFileReader;
 public class PaletteStore {
 	
 	private static PaletteStore pStore;
-	private GButton[] pButtons;
+	private PaletteSwitchButton[] pButtons;
 	public static final int HEIGHT = 50;
 	
 	public static PaletteStore get(){
@@ -25,9 +25,9 @@ public class PaletteStore {
 	
 	private PaletteStore(){
 		palettes = UserFileReader.get().readFile();
-		pButtons = new GButton[palettes.length];
+		pButtons = new PaletteSwitchButton[palettes.length];
 		for (int i = 0; i < pButtons.length; i++) {
-			pButtons[i] = new GButton();
+			pButtons[i] = new PaletteSwitchButton(palettes[i].getName());
 		}
 	}
 	/**
@@ -85,7 +85,7 @@ public class PaletteStore {
 		g.setColor(Color.lightGray);
 		g.fillRect(screenWidth-getActivePalette().getWidth(), getY(), getActivePalette().getWidth(), 50);
 		for (int i = 0; i < pButtons.length; i++) {
-			pButtons[i].draw(g, screenWidth-getActivePalette().getWidth()+getActivePalette().getWidth()/pButtons.length*i, Palette.Y_POS-HEIGHT, getActivePalette().getWidth()/pButtons.length, HEIGHT, input);
+			pButtons[i].draw(g, screenWidth-getActivePalette().getWidth()+getActivePalette().getWidth()/pButtons.length*i, Palette.Y_POS-HEIGHT, getActivePalette().getWidth()/pButtons.length, HEIGHT, screenWidth, screenHeight, input);
 			//g.setColor(Color.black);
 			//g.drawRect(Palette.X_POS, Palette.Y_POS-50,getActivePalette().getWidth()/palettes.length*i, 50);
 		}
@@ -100,5 +100,18 @@ public class PaletteStore {
 			}
 		}
 		getActivePalette().update(input);
+	}
+
+	public void add(Palette palette) {
+		Palette[] temp = new Palette[palettes.length+1];
+		for (int i = 0; i < palettes.length; i++) {
+			temp[i] = palettes[i];
+		}
+		temp[temp.length-1] = palette;
+		palettes = temp;
+		pButtons = new PaletteSwitchButton[palettes.length];
+		for (int i = 0; i < pButtons.length; i++) {
+			pButtons[i] = new PaletteSwitchButton(palettes[i].getName());
+		}
 	}
 }

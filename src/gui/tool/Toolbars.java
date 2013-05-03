@@ -9,8 +9,20 @@ import core.Main;
 import core.state.StateList;
 
 public enum Toolbars {
-	UTILITIES(new AnchoredToolbar("Utilites", 0, 64, 64, 600-64-150, AnchoredToolbar.ANCHOR_LEFT_TOP, new DeleteTool("Del."), new DeleteTool("Del."))),
-	FILE(new AnchoredToolbar("File", 0, 0, 600, 64, AnchoredToolbar.ANCHOR_LEFT_TOP, new NewGridTool("New\nGrid"), new SaveTool("Save"), new LoadTool("Load"), new SettingsTool("Sett-\nings")));
+	UTILITIES(
+			new AnchoredToolbar("Utilites", 0, 64, 64, 600-64-150, AnchoredToolbar.ANCHOR_LEFT_TOP, 
+			new DeleteTool("Del.")
+			)),
+	FILE(new AnchoredToolbar("File", 0, 0, 600, 64, AnchoredToolbar.ANCHOR_LEFT_TOP,
+			new NewGridTool("New\nGrid"),
+			new SaveTool("Save"),
+			new LoadTool("Load"),
+			new SettingsTool("Sett-\nings"),
+			new NewPaletteTool("New\nPalette"),
+			new AddSampleTool("Add\nSample")
+			))
+	;
+	
 	private final AnchoredToolbar toolbar;
 	private Toolbars(AnchoredToolbar toolbar){
 		this.toolbar = toolbar;
