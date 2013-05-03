@@ -21,7 +21,7 @@ import org.newdawn.slick.Input;
 import core.button.Button;
 import core.file.Convention;
 import core.image.Drawable;
-import core.image.ImageStore;
+import core.image.DefaultImage;
 
 /**
  * The intent of this class is to contain the 2 dimensional array of squares to
@@ -114,7 +114,7 @@ public class Grid {
 	public void fillTiles() {
 		for (int x = 0; x < squares.length; x++) {
 			for (int y = 0; y < squares[x].length; y++) {
-				squares[x][y] = new Square(ImageStore.TILE_PLAIN,
+				squares[x][y] = new Square(DefaultImage.TILE_PLAIN,
 						+Square.SQUARE_DIMENSION * x, +Square.SQUARE_DIMENSION
 								* y);
 			}
@@ -304,10 +304,6 @@ public class Grid {
 	public void setSquare(String string, int rowIndex, int colIndex) {
 		String[] squareInfo = string.split(Convention.LAYER_1);
 		// System.out.println("___________" + string);
-		System.out.println(rowIndex + " x " + colIndex);
-		for (int i = 0; i < squareInfo.length; i++) {
-			System.out.println(" ()()()(()()()()())() " + squareInfo[i]);
-		}
 		squares[rowIndex][colIndex] = new Square(squareInfo, rowIndex * 64,
 				colIndex * 64);
 	}

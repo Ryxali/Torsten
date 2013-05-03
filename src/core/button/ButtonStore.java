@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
-import core.image.ImageStore;
+import core.image.DefaultImage;
 
 /**
  * Contains all the static buttons used by the game.

@@ -15,16 +15,16 @@ public enum ImageCluster{
 	
 	private final String name;
 	private final String use;
-	private ImageStore[] images;
-	private ImageCluster(String name, String use, ImageStore... images){
+	private DefaultImage[] images;
+	private ImageCluster(String name, String use, DefaultImage... images){
 		this.images = images;
 		this.name = name;
 		this.use = use;
 	}
-	public ImageStore[] getImages(){
+	public DefaultImage[] getImages(){
 		return images;
 	}
-	public ImageStore get(int index){
+	public DefaultImage get(int index){
 		return images[index];
 	}
 	public static ImageCluster getClusterByNameAndUsage(String name, String usage){

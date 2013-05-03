@@ -7,7 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
-import core.image.ImageStore;
+import core.image.DefaultImage;
 /**
  * A StandardButton with an x and y position
  * @author Niklas L
@@ -28,8 +28,8 @@ public class StandardButtonXY extends StandardButton {
 	 * @param hoverImg the image displayed when this button is in its hover state.
 	 * @param pressedImg the image displayed when this button is in its pressed state.
 	 */
-	public StandardButtonXY(int x, int y, ImageStore idleImg,
-			ImageStore hoverImg, ImageStore pressedImg) {
+	public StandardButtonXY(int x, int y, DefaultImage idleImg,
+			DefaultImage hoverImg, DefaultImage pressedImg) {
 		super(idleImg, hoverImg, pressedImg);
 		this.x = x;
 		this.y = y;

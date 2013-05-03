@@ -1,13 +1,12 @@
 package gui.square.item;
 
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import core.image.DrawableXY;
+import core.image.ImageStore;
 
 public abstract class SquareItem implements DrawableXY {
-	
 
 	/**
 	 * The image representation of this creature
@@ -21,29 +20,28 @@ public abstract class SquareItem implements DrawableXY {
 	 * The name of the creature
 	 */
 	protected String name;
-	
+
 	public SquareItem(String name, Image image, String info) {
 		this.image = image;
 		this.info = info;
 		this.name = name;
 	}
+
 	public SquareItem(String name, String imgRef, String info) {
-		System.out.println(name + " - " + imgRef + " - " + info);
-		try{
-			this.image = new Image(imgRef);
-		}catch(Exception e){
-			
-		}
+		this.image = ImageStore.get().getImage(imgRef);
 		this.info = info;
 		this.name = name;
 	}
-	
+
 	/**
 	 * Formats the string to split at given bounds
 	 * 
-	 * @param g the current graphics context
-	 * @param string the string to split
-	 * @param maxWidth the maximum width bounds.
+	 * @param g
+	 *            the current graphics context
+	 * @param string
+	 *            the string to split
+	 * @param maxWidth
+	 *            the maximum width bounds.
 	 * @return a string split to fit within the bounds.
 	 */
 	private String format(Graphics g, String string, int maxWidth) {
@@ -51,24 +49,26 @@ public abstract class SquareItem implements DrawableXY {
 		float width = 0;
 		String product = "";
 		for (int i = 0; i < temp.length; i++) {
-			//g.drawString(((width+g.getFont().getWidth(temp[i]+ " ")) + " : " + maxWidth), 100, i* 15);
-			//g.fillRect(5, 400, maxWidth, 50);
-			//g.fillRect(width, 300, g.getFont().getWidth(temp[i] + " "), 20);
-			if (width + g.getFont().getWidth(temp[i] + " ")*2 < maxWidth) {
-				//g.drawString(((width+g.getFont().getWidth(temp[i]+ " ")) + " : " + maxWidth), 220, i* 15);
+			// g.drawString(((width+g.getFont().getWidth(temp[i]+ " ")) + " : "
+			// + maxWidth), 100, i* 15);
+			// g.fillRect(5, 400, maxWidth, 50);
+			// g.fillRect(width, 300, g.getFont().getWidth(temp[i] + " "), 20);
+			if (width + g.getFont().getWidth(temp[i] + " ") * 2 < maxWidth) {
+				// g.drawString(((width+g.getFont().getWidth(temp[i]+ " ")) +
+				// " : " + maxWidth), 220, i* 15);
 				width += g.getFont().getWidth(temp[i] + " ");
 				product += temp[i];
 				if (temp[i].contains("\n")) {
 					width = 0;
-				}else{
+				} else {
 					product += " ";
 				}
-				//System.out.println(width);
+				// System.out.println(width);
 			} else {
 				width = g.getFont().getWidth(temp[i] + " ");
 				product += "\n" + temp[i] + " ";
 			}
-			
+
 		}
 		/*
 		 * boolean running = true; while (running) { while
@@ -80,32 +80,36 @@ public abstract class SquareItem implements DrawableXY {
 
 		return product;
 	}
-	
-	public String getInfo(){
+
+	public String getInfo() {
 		return info;
 	}
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
+
 	public abstract String getType();
-	
-	public String getRef(){
+
+	public String getRef() {
 		return image.getResourceReference();
 	}
+
 	/**
 	 * Draws this objects text info into the text box
+	 * 
 	 * @param g
 	 * @param x1
 	 * @param y1
-	 * @param width 
+	 * @param width
 	 * @param textRow
 	 * @return the number of rows this text takes
 	 */
 	public void drawInfo(Graphics g, int x1, int y1, int width) {
 		String temp = name + "\n";
-		temp +=format(g, info, width);
+		temp += format(g, info, width);
 		g.drawString(temp, x1, y1);
-		
-		//return temp.split("\n").length;
+
+		// return temp.split("\n").length;
 	}
 }

@@ -8,7 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
-import core.image.ImageStore;
+import core.image.DefaultImage;
 
 /**
  * Needs Revising
@@ -24,7 +24,7 @@ public class ListButton extends ButtonXY {
 
 	private int[] states;
 
-	public ListButton(int x, int y, ImageStore idleImg, ImageStore hoverImg,
+	public ListButton(int x, int y, DefaultImage idleImg, DefaultImage hoverImg,
 			DropdownList dList) {
 		super(x, y);
 		this.idleImg = idleImg.getImage();

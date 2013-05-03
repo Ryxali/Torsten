@@ -6,7 +6,7 @@ import org.newdawn.slick.Graphics;
  * specifications
  * @author Niklas L
  * @see core.image.DrawableXY
- * @see core.image.ImageStore
+ * @see core.image.DefaultImage
  */
 public interface Drawable {
 	/**

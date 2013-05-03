@@ -6,7 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
-import core.image.ImageStore;
+import core.image.DefaultImage;
 /**
  * A button drawn with the slick graphics.
  * @author Niklas L

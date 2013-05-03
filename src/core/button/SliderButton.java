@@ -7,7 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
-import core.image.ImageStore;
+import core.image.DefaultImage;
 
 /**
  * Needs revising
@@ -27,8 +27,8 @@ public class SliderButton extends ButtonXY {
 	public static final boolean ALIGN_VERTICAL = false;
 	private boolean renderBounds = false;
 
-	public SliderButton(int x, int y, ImageStore sliderImg,
-			ImageStore sliderBar, boolean facing, String sliderVal) {
+	public SliderButton(int x, int y, DefaultImage sliderImg,
+			DefaultImage sliderBar, boolean facing, String sliderVal) {
 		super(x, y);
 		perc = 0.5;
 		this.sliderImg = sliderImg.getImage();

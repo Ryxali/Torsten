@@ -7,7 +7,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
-import core.image.ImageStore;
+import core.image.DefaultImage;
 /**
  * A button using three different images to represent its states.
  * @author Niklas L
@@ -35,8 +35,8 @@ public class StandardButton extends Button {
 	 * @param hoverImg the image displayed when this button is in its hover state.
 	 * @param pressedImg the image displayed when this button is in its pressed state.
 	 */
-	public StandardButton(ImageStore idleImg,
-			ImageStore hoverImg, ImageStore pressedImg) {
+	public StandardButton(DefaultImage idleImg,
+			DefaultImage hoverImg, DefaultImage pressedImg) {
 		super();
 		this.idleImg = idleImg.getImage();
 		this.hoverImg = hoverImg.getImage();

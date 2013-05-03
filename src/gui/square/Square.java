@@ -10,9 +10,8 @@ import core.button.StandardButton;
 import core.file.Convention;
 import core.image.Drawable;
 import core.image.DrawableXY;
+import core.image.DefaultImage;
 import core.image.ImageStore;
-
-
 
 import gui.Tooltip;
 import gui.sample.Sample;
@@ -87,9 +86,9 @@ public class Square extends StandardButton {
 	 * @param y
 	 *            the y position of the square
 	 */
-	public Square(ImageStore squareImg, int x, int y) {
-		super(ImageStore.TILE_MARKER_IDLE, ImageStore.TILE_MARKER_HOVER,
-				ImageStore.TILE_MARKER_PRESSED);
+	public Square(DefaultImage squareImg, int x, int y) {
+		super(DefaultImage.TILE_MARKER_IDLE, DefaultImage.TILE_MARKER_HOVER,
+				DefaultImage.TILE_MARKER_PRESSED);
 		this.x = x;
 		this.y = y;
 		this.squareImg = squareImg.getImage();
@@ -120,10 +119,10 @@ public class Square extends StandardButton {
 	 * @param y
 	 *            the y position of the square.
 	 */
-	public Square(ImageStore squareImg, Creature creature, LootPile loot,
+	public Square(DefaultImage squareImg, Creature creature, LootPile loot,
 			Obstacle obstacle, int x, int y) {
-		super(ImageStore.TILE_MARKER_IDLE, ImageStore.TILE_MARKER_HOVER,
-				ImageStore.TILE_MARKER_PRESSED);
+		super(DefaultImage.TILE_MARKER_IDLE, DefaultImage.TILE_MARKER_HOVER,
+				DefaultImage.TILE_MARKER_PRESSED);
 		this.x = x;
 		this.y = y;
 		this.squareImg = squareImg.getImage();
@@ -133,28 +132,24 @@ public class Square extends StandardButton {
 	}
 
 	public Square(String[] squareInfo, int x, int y) {
-		super(ImageStore.TILE_MARKER_IDLE, ImageStore.TILE_MARKER_HOVER,
-				ImageStore.TILE_MARKER_PRESSED);
+		super(DefaultImage.TILE_MARKER_IDLE, DefaultImage.TILE_MARKER_HOVER,
+				DefaultImage.TILE_MARKER_PRESSED);
 		this.x = x;
 		this.y = y;
-		try {
-			squareImg = new Image(squareInfo[0]).getScaledCopy(64, 64);
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		/*System.out.println("----::::----");
-		for (int i = 0; i < squareInfo.length; i++) {
-			System.out.println(squareInfo[i]);
-		}
-		System.out.println("----_____----" +
-				"");*/
+		squareImg = ImageStore.get().getImage(squareInfo[0])
+				.getScaledCopy(64, 64);
+		/*
+		 * System.out.println("----::::----"); for (int i = 0; i <
+		 * squareInfo.length; i++) { System.out.println(squareInfo[i]); }
+		 * System.out.println("----_____----" + "");
+		 */
 		if (!squareInfo[1].equals("")) {
 			String[] c = squareInfo[1].split(Convention.LAYER_2);
 			// Ignore saved type as it's redundant to put in.
 			creature = new Creature(c[0], c[1], c[3]);
 		}
 		if (!squareInfo[2].equals("")) {
-			//System.out.println(squareInfo[2]);
+			// System.out.println(squareInfo[2]);
 			String[] o = squareInfo[2].split(Convention.LAYER_2);
 			// Ignore saved type as it's redundant to put in.
 			obstacle = new Obstacle(o[0], o[1], o[3]);
@@ -184,19 +179,22 @@ public class Square extends StandardButton {
 	public String concatInfo() {
 		String temp = squareImg.getResourceReference() + Convention.LAYER_1;
 		if (creature != null) {
-			temp += creature.getName() + Convention.LAYER_2 + creature.getRef() + Convention.LAYER_2
-					+ creature.getType() + Convention.LAYER_2 + creature.getInfo();
+			temp += creature.getName() + Convention.LAYER_2 + creature.getRef()
+					+ Convention.LAYER_2 + creature.getType()
+					+ Convention.LAYER_2 + creature.getInfo();
 		}
 		temp += "#! ";
 		if (obstacle != null) {
-			temp += obstacle.getName() + Convention.LAYER_2 + obstacle.getRef() + Convention.LAYER_2
-					+ obstacle.getType() + Convention.LAYER_2 + obstacle.getInfo();
+			temp += obstacle.getName() + Convention.LAYER_2 + obstacle.getRef()
+					+ Convention.LAYER_2 + obstacle.getType()
+					+ Convention.LAYER_2 + obstacle.getInfo();
 		}
 		temp += Convention.LAYER_1 + "{";
 		if (loot != null) {
 			for (int i = 0; i < loot.size(); i++) {
-				temp += loot.get(i).getName() + Convention.LAYER_2 + loot.get(i).getRef()
-						+ Convention.LAYER_2 + loot.get(i).getType() + Convention.LAYER_2
+				temp += loot.get(i).getName() + Convention.LAYER_2
+						+ loot.get(i).getRef() + Convention.LAYER_2
+						+ loot.get(i).getType() + Convention.LAYER_2
 						+ loot.get(i).getInfo() + Convention.LAYER_3;
 			}
 		}
@@ -225,7 +223,7 @@ public class Square extends StandardButton {
 			creature.draw(g, baseX + x, baseY + y);
 		}
 		super.draw(g, x + baseX, y + baseY, input);
-		//getStoredImage().draw(baseX + x, baseY + y);
+		// getStoredImage().draw(baseX + x, baseY + y);
 
 	}
 
@@ -237,8 +235,10 @@ public class Square extends StandardButton {
 	 * @param input
 	 *            the current user input
 	 */
-	public void drawTooltip(Graphics g, int screenWidth, int screenHeight, Input input) {
-		Tooltip.get().draw(g, screenWidth, screenHeight, creature, obstacle, loot);
+	public void drawTooltip(Graphics g, int screenWidth, int screenHeight,
+			Input input) {
+		Tooltip.get().draw(g, screenWidth, screenHeight, creature, obstacle,
+				loot);
 
 		// g.drawString(x + " :" + y, input.getMouseX(), input.getMouseY());
 
@@ -261,13 +261,13 @@ public class Square extends StandardButton {
 			obstacle = (Obstacle) sample;
 		}
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		creature = null;
 		loot = new LootPile("Loot:", null, "");
 		obstacle = null;
 	}
-	
+
 	@Override
 	protected void update(Graphics g, int x, int y, int width, int height,
 			Input input) {
