@@ -72,12 +72,9 @@ public class UserFileReader {
 	
 	private int checkNumbPalettes(Scanner indata) {
 		int lines = 0;
-		System.out.println("Checkings!");
 		while (indata.hasNextLine()) {
 			String s = indata.nextLine();
-			System.out.println(">>>" + s);
 			if(s.contains(Convention.LAYER_1)){
-				System.out.println("match");
 				lines++;
 			}
 		}
@@ -93,7 +90,6 @@ public class UserFileReader {
 			String line = indata.nextLine();
 			System.out.println(line);
 			String[] temp = line.split(Convention.LAYER_1);
-			System.out.println(">-->>>>->" + line.replace(temp[0], ""));
 			
 			tempPal[curLine] = createPalette(temp[0], line.replace(temp[0]+Convention.LAYER_1, ""));
 			curLine++;
@@ -113,9 +109,6 @@ public class UserFileReader {
 
 	private Sample readSample(String sampleInfo, int curIndex) {
 		String[] sampleData = sampleInfo.split(Convention.LAYER_2);
-		for (int i = 0; i < sampleData.length; i++) {
-			System.out.println("<============== " + sampleData[i]);
-		}
 		return new Sample(sampleData[0],
 				sampleData[1], sampleData[2], sampleData[3]);
 	}

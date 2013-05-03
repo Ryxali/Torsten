@@ -23,7 +23,7 @@ import core.button.GButton;
 import core.file.FileReader;
 import core.file.FileSaver;
 import core.file.UserFileReader;
-import core.image.ImageStore;
+import core.image.DefaultImage;
 
 public class BuildState extends BasicState {
 

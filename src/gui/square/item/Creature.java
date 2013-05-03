@@ -43,15 +43,7 @@ public class Creature extends SquareItem {
 		image.draw(x, y);
 
 	}
-	
-	private static Image getImg(String ref){
-		try{
-			return new Image(ref);
-		}catch(Exception e){
-			
-		}
-		return null;
-	}
+
 	@Override
 	public String getType() {
 		// TODO Auto-generated method stub

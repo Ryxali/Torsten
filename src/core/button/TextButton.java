@@ -4,13 +4,13 @@ package core.button;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
-import core.image.ImageStore;
+import core.image.DefaultImage;
 
 
 public class TextButton extends StandardButtonXY{
 	private String title;
-	public TextButton(String title, int x, int y, ImageStore idleImg, ImageStore hoverImg,
-			ImageStore pressedImg) {
+	public TextButton(String title, int x, int y, DefaultImage idleImg, DefaultImage hoverImg,
+			DefaultImage pressedImg) {
 		super(x, y, idleImg, hoverImg, pressedImg);
 		this.title = title;
 	}

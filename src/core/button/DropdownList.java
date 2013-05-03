@@ -12,7 +12,7 @@ import java.util.Collections;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
-import core.image.ImageStore;
+import core.image.DefaultImage;
 
 
 

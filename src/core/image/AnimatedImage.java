@@ -40,7 +40,7 @@ public class AnimatedImage extends Animation {
 		this.fileEnding = fileEnding;
 	}
 
-	public AnimatedImage(ImageStore srcImg, byte frames, int dur) {
+	public AnimatedImage(DefaultImage srcImg, byte frames, int dur) {
 		super(makeSheet(srcImg.getImage(), frames), dur);
 	}
 	private static SpriteSheet makeSheet(Image srcImg, int frames){

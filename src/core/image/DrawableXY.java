@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
  * An implement for all classes that uses position defined drawing
  * @author Niklas L
  * @see core.image.Drawable
- * @see core.image.ImageStore
+ * @see core.image.DefaultImage
  */
 public interface DrawableXY {
 	/**

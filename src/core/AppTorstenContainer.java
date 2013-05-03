@@ -16,7 +16,6 @@ public class AppTorstenContainer extends AppGameContainer{
 	
 	@Override
 	public void setForceExit(boolean forceExit) {
-		System.out.println("LEL");
 		super.setForceExit(forceExit);
 	}
 	

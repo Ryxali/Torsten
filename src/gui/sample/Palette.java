@@ -8,7 +8,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 import core.button.Button;
 import core.image.DrawableXY;
-import core.image.ImageStore;
+import core.image.DefaultImage;
 import core.state.BuildState;
 
 
@@ -23,7 +23,7 @@ import core.state.BuildState;
 public class Palette{
 	protected Sample[] samples;
 	private int sampleIndex;
-	private ImageStore frameImg;
+	private DefaultImage frameImg;
 	private String name;
 	private Rectangle frameRect;
 	public static final int X_POS = 600;

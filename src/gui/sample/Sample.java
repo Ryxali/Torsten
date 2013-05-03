@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
 
 import core.button.StandardButton;
 import core.file.Convention;
+import core.image.DefaultImage;
 import core.image.ImageStore;
 
 import gui.Tooltip;
@@ -46,96 +47,120 @@ public class Sample extends StandardButton implements Placeable {
 	 * The matching value for the squareItem type for obstacles.
 	 */
 	public static final String TYPE_OBSTACLE = "obstacle";
+
 	/**
 	 * Creates a new Sample with a placeable object
-	 * @param x the x position of this sample
-	 * @param y the y position of this sample
-	 * @param name the name of the placeable object
-	 * @param imageRef the image reference for the placeable object
-	 * @param type the type of the placeable object
-	 * @param info the info message of the placeable object
+	 * 
+	 * @param x
+	 *            the x position of this sample
+	 * @param y
+	 *            the y position of this sample
+	 * @param name
+	 *            the name of the placeable object
+	 * @param imageRef
+	 *            the image reference for the placeable object
+	 * @param type
+	 *            the type of the placeable object
+	 * @param info
+	 *            the info message of the placeable object
 	 */
 	public Sample(String name, String imageRef, String type, String info) {
-		super(ImageStore.SAMPLE_IDLE, ImageStore.SAMPLE_HOVER,
-				ImageStore.SAMPLE_PRESSED);
-		try {
-			slotImg = new Image(imageRef).getScaledCopy(64, 64);
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		super(DefaultImage.SAMPLE_IDLE, DefaultImage.SAMPLE_HOVER,
+				DefaultImage.SAMPLE_PRESSED);
+		slotImg = ImageStore.get().getImage(imageRef).getScaledCopy(64, 64);
+		
 		setSquareItem(name, imageRef, type, info);
 	}
+
 	/**
 	 * Creates a squareItem and connects it with this sample.
-	 * @param name the name of the item.
-	 * @param imageRef the image reference of the item.
-	 * @param type the type of the item.
-	 * @param info the info of the item.
+	 * 
+	 * @param name
+	 *            the name of the item.
+	 * @param imageRef
+	 *            the image reference of the item.
+	 * @param type
+	 *            the type of the item.
+	 * @param info
+	 *            the info of the item.
 	 */
 	private void setSquareItem(String name, String imageRef, String type,
 			String info) {
-		//System.out.println("WAT");
-		try {
-			if (type.toLowerCase().equals(TYPE_CREATURE.toLowerCase())) {
-				sampleItem = new Creature(name, new Image(imageRef).getScaledCopy(64, 64), info);
-				System.out.println("CREATURE");
-			}
-			if (type.toLowerCase().equals(TYPE_ITEM.toLowerCase())) {
-				sampleItem = new Item(name, new Image(imageRef).getScaledCopy(64, 64), info);
-			}
-			if (type.toLowerCase().equals(TYPE_OBSTACLE.toLowerCase())) {
-				System.out.println("AYE");
-				sampleItem = new Obstacle(name, new Image(imageRef).getScaledCopy(64, 64), info);
-			}
-		} catch (SlickException e) {
+		// System.out.println("WAT");
+		if (type.toLowerCase().equals(TYPE_CREATURE.toLowerCase())) {
+			sampleItem = new Creature(name, ImageStore.get().getImage(imageRef)
+					.getScaledCopy(64, 64), info);
+			System.out.println("CREATURE");
 		}
+		if (type.toLowerCase().equals(TYPE_ITEM.toLowerCase())) {
+			sampleItem = new Item(name, ImageStore.get().getImage(imageRef)
+					.getScaledCopy(64, 64), info);
+		}
+		if (type.toLowerCase().equals(TYPE_OBSTACLE.toLowerCase())) {
+			System.out.println("AYE");
+			sampleItem = new Obstacle(name, ImageStore.get().getImage(imageRef)
+					.getScaledCopy(64, 64), info);
+		}
+
 	}
+
 	/**
 	 * Retrieve the placeable object this sample is holding.
+	 * 
 	 * @return pObject the placeable object
-	 * @deprecated placeableobject is no longer used in this manner and so this method is not proper to use.
+	 * @deprecated placeableobject is no longer used in this manner and so this
+	 *             method is not proper to use.
 	 */
-	public SquareItem getPlaceableObject(){
+	public SquareItem getPlaceableObject() {
 		return sampleItem;
 	}
+
 	/**
 	 * Get the square item this sample is representing.
+	 * 
 	 * @return sampleItem the square item this sample is representing.
 	 */
-	public SquareItem getSquareItem(){
+	public SquareItem getSquareItem() {
 		return sampleItem;
 	}
-	
-	public void draw(Graphics g, int x, int y, int screenWidth, int screenHeight, Input input) {
-		//g.setColor(Color.lightGray);
-		//g.drawRect(x, y, 64, 64);
+
+	public void draw(Graphics g, int x, int y, int screenWidth,
+			int screenHeight, Input input) {
+		// g.setColor(Color.lightGray);
+		// g.drawRect(x, y, 64, 64);
 		slotImg.draw(x, y);
 		super.draw(g, x, y, input);
-		if(getState() == STATE_HOVER || getState() == STATE_PRESSED){
+		if (getState() == STATE_HOVER || getState() == STATE_PRESSED) {
 			Tooltip.get().draw(g, screenWidth, screenHeight, sampleItem);
 		}
 	}
+
 	/**
-	 * Fetch a printable line of string that is primarily used for saving in palettes.
+	 * Fetch a printable line of string that is primarily used for saving in
+	 * palettes.
+	 * 
 	 * @return a line of string that can be printed/read in a palette.dat file.
 	 * @see core.file.UserFileReader
 	 */
 	public String getPrintable() {
-		return sampleItem.getName() + Convention.LAYER_2 + sampleItem.getRef() + Convention.LAYER_2 + sampleItem.getType() + Convention.LAYER_2 + sampleItem.getInfo()+ Convention.LAYER_1;
+		return sampleItem.getName() + Convention.LAYER_2 + sampleItem.getRef()
+				+ Convention.LAYER_2 + sampleItem.getType()
+				+ Convention.LAYER_2 + sampleItem.getInfo()
+				+ Convention.LAYER_1;
 	}
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
-		slotImg.draw(x-slotImg.getWidth(), y-slotImg.getHeight());
+		slotImg.draw(x - slotImg.getWidth(), y - slotImg.getHeight());
 	}
+
 	/**
 	 * Puts this sample's content onto the specified square.
 	 */
 	@Override
 	public void onUse(Square square) {
 		square.put(sampleItem);
-		
+
 	}
 
 }

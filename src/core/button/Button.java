@@ -13,7 +13,7 @@ import org.newdawn.slick.Input;
 
 import core.Loadable;
 import core.image.DrawableXY;
-import core.image.ImageStore;
+import core.image.DefaultImage;
 
 
 /**

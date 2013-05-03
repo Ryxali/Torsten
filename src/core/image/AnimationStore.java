@@ -51,7 +51,7 @@ public enum AnimationStore implements Loadable {
 	 */
 	private final String fileEnding;
 	
-	private final ImageStore srcImg;
+	private final DefaultImage srcImg;
 	/**
 	 * Used for checking if the animation is being looped
 	 * automatically.
@@ -83,7 +83,7 @@ public enum AnimationStore implements Loadable {
 		this.autoRefresh = autoRefresh;
 		usingSpriteSheet = false;
 	}
-	private AnimationStore(ImageStore srcImg, int frames, int dur){
+	private AnimationStore(DefaultImage srcImg, int frames, int dur){
 		this.filePath = null;
 		this.fileName = null;
 		this.fileEnding = null;
