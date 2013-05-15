@@ -15,8 +15,13 @@ import core.image.DefaultImage;
  * @see core.button.Button
  */
 public class StandardButtonXY extends StandardButton {
-	
+	/**
+	 * The x position of this element
+	 */
 	protected int x;
+	/**
+	 * The y position of this element
+	 */
 	protected int y;
 	
 	/**
@@ -55,7 +60,7 @@ public class StandardButtonXY extends StandardButton {
 			Image pressedImg) {
 		super(idleImg, hoverImg, pressedImg);
 	}
-
+	
 	@Override
 	public StandardButtonXY copy() {
 		return new StandardButtonXY(x, y, idleImg, hoverImg, pressedImg);
@@ -90,20 +95,36 @@ public class StandardButtonXY extends StandardButton {
 	public int getType() {
 		return ButtonStore.MODE_REGULAR;
 	}
-
+	/**
+	 * Draws this button onto the screen
+	 * @param g the current Graphics context
+	 * @param input the current user input
+	 */
 	public void draw(Graphics g, Input input) {
 		//update(g, x, y, getProperImage().getWidth(), getProperImage().getHeight(), input);
 		draw(g, x, y, input);
 	}
-
+	/**
+	 * checks if the button should change state.
+	 * @param input the current user input.
+	 */
 	protected void buttonStateCheck(Input input) {
 		buttonStateCheck(x, y, input);
 	}
-
+	/**
+	 * Checks if the chosen points are within this button.
+	 * @param pointX the x coordinate to check
+	 * @param pointY the y coordinate to check
+	 * @return true if pointX and pointY is within this button.
+	 */
 	public boolean contains(int pointX, int pointY) {
 		return contains(pointX, pointY, x, y);
 	}
-
+	/**
+	 * Checks if the chosen point is within this button
+	 * @param point the point to check
+	 * @return true if point is within this button.
+	 */
 	public boolean contains(Point point) {
 		return contains((int) point.getX(), (int) point.getY());
 	}

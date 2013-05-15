@@ -13,7 +13,7 @@ import core.image.DefaultImage;
 /**
  * Needs Revising
  * @author Niklas L
- *
+ * @deprecated needs implementation and revising
  */
 public class ListButton extends ButtonXY {
 	private Image idleImg;

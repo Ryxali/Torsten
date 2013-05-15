@@ -4,6 +4,8 @@ package core.image;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+
+import core.Loadable;
 /**
  * <p>The storage for Animations in the game. These, along with
  * the images is initially not loaded to save starting time.</p>
@@ -12,7 +14,7 @@ import org.newdawn.slick.SlickException;
  * multiple instances (e.g. creatures) to prevent them from
  * walking in unison.</p>
  * @author Niklas Lindblad
- *
+ * @deprecated Animations aren't used
  */
 public enum AnimationStore implements Loadable {
 	DEFAULT(new AnimatedImage("res/img/Default/", "Def", ".png", 1, 1000, false, 1), 

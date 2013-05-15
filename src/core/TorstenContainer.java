@@ -6,19 +6,15 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.opengl.ImageData;
-
+/**
+ * An extension of the GameContainer
+ */
 public class TorstenContainer extends GameContainer {
 
 	protected TorstenContainer(Game game) {
 		super(game);
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void setForceExit(boolean forceExit) {
-		System.out.println("LEL");
-		super.setForceExit(forceExit);
-	}
+}
 
 	@Override
 	public int getScreenHeight() {

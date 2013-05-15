@@ -1,7 +1,10 @@
 package core.file;
-
+/**
+ * An enumeration designed to contain a preset of palette sample values.
+ * @author Niklas Lindblad
+ * @see UserFileReader
+ */
 public enum DefaultData {
-	//TODO fill this shit out.
 	GOBLIN_MINION("Lesser Goblin", "userData/img/Creature/goblinMinion.png", "Creature", "Sneaky git. Goblin Tactics"),
 	GOBLIN_BOSS("Boss Goblin", "userData/img/Creature/bossGoblin.png", "Creature", "Sneaky boss git. Goblin Tactics"),
 	OGRE("Ogre", "userData/img/Creature/ogre.png", "Creature", "Big baddie."),
@@ -15,31 +18,68 @@ public enum DefaultData {
 	GOLD_PILE("Gold Pile", "userData/img/Item/Treasure_Gold.png", "Item", "A large portion of permanent monetary income. (2d100 gold pieces)");
 	
 	
-	
+	/**
+	 * The name of this sample
+	 */
 	private final String name;
+	/**
+	 * The image reference of this sample
+	 */
 	private final String imgRef;
+	/**
+	 * The sample type
+	 */
 	private final String type;
+	/**
+	 * The info text of this sample
+	 */
 	private final String info;
+	/**
+	 * Creates a new sample info entry
+	 * @param name the name of the sample
+	 * @param imgRef the image ref of the sample
+	 * @param type the type of the sample
+	 * @param info the sample info
+	 */
 	private DefaultData(String name, String imgRef, String type, String info){
 		this.name = name;
 		this.imgRef = imgRef;
 		this.type = type;
 		this.info = info;
 	}
-	
+	/**
+	 * 
+	 * @return name, the sample name
+	 */
 	public String getName(){
 		return name;
 	}
+	/**
+	 * 
+	 * @return imgRef, the sample image reference
+	 */
 	public String getImgRef(){
 		return imgRef;
 	}
+	/**
+	 * 
+	 * @return type, the sample type
+	 */
 	public String getType(){
 		return type;
 	}
+	/**
+	 * 
+	 * @return info, the sample info
+	 */
 	public String getInfo(){
 		return info;
 	}
-	
+	/**
+	 * Retrieve all samples that is of specified type
+	 * @param type the type of samples you want to fetch
+	 * @return an array containing all samples of the specified type.
+	 */
 	public static DefaultData[] listOfType(String type){
 		DefaultData [] temp = values();
 		int size = 0;

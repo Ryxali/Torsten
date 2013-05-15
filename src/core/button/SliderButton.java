@@ -12,7 +12,7 @@ import core.image.DefaultImage;
 /**
  * Needs revising
  * @author Niklas L
- *
+ * @deprecated needs revising and usage
  */
 public class SliderButton extends ButtonXY {
 

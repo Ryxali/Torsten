@@ -7,7 +7,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 
-
+/**
+ * 
+ * @author Niklas L
+ * @deprecated animations aren't used in this editor
+ */
 public class AnimatedImage extends Animation {
 	private String path;
 	private String fileName;

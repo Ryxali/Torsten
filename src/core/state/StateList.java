@@ -2,11 +2,21 @@ package core.state;
 
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
+/**
+ * A list of states
+ * @author Niklas L
+ * @see BasicState
+ * @deprecated I have doubts this is useful when we're working with so few states.
+ */
 public enum StateList {
 	BUILD(new BuildState(), 0);
-	
+	/**
+	 * The state in question
+	 */
 	private final BasicState state;
+	/**
+	 * The id of the state
+	 */
 	private final int id;
 	private StateList(BasicState state, int id){
 		this.state = state;
