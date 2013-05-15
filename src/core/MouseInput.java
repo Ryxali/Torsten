@@ -1,6 +1,11 @@
 package core;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.MouseListener;
+/**
+ * 
+ * @author freetimer
+ * @deprecated input is already handled by the game states so this is unneccesary
+ */
 public class MouseInput implements MouseListener{
 	private static MouseInput mI;
 	

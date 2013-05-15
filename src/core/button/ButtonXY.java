@@ -5,7 +5,11 @@ import org.newdawn.slick.Input;
 
 import core.image.Drawable;
 
-
+/**
+ * A button with set x and y coordinates.
+ * @author Niklas L
+ * @deprecated this Class does not conform to hierarchy
+ */
 public abstract class ButtonXY extends Button{
 	
 	/**

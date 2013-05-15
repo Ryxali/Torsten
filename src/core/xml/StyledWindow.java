@@ -13,7 +13,11 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
-
+/**
+ * An unsuccessful XML test, will return to it shortly.
+ * @author Niklas L
+ *
+ */
 public class StyledWindow extends JWindow {
 
 	public StyledWindow(String xmlPath) {

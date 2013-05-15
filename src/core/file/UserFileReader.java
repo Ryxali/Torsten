@@ -13,20 +13,11 @@ import gui.sample.PaletteStore;
 import gui.sample.Sample;
 
 /**
- * Contains and handles Palette and Sample data.
- * 
- * <p>
- * brief explanation of file system:
- * <ul>
- * <li>Palette1 Name; Sample1Name, Sample1ImageRef, Sample1Type, Sample1Info;
- * Sample2...</li>
- * <li>Palette2 Name; Sample1Name, Sample1ImageRef, Sample1Type, Sample1Info;
- * Sample2...</li>
- * </ul>
- * </p>
+ * Contains, reads, saves and handles Palette and Sample data.
  * 
  * @author Niklas L
- * 
+ * @see Palette
+ * @see Sample
  */
 public class UserFileReader {
 

@@ -1,7 +1,10 @@
 package core.image;
 
 import java.util.ArrayList;
-
+/**
+ * 
+ * @deprecated we have no need for image arrays at this moment
+ */
 public enum ImageCluster{
 	BACKDROP_FOREST_FAR("forest", "far",
 			null);

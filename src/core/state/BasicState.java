@@ -10,21 +10,35 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import core.GameInput;
 import core.image.DefaultImage;
-
+/**
+ * An extension of the BasicGameState that overrides a few methods
+ * from its parent
+ * @author Niklas L
+ *
+ */
 public abstract class BasicState extends BasicGameState {
-	
+	/**
+	 * The current zoom factor
+	 */
 	protected double zoom = 1.0;
+	/**
+	 * Get the current scale of the program
+	 * @return zoom, the zoom scale factor
+	 */
 	public float getScale(){
 		return (float) zoom;
 		
 	}
+	/**
+	 * initiates this state.
+	 */
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) {
-		//makeMouseListener(gc.getInput());
-		//sbg.setInput(new GameInput(gc.getScreenHeight()));
 		gc.setAlwaysRender(false);
 	}
-	
+	/**
+	 * An override to the mouseWheelMoved event, adding in zooming.
+	 */
 	@Override
 	public void mouseWheelMoved(int change){
 		zoom += ((double)change)/3000;
@@ -33,14 +47,7 @@ public abstract class BasicState extends BasicGameState {
 		}
 		System.out.println(zoom);
 	}
-	@Override
-	public void leave(GameContainer container, StateBasedGame game)
-			throws SlickException {
-		System.out.println("LELEE");
-		super.leave(container, game);
-	}
-	public void setBounds(int valueOf, int valueOf2) {
-		// TODO Auto-generated method stub
+	public void setBounds(int width, int height){
 		
 	}
 	

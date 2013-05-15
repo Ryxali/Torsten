@@ -11,7 +11,7 @@ import core.image.DefaultImage;
  * Contains all the static buttons used by the game.
  * This excludes inventory slots.
  * @author Niklas Lindblad
- *
+ * @deprecated this has yet to see an implementation.
  */
 public enum ButtonStore {
 	NEW_GAME(null);

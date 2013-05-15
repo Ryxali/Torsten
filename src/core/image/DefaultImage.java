@@ -6,15 +6,10 @@ import org.newdawn.slick.SlickException;
 
 
 /**
- * <p>The storage for all the images in the game. It's 
- * important to note that most (if not all) images 
- * will not be preloaded by default to shorten 
- * startup time.</p>
- * <p>The Images stored here are final since
- * OpenGL 2.0 doesn't allow for dynamic string
- * sources as reference for images.</p>
+ * <p>The storage for all the default used image references
+ * in the game.</p>
  * @author Niklas Lindblad
- *
+ * @see ImageStore
  */
 public enum DefaultImage {
 	DEFAULT(fetchImg("res/img/Default/Def1.png")),
@@ -42,7 +37,7 @@ public enum DefaultImage {
 		getImage().draw((float) x, (float) y);
 	}
 	/**
-	 * safely fetches an image based on ref
+	 * safely fetches an image from the image store based on it's internal reference
 	 * @param ref
 	 * @return the image
 	 */

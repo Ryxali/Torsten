@@ -10,7 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-
+/**
+ * A yet to be properly implemented Dialogue box to be used in various options and settings
+ * @author Niklas L
+ *
+ */
 public class MultipleInputDialogue extends JFrame{
 	private static MultipleInputDialogue mid;
 	private MultipleInputDialogue(){

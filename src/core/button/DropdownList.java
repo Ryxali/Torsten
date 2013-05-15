@@ -16,7 +16,11 @@ import core.image.DefaultImage;
 
 
 
-
+/**
+ * 
+ * @author Niklas L
+ * @deprecated has yet to see implementation
+ */
 public enum DropdownList {
 	RESOLUTION(null, 
 			null, 

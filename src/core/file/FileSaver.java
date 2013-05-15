@@ -8,23 +8,27 @@ import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 
 /**
- * Uses Following Structure:
- * <ol>
- * <li>XBoundsxYBounds</li>
- * <li>SquareTile: SquareCreature: SquareObstacle: {SquareItem1; SquareItem...}. SquareTile...</li>
- * <li>SquareTile: SquareCreature: SquareObstacle: {SquareItem1; SquareItem...}. SquareTile...</li>
- * <li>SquareTile: SquareCreature: SquareObstacle: {SquareItem1; SquareItem...}. SquareTile...</li>
- * <li>SquareTile: SquareCreature: SquareObstacle: {SquareItem1; SquareItem...}. SquareTile...</li>
- * </ol>
- * @author freetimer
- *
+ * Saves the current world to a save file.
+ * Note that this will receive an overhaul as we get a graphical interface going.
+ * @author Niklas L
+ * @see FileReader
+ * @see Grid
  */
 public class FileSaver {
+	/** 
+	 * The default save path for our saves.
+	 */
 	public static final String SAVE_PATH = "saves/";
+	/**
+	 * Asks the user what to name their world, then saves the world.
+	 */
 	public static void saveAsDialogue(){
 		saveData(getSavePath());
 	}
-	
+	/**
+	 * Asks the user what the file should be called, then returns the result
+	 * @return the file name of the world save
+	 */
 	private static String getSavePath(){
 		String s = "";
 		while(s.equals("")){
@@ -36,7 +40,10 @@ public class FileSaver {
 		}
 		return s + ".grd";
 	}
-	
+	/**
+	 * saves the world data in a file under specified name
+	 * @param path the file name
+	 */
 	private static void saveData(String path){
 		if(path == null){
 			return;

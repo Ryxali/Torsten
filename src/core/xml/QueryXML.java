@@ -15,7 +15,9 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
+/**
+ * An xml copypasta test
+ */
 public class QueryXML {
 	public void query() throws ParserConfigurationException, SAXException,
 			IOException, XPathExpressionException {

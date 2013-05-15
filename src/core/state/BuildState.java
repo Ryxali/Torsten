@@ -24,22 +24,40 @@ import core.file.FileReader;
 import core.file.FileSaver;
 import core.file.UserFileReader;
 import core.image.DefaultImage;
-
+/**
+ * The state for creating worlds
+ * @author Niklas Lindblad
+ *
+ */
 public class BuildState extends BasicState {
-
+	/**
+	 * the placeable object the user is currently holding.
+	 */
 	private Placeable curPlaceable;
 
-	private Toolbar toolbar = new Toolbar("Utilities", 0, 0, 800, 64);
-
+	/**
+	 * A list of advanced Edits screen.
+	 * @see gui.AdvancedEdit
+	 */
 	private ArrayList<Thread> advEdits = new ArrayList<Thread>();
-	
+	/**
+	 * The current screen width
+	 */
 	private int width = 800;
+	/**
+	 * The current screen height
+	 */
 	private int height = 600;
+	/**
+	 * Keeps track whether the screen has changed size lately or not
+	 */
 	private boolean screenSizeChange = false;
 
 	// private GButton saveB = new GButton(10, 10);
 	// private GButton loadB = new GButton(110, 10);
-
+	/**
+	 * Renders the content onto the screen
+	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
@@ -60,7 +78,9 @@ public class BuildState extends BasicState {
 	public void addWindow(Thread t) {
 		advEdits.add(t);
 	}
-
+	/**
+	 * Checks the Grid, Toolbars and Palettes for changes.
+	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
@@ -81,41 +101,38 @@ public class BuildState extends BasicState {
 		Grid.get().update(gc.getInput(), curPlaceable, width, height, advEdits);
 
 		Toolbars.update(gc.getInput());
-		// saveB.buttonStateCheck(gc.getInput());
-		// loadB.buttonStateCheck(gc.getInput());
-		/*
-		 * if(gc.getInput().isKeyDown(Input.KEY_S) &&
-		 * gc.getInput().isKeyDown(Input.KEY_LCONTROL)){
-		 * 
-		 * System.out.println("HWWWAR"); gc.getInput().removeAllListeners();
-		 * FileSaver.saveAsDialogue(); try { Thread.sleep(1000); } catch
-		 * (InterruptedException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } }else if(gc.getInput().isKeyDown(Input.KEY_L)
-		 * && gc.getInput().isKeyDown(Input.KEY_LCONTROL)){
-		 * System.out.println("Hwat");
-		 * 
-		 * FileReader.loadDialogue(gc);
-		 * 
-		 * try { Thread.sleep(1000); } catch (InterruptedException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); } }
-		 */
 	}
+	/**
+	 * Check for a new Placeable object
+	 * @param p the current placeable object
+	 * @return null, a new placeable object, or the previous object if no change has occured.
+	 */
 	private Placeable getCurrentPlaceable(Placeable p){
 		p = PaletteStore.get().getActivePalette()
 		.getClickedSample(p);
 		p = Toolbars.getCurrentTool(p);
 		return p;
 	}
-	public Placeable getCurrentSample() {
+	/**
+	 * Get the current placeable object
+	 * @return curPlaceable, the current placeable object.
+	 */
+	public Placeable getCurrentPlaceable() {
 		return curPlaceable;
 	}
-	
+	/**
+	 * Sets a new window width and height for the game.
+	 * @param width the new screen width.
+	 * @param height the new screen height.
+	 */
 	public void setBounds(int width, int height){
 		screenSizeChange = true;
 		this.width = width;
 		this.height = height;
 	}
-
+	/**
+	 * Fetch the id of this state.
+	 */
 	@Override
 	public int getID() {
 

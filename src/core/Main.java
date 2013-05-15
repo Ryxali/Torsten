@@ -8,22 +8,45 @@ import org.newdawn.slick.state.StateBasedGame;
 import core.state.BuildState;
 import core.state.StateList;
 
-
-public class Main extends StateBasedGame{
+/**
+ * As the main class of the game, this class is in charge of creating a game
+ * instance and getting the ball rolling.
+ * 
+ * @author freetimer
+ * @see StateBasedGame
+ * @see AppTorstenContainer
+ */
+public class Main extends StateBasedGame {
+	/**
+	 * Our game container
+	 */
 	private static AppTorstenContainer apptc;
+
+	/**
+	 * Constructs a StateBasedGame and adds the states to it
+	 * 
+	 * @param name
+	 *            the name of the game
+	 */
 	public Main(String name) {
 		super(name);
 		addStates();
 	}
-	
-	
-	public static void setBounds(int width, int height) throws SlickException{
+	/**
+	 * sets a new screen size for the game
+	 * @param width the new width of the game window
+	 * @param height the new height of the game window
+	 * @throws SlickException if the new DisplayMode is invalid.
+	 */
+	public static void setBounds(int width, int height) throws SlickException {
 		apptc.setDisplayMode(width, height, false);
 	}
-	public static int getScreenWidth(){
+
+	public static int getScreenWidth() {
 		return apptc.getWidth();
 	}
-	public static int getScreenHeight(){
+
+	public static int getScreenHeight() {
 		return apptc.getHeight();
 	}
 
@@ -36,24 +59,29 @@ public class Main extends StateBasedGame{
 			apptc.setTargetFrameRate(60);
 			apptc.setDisplayMode(800, 600, false);
 			apptc.setForceExit(false);
-			
+
 			apptc.start();
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 	}
-	
-	private void addStates(){
+
+	/**
+	 * adds all the states we want to use to the container
+	 */
+	private void addStates() {
 		addState(StateList.BUILD.getState());
 	}
 
+	/**
+	 * calls the various states' init() method, then enters the default state.
+	 */
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
-		
-		enterState(StateList.BUILD.getID());		
+
+		enterState(StateList.BUILD.getID());
 	}
 
 }

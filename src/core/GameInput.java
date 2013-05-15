@@ -2,7 +2,13 @@ package core;
 
 import org.newdawn.slick.Input;
 
-public class GameInput extends Input{
+/**
+ * 
+ * 
+ * @author Niklas L
+ * @deprecated unneccessary and no longer used
+ */
+public class GameInput extends Input {
 
 	public GameInput(int height) {
 		super(height);

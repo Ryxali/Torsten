@@ -23,8 +23,14 @@ import core.image.DefaultImage;
  */
 public abstract class Button{
 	
-	
+	/**
+	 * The current state of this button
+	 */
 	private int state = 0;
+	
+	/**
+	 * An indicator whether this button counts as being clicked.
+	 */
 	private boolean clicked = false;
 	
 	/**
@@ -190,6 +196,13 @@ public abstract class Button{
 	/*public DropdownList getDList(){
 		return null;
 	}*/
+	/**
+	 * Checks if the specified bounds contains a point
+	 * @param lBound the lowest bound.
+	 * @param point the point to check.
+	 * @param rBound the highest bound.
+	 * @return
+	 */
 	private boolean pointContains(int lBound, int point, int rBound){
 		if(lBound < point && point < rBound){
 			return true;
