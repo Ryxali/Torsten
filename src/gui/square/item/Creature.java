@@ -22,13 +22,20 @@ public class Creature extends SquareItem {
 	/**
 	 * Creates a new creature to exist in either a square or as a sample
 	 * piece.
-	 * @param name
-	 * @param image
-	 * @param info
+	 * @param name the name of this Creature.
+	 * @param image the image representing this creature.
+	 * @param info the information associated with this creature.
 	 */
 	public Creature(String name, Image image, String info) {
 		super(name, image, info);
 	}
+	/**
+	 * Creates a new creature using a string as image reference rather than
+	 * an actual image.
+	 * @param name the name of this Creature.
+	 * @param imgRef the path of the image for this Creature.
+	 * @param info the information associated with this Creature.
+	 */
 	public Creature(String name, String imgRef, String info) {
 		super(name, imgRef, info);
 	}
@@ -43,10 +50,9 @@ public class Creature extends SquareItem {
 		image.draw(x, y);
 
 	}
-
+	
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
 		return Sample.TYPE_CREATURE;
 	}
 

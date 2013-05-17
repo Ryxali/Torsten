@@ -7,9 +7,16 @@ import gui.sample.PaletteStore;
 import gui.square.Square;
 
 import org.newdawn.slick.Graphics;
-
+/**
+ * This tool, when selected, will Create a new empty Palette with the name specified by user prompt.
+ * @author Niklas L
+ *
+ */
 public class NewPaletteTool extends Tool{
-
+	/**
+	 * Creates a new Tool with the specified title
+	 * @param text the string to be displayed on top of the button.
+	 */
 	public NewPaletteTool(String text) {
 		super(text);
 	}

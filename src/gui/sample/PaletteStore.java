@@ -128,7 +128,13 @@ public class PaletteStore {
 	public int getY(){
 		return Palette.Y_POS-HEIGHT;
 	}
-
+	/**
+	 * Draws the currently active pallette onto the screen as well as all of the paletteSwitchButtons above it
+	 * @param g the current graphics context. 
+	 * @param screenWidth the current screen width.
+	 * @param screenHeight the current screen height.
+	 * @param input the current user input.
+	 */
 	public void draw(Graphics g, int screenWidth, int screenHeight, Input input) {
 		
 		g.setColor(Color.lightGray);

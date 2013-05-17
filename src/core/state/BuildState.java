@@ -100,7 +100,7 @@ public class BuildState extends BasicState {
 		}
 		Grid.get().update(gc.getInput(), curPlaceable, width, height, advEdits);
 
-		Toolbars.update(gc.getInput());
+		//Toolbars.update(gc.getInput());
 	}
 	/**
 	 * Check for a new Placeable object

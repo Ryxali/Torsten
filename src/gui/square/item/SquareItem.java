@@ -20,13 +20,23 @@ public abstract class SquareItem implements DrawableXY {
 	 * The name of the creature
 	 */
 	protected String name;
-
+	/**
+	 * Constructs a new SquareItem with the name, image and info specified.
+	 * @param name the name of the SquareItem.
+	 * @param image the image of the SquareItem.
+	 * @param info the info of the SquareItem.
+	 */
 	public SquareItem(String name, Image image, String info) {
 		this.image = image;
 		this.info = info;
 		this.name = name;
 	}
-
+	/**
+	 * Constructs a new SquareItem with the name, image and info specified.
+	 * @param name the name of the SquareItem.
+	 * @param imgRef the image reference for the SquareItem.
+	 * @param info the info of the SquareItem.
+	 */
 	public SquareItem(String name, String imgRef, String info) {
 		this.image = ImageStore.get().getImage(imgRef);
 		this.info = info;
@@ -80,35 +90,45 @@ public abstract class SquareItem implements DrawableXY {
 
 		return product;
 	}
-
+	/**
+	 * Get the info of this SquareItem.
+	 * @return info, the info of this object.
+	 */
 	public String getInfo() {
 		return info;
 	}
-
+	/**
+	 * Get the name of this SquareItem.
+	 * @return name, the name of this object.
+	 */
 	public String getName() {
 		return name;
 	}
-
+	/**
+	 * A method that returns a value corresponding with this creature's creature type.
+	 * @see gui.sample.Sample
+	 */
 	public abstract String getType();
-
+	/**
+	 * Get the image reference of this SquareItem.
+	 * @return the resource reference of the image of this object.
+	 */
 	public String getRef() {
 		return image.getResourceReference();
 	}
 
 	/**
-	 * Draws this objects text info into the text box
+	 * Draws this objects text info at the point specified formatted to fit the specified width.
 	 * 
-	 * @param g
-	 * @param x1
-	 * @param y1
-	 * @param width
-	 * @param textRow
-	 * @return the number of rows this text takes
+	 * @param g the current graphics context.
+	 * @param x the x position to draw this string at.
+	 * @param y the y position to draw this string at.
+	 * @param width the maximum width the drawn string may occupy.
 	 */
-	public void drawInfo(Graphics g, int x1, int y1, int width) {
+	public void drawInfo(Graphics g, int x, int y, int width) {
 		String temp = name + "\n";
 		temp += format(g, info, width);
-		g.drawString(temp, x1, y1);
+		g.drawString(temp, x, y);
 
 		// return temp.split("\n").length;
 	}
