@@ -9,9 +9,16 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
 import core.state.StateList;
-
+/**
+ * This tool, when selected, will open up a new window with application settings.
+ * @author Niklas L
+ *
+ */
 public class SettingsTool extends Tool {
-
+	/**
+	 * Creates a new Tool with the specified title
+	 * @param text the string to be displayed on top of the button.
+	 */
 	public SettingsTool(String text) {
 		super(text);
 	}

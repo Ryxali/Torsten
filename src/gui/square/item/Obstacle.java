@@ -18,12 +18,21 @@ import gui.square.Square;
  *
  */
 public class Obstacle extends SquareItem{
-
+	/**
+	 * Constructs a new Obstacle with the name, image and info specified.
+	 * @param name the name of the Obstacle
+	 * @param image the image of the Obstacle
+	 * @param info the info of the Obstacle
+	 */
 	public Obstacle(String name, Image image, String info) {
 		super(name, image, info);
-		// TODO Auto-generated constructor stub
 	}
-	
+	/**
+	 * Constructs a new Obstacle with the name, image and info specified.
+	 * @param name the name of the Obstacle.
+	 * @param imgRef the image reference of the Obstacle.
+	 * @param info the info of the Obstacle.
+	 */
 	public Obstacle(String name, String imgRef, String info){
 		super(name, imgRef, info);
 	}

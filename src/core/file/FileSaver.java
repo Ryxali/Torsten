@@ -54,7 +54,7 @@ public class FileSaver {
 			PrintWriter out = new PrintWriter(SAVE_PATH + path);
 			out.println(Grid.get().getCols() + "x"+  Grid.get().rows());
 			for(int i = 0; i < Grid.get().rows(); i++){
-				out.println(Grid.get().concatRow(i));
+				out.println(Grid.get().toPrintable(i));
 			}
 			out.close();
 		} catch (FileNotFoundException e) {

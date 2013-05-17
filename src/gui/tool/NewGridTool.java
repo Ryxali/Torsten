@@ -12,9 +12,17 @@ import org.xml.sax.SAXException;
 import core.xml.QueryXML;
 import gui.dialogue.MultipleInputDialogue;
 import gui.square.Square;
-
+/**
+ * This tool will, when selected, create a new Grid by the size specified by user prompt.
+ * @author Niklas L
+ * @see Tool
+ * @see gui.square.Grid
+ */
 public class NewGridTool extends Tool{
-
+	/**
+	 * Creates a new Tool with the specified title
+	 * @param text the string to be displayed on top of the button.
+	 */
 	public NewGridTool(String text) {
 		super(text);
 	}

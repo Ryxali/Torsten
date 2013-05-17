@@ -28,8 +28,6 @@ import gui.square.item.SquareItem;
  * @see gui.square.item.Placeable
  */
 public class Sample extends StandardButton implements Placeable {
-	private byte elementPosX;
-	private short elementPosY;
 	private SquareItem sampleItem;
 	/**
 	 * The image of this sample's placeable object
@@ -86,7 +84,6 @@ public class Sample extends StandardButton implements Placeable {
 	 */
 	private void setSquareItem(String name, String imageRef, String type,
 			String info) {
-		// System.out.println("WAT");
 		if (type.toLowerCase().equals(TYPE_CREATURE.toLowerCase())) {
 			sampleItem = new Creature(name, ImageStore.get().getImage(imageRef)
 					.getScaledCopy(64, 64), info);
@@ -123,7 +120,15 @@ public class Sample extends StandardButton implements Placeable {
 	public SquareItem getSquareItem() {
 		return sampleItem;
 	}
-
+	/**
+	 * Draw this sample on the screen
+	 * @param g the current graphics context
+	 * @param x the x position to draw this sample at
+	 * @param y the y position to draw this sample at
+	 * @param screenWidth the current screen width
+	 * @param screenHeight the current screen height
+	 * @param input the current user input
+	 */
 	public void draw(Graphics g, int x, int y, int screenWidth,
 			int screenHeight, Input input) {
 		// g.setColor(Color.lightGray);
