@@ -7,6 +7,5 @@ public class TState extends TorstenState {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	
+
 }

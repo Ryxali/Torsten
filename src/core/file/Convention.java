@@ -1,8 +1,10 @@
 package core.file;
+
 /**
  * Holds all the file split conventions used in this program
+ * 
  * @author freetimer
- *
+ * 
  */
 public class Convention {
 	/**
@@ -10,7 +12,8 @@ public class Convention {
 	 */
 	public static final String LAYER_0 = "# ";
 	/**
-	 * A String matching the convention used for the <b>second</b> highest layer.
+	 * A String matching the convention used for the <b>second</b> highest
+	 * layer.
 	 */
 	public static final String LAYER_1 = "#! ";
 	/**
@@ -18,7 +21,8 @@ public class Convention {
 	 */
 	public static final String LAYER_2 = "#!! ";
 	/**
-	 * A String matching the convention used for the <b>fourth</b> highest layer.
+	 * A String matching the convention used for the <b>fourth</b> highest
+	 * layer.
 	 */
 	public static final String LAYER_3 = "#!! ";
 	/**

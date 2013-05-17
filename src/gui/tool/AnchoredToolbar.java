@@ -122,7 +122,7 @@ public class AnchoredToolbar extends Toolbar {
 			}
 		}
 		return false;
-		
+
 	}
 
 }

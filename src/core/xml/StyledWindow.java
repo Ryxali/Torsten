@@ -13,10 +13,12 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
 /**
  * An unsuccessful XML test, will return to it shortly.
+ * 
  * @author Niklas L
- *
+ * 
  */
 public class StyledWindow extends JWindow {
 
@@ -44,7 +46,6 @@ public class StyledWindow extends JWindow {
 			// Create a XPath object
 			XPath xpath = xFactory.newXPath();
 
-			
 			// Compile the XPath expression
 			expr = xpath.compile("//person[firstname='Lars']/lastname/text()");
 			// Run the query and get a nodeset

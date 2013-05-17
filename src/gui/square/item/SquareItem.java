@@ -20,22 +20,32 @@ public abstract class SquareItem implements DrawableXY {
 	 * The name of the creature
 	 */
 	protected String name;
+
 	/**
 	 * Constructs a new SquareItem with the name, image and info specified.
-	 * @param name the name of the SquareItem.
-	 * @param image the image of the SquareItem.
-	 * @param info the info of the SquareItem.
+	 * 
+	 * @param name
+	 *            the name of the SquareItem.
+	 * @param image
+	 *            the image of the SquareItem.
+	 * @param info
+	 *            the info of the SquareItem.
 	 */
 	public SquareItem(String name, Image image, String info) {
 		this.image = image;
 		this.info = info;
 		this.name = name;
 	}
+
 	/**
 	 * Constructs a new SquareItem with the name, image and info specified.
-	 * @param name the name of the SquareItem.
-	 * @param imgRef the image reference for the SquareItem.
-	 * @param info the info of the SquareItem.
+	 * 
+	 * @param name
+	 *            the name of the SquareItem.
+	 * @param imgRef
+	 *            the image reference for the SquareItem.
+	 * @param info
+	 *            the info of the SquareItem.
 	 */
 	public SquareItem(String name, String imgRef, String info) {
 		this.image = ImageStore.get().getImage(imgRef);
@@ -90,27 +100,36 @@ public abstract class SquareItem implements DrawableXY {
 
 		return product;
 	}
+
 	/**
 	 * Get the info of this SquareItem.
+	 * 
 	 * @return info, the info of this object.
 	 */
 	public String getInfo() {
 		return info;
 	}
+
 	/**
 	 * Get the name of this SquareItem.
+	 * 
 	 * @return name, the name of this object.
 	 */
 	public String getName() {
 		return name;
 	}
+
 	/**
-	 * A method that returns a value corresponding with this creature's creature type.
+	 * A method that returns a value corresponding with this creature's creature
+	 * type.
+	 * 
 	 * @see gui.sample.Sample
 	 */
 	public abstract String getType();
+
 	/**
 	 * Get the image reference of this SquareItem.
+	 * 
 	 * @return the resource reference of the image of this object.
 	 */
 	public String getRef() {
@@ -118,12 +137,17 @@ public abstract class SquareItem implements DrawableXY {
 	}
 
 	/**
-	 * Draws this objects text info at the point specified formatted to fit the specified width.
+	 * Draws this objects text info at the point specified formatted to fit the
+	 * specified width.
 	 * 
-	 * @param g the current graphics context.
-	 * @param x the x position to draw this string at.
-	 * @param y the y position to draw this string at.
-	 * @param width the maximum width the drawn string may occupy.
+	 * @param g
+	 *            the current graphics context.
+	 * @param x
+	 *            the x position to draw this string at.
+	 * @param y
+	 *            the y position to draw this string at.
+	 * @param width
+	 *            the maximum width the drawn string may occupy.
 	 */
 	public void drawInfo(Graphics g, int x, int y, int width) {
 		String temp = name + "\n";

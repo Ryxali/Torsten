@@ -16,7 +16,7 @@ import core.image.Drawable;
  * bottommost part of the screen. The tooltip content will be stretched to match
  * the screen width.
  * 
- * @author freetimer
+ * @author Niklas L
  * 
  */
 public class Tooltip {
@@ -58,9 +58,12 @@ public class Tooltip {
 	 * 
 	 * @param g
 	 *            the current graphics context
-	 * @param screenWidth the current width of the screen
-	 * @param screenHeight the current height of the screen
-	 * @param items the items derive info from.
+	 * @param screenWidth
+	 *            the current width of the screen
+	 * @param screenHeight
+	 *            the current height of the screen
+	 * @param items
+	 *            the items derive info from.
 	 */
 	public void draw(Graphics g, int screenWidth, int screenHeight,
 			SquareItem... items) {
@@ -93,12 +96,19 @@ public class Tooltip {
 		 */
 
 	}
+
 	/**
-	 * Draws the String items on the screen. Each item is given a box to be drawn in
-	 * @param g the current graphics context
-	 * @param screenWidth the current screen width
-	 * @param screenHeight the current screen height
-	 * @param items the items to draw
+	 * Draws the String items on the screen. Each item is given a box to be
+	 * drawn in
+	 * 
+	 * @param g
+	 *            the current graphics context
+	 * @param screenWidth
+	 *            the current screen width
+	 * @param screenHeight
+	 *            the current screen height
+	 * @param items
+	 *            the items to draw
 	 */
 	public void draw(Graphics g, int screenWidth, int screenHeight,
 			String... items) {
@@ -116,13 +126,20 @@ public class Tooltip {
 			}
 		}
 	}
+
 	/**
 	 * Checks whether the specified coordinates is within this Tooltip
-	 * @param mouseX the x position of the mouse
-	 * @param mouseY the y position of the mouse
-	 * @param screenWidth the current screen width
-	 * @param screenHeight the current screen height
-	 * @return true if the chosen coordinates both exist within the tooltip bounds
+	 * 
+	 * @param mouseX
+	 *            the x position of the mouse
+	 * @param mouseY
+	 *            the y position of the mouse
+	 * @param screenWidth
+	 *            the current screen width
+	 * @param screenHeight
+	 *            the current screen height
+	 * @return true if the chosen coordinates both exist within the tooltip
+	 *         bounds
 	 */
 	public boolean contains(int mouseX, int mouseY, int screenWidth,
 			int screenHeight) {

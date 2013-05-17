@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  * I intend for this to be an XML using editor for a specific square. Needs
  * working XML first though
  * 
- * @author freetimer
+ * @author Niklas L
  * 
  */
 public class AdvancedEdit extends Frame implements Runnable {

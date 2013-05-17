@@ -12,7 +12,7 @@ import core.state.StateList;
  * As the main class of the game, this class is in charge of creating a game
  * instance and getting the ball rolling.
  * 
- * @author freetimer
+ * @author Niklas Lindblad
  * @see StateBasedGame
  * @see AppTorstenContainer
  */
@@ -32,11 +32,16 @@ public class Main extends StateBasedGame {
 		super(name);
 		addStates();
 	}
+	
 	/**
 	 * sets a new screen size for the game
-	 * @param width the new width of the game window
-	 * @param height the new height of the game window
-	 * @throws SlickException if the new DisplayMode is invalid.
+	 * 
+	 * @param width
+	 *            the new width of the game window
+	 * @param height
+	 *            the new height of the game window
+	 * @throws SlickException
+	 *             if the new DisplayMode is invalid.
 	 */
 	public static void setBounds(int width, int height) throws SlickException {
 		apptc.setDisplayMode(width, height, false);

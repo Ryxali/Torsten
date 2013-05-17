@@ -33,16 +33,27 @@ public class PaletteSwitchButton extends GButton {
 		super();
 		this.paletteName = paletteName;
 	}
+	
 	/**
-	 * Draws this button onto the screen as well as the palette name into the Tooltip area should it be active.
-	 * @param g the current graphics context.
-	 * @param x the x position to draw this button at.
-	 * @param y the y position to draw this button at.
-	 * @param width the width of this button.
-	 * @param height the height of this button.
-	 * @param screenWidth the current screen width.
-	 * @param screenHeight the current screen height.
-	 * @param input the current user input.
+	 * Draws this button onto the screen as well as the palette name into the
+	 * Tooltip area should it be active.
+	 * 
+	 * @param g
+	 *            the current graphics context.
+	 * @param x
+	 *            the x position to draw this button at.
+	 * @param y
+	 *            the y position to draw this button at.
+	 * @param width
+	 *            the width of this button.
+	 * @param height
+	 *            the height of this button.
+	 * @param screenWidth
+	 *            the current screen width.
+	 * @param screenHeight
+	 *            the current screen height.
+	 * @param input
+	 *            the current user input.
 	 */
 	public void draw(Graphics g, int x, int y, int width, int height,
 			int screenWidth, int screenHeight, Input input) {

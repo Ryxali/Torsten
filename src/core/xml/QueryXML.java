@@ -15,6 +15,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
 /**
  * An xml copypasta test
  */
@@ -50,11 +51,12 @@ public class QueryXML {
 		NodeList nodings = doc.getElementsByTagName("firstname");
 		for (int i = 0; i < nodings.getLength(); i++) {
 			System.out.println(nodings.item(i).getTextContent());
-			if(nodings.item(i).hasAttributes()){
-				System.out.println(nodings.item(i).getAttributes().getNamedItem("value"));
+			if (nodings.item(i).hasAttributes()) {
+				System.out.println(nodings.item(i).getAttributes()
+						.getNamedItem("value"));
 			}
-			//Attr attr = (Attr) nodings.item(i);
-			//System.out.println(attr.getName() + " : " + attr.getValue());
+			// Attr attr = (Attr) nodings.item(i);
+			// System.out.println(attr.getName() + " : " + attr.getValue());
 		}
 
 		// New XPath expression to get the number of people with name lars
