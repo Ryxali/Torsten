@@ -7,8 +7,11 @@ import gui.sample.Sample;
 import gui.square.Square;
 
 import org.newdawn.slick.Graphics;
+
 /**
- * This tool will cause the user to go through a new sample creation process, adding the created Sample to the active Palette.
+ * This tool will cause the user to go through a new sample creation process,
+ * adding the created Sample to the active Palette.
+ * 
  * @author Niklas L
  * @see Tool
  * @see gui.sample.Sample
@@ -16,7 +19,9 @@ import org.newdawn.slick.Graphics;
 public class AddSampleTool extends Tool {
 	/**
 	 * Creates a new AddSampleTool with the specified text.
-	 * @param text the text that is going to be displayed on top of the button.
+	 * 
+	 * @param text
+	 *            the text that is going to be displayed on top of the button.
 	 */
 	public AddSampleTool(String text) {
 		super(text);
@@ -25,7 +30,6 @@ public class AddSampleTool extends Tool {
 	@Override
 	public void onUse(Square square) {
 	}
-
 
 	@Override
 	public Tool getTool() {
@@ -46,6 +50,7 @@ public class AddSampleTool extends Tool {
 			}
 		}
 	}
+
 	/**
 	 * This tool is not selectable, and therefore cannot be drawn this way.
 	 */

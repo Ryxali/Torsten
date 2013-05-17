@@ -80,6 +80,9 @@ public class BuildState extends BasicState {
 	}
 	/**
 	 * Checks the Grid, Toolbars and Palettes for changes.
+	 * @param gc the GameContainer
+	 * @param sbg the StateBasedGame
+	 * @param delta the time that passed since last loop
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)

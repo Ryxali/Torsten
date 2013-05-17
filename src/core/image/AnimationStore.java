@@ -1,25 +1,29 @@
 package core.image;
 
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 import core.Loadable;
+
 /**
- * <p>The storage for Animations in the game. These, along with
- * the images is initially not loaded to save starting time.</p>
+ * <p>
+ * The storage for Animations in the game. These, along with the images is
+ * initially not loaded to save starting time.
+ * </p>
  * 
- * <p>You should also clone the animations when using it on 
- * multiple instances (e.g. creatures) to prevent them from
- * walking in unison.</p>
+ * <p>
+ * You should also clone the animations when using it on multiple instances
+ * (e.g. creatures) to prevent them from walking in unison.
+ * </p>
+ * 
  * @author Niklas Lindblad
  * @deprecated Animations aren't used
  */
 public enum AnimationStore implements Loadable {
-	DEFAULT(new AnimatedImage("res/img/Default/", "Def", ".png", 1, 1000, false, 1), 
-			"res/img/Default/", "Def", ".png", 1, 1000, false);
-	
+	DEFAULT(new AnimatedImage("res/img/Default/", "Def", ".png", 1, 1000,
+			false, 1), "res/img/Default/", "Def", ".png", 1, 1000, false);
+
 	/**
 	 * The regular animation order
 	 */
@@ -52,20 +56,20 @@ public enum AnimationStore implements Loadable {
 	 * .png in most cases.
 	 */
 	private final String fileEnding;
-	
+
 	private final DefaultImage srcImg;
 	/**
-	 * Used for checking if the animation is being looped
-	 * automatically.
+	 * Used for checking if the animation is being looped automatically.
 	 */
 	private boolean autoRefresh;
-	
+
 	private int rev = 1;
-	
+
 	private final boolean usingSpriteSheet;
-	
+
 	/**
 	 * Self explanatory builder of the enums. Does nothing special.
+	 * 
 	 * @param anim
 	 * @param filePath
 	 * @param fileName
@@ -74,8 +78,11 @@ public enum AnimationStore implements Loadable {
 	 * @param dur
 	 * @param autoRefresh
 	 */
-	private AnimationStore(AnimatedImage anim, String filePath, String fileName, String fileEnding, int frames, int dur, boolean autoRefresh) {
-		this.anim = anim;;
+	private AnimationStore(AnimatedImage anim, String filePath,
+			String fileName, String fileEnding, int frames, int dur,
+			boolean autoRefresh) {
+		this.anim = anim;
+		;
 		this.filePath = filePath;
 		this.fileName = fileName;
 		this.fileEnding = fileEnding;
@@ -85,7 +92,8 @@ public enum AnimationStore implements Loadable {
 		this.autoRefresh = autoRefresh;
 		usingSpriteSheet = false;
 	}
-	private AnimationStore(DefaultImage srcImg, int frames, int dur){
+
+	private AnimationStore(DefaultImage srcImg, int frames, int dur) {
 		this.filePath = null;
 		this.fileName = null;
 		this.fileEnding = null;
@@ -95,75 +103,82 @@ public enum AnimationStore implements Loadable {
 		this.autoRefresh = true;
 		usingSpriteSheet = true;
 	}
+
 	/**
-	 * Reconstructs the animation for looping backwards or forwards, depending on input
-	 * @param dir true for regular, false for backwards
+	 * Reconstructs the animation for looping backwards or forwards, depending
+	 * on input
+	 * 
+	 * @param dir
+	 *            true for regular, false for backwards
 	 */
-	public void setDir(boolean dir){
-		if(dir){
+	public void setDir(boolean dir) {
+		if (dir) {
 			rev = 1;
-		}else{
+		} else {
 			rev = -1;
 		}
-		anim = new AnimatedImage(filePath, fileName, fileEnding, frames, dur, autoRefresh, rev);
+		anim = new AnimatedImage(filePath, fileName, fileEnding, frames, dur,
+				autoRefresh, rev);
 	}
+
 	/**
 	 * 
 	 * @return true if it's animation is run regularly, false if it's in reverse
 	 */
-	public boolean isRegularDir(){
-		if(rev == 1){
+	public boolean isRegularDir() {
+		if (rev == 1) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
-	
+
 	/**
 	 * 
 	 * @return true if the animation is looped automatically.
 	 */
-	public boolean isAutoRefresh(){
+	public boolean isAutoRefresh() {
 		return autoRefresh;
 	}
-	
+
 	/**
-	 * Reloads the animation into the memory, fetching the image
-	 * from disk.
+	 * Reloads the animation into the memory, fetching the image from disk.
 	 */
-	public void reload(){
-		if(!usingSpriteSheet){
-			anim = new AnimatedImage(filePath, fileName, fileEnding, frames, dur, autoRefresh, rev);
-		}else{
+	public void reload() {
+		if (!usingSpriteSheet) {
+			anim = new AnimatedImage(filePath, fileName, fileEnding, frames,
+					dur, autoRefresh, rev);
+		} else {
 			anim = new AnimatedImage(srcImg, frames, dur);
 		}
 	}
-	
+
 	/**
 	 * Frees up space by removing the pointers to the animation.
 	 */
-	public void unload(){
-		if(!anim.equals(DEFAULT.anim)){
+	public void unload() {
+		if (!anim.equals(DEFAULT.anim)) {
 			try {
-				if(anim != null){
-				anim.destroy();
-				anim = null;
+				if (anim != null) {
+					anim.destroy();
+					anim = null;
 				}
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	public static void unloadAll(){
-		AnimationStore [] temp = values();
-		for(int i = 0; i < temp.length; i++){
+
+	public static void unloadAll() {
+		AnimationStore[] temp = values();
+		for (int i = 0; i < temp.length; i++) {
 			temp[i].unload();
 		}
 	}
-	
+
 	/**
 	 * Used for creating and returning an array of images.
+	 * 
 	 * @param path
 	 * @param fileBaseName
 	 * @param fileType
@@ -182,7 +197,7 @@ public enum AnimationStore implements Loadable {
 		}
 		return imgs;
 	}
-	
+
 	/**
 	 * 
 	 * @return the duration of each animation image
@@ -190,15 +205,15 @@ public enum AnimationStore implements Loadable {
 	public int getDuration() {
 		return dur;
 	}
-	
+
 	/**
 	 * 
 	 * @return returns the animation object
 	 */
 	public AnimatedImage getAnimation() {
-		if(anim != null){
+		if (anim != null) {
 			return anim;
-		}else{
+		} else {
 			reload();
 			return anim;
 		}

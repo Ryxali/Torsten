@@ -9,15 +9,20 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
 import core.state.StateList;
+
 /**
- * This tool, when selected, will open up a new window with application settings.
+ * This tool, when selected, will open up a new window with application
+ * settings.
+ * 
  * @author Niklas L
- *
+ * 
  */
 public class SettingsTool extends Tool {
 	/**
 	 * Creates a new Tool with the specified title
-	 * @param text the string to be displayed on top of the button.
+	 * 
+	 * @param text
+	 *            the string to be displayed on top of the button.
 	 */
 	public SettingsTool(String text) {
 		super(text);
@@ -28,8 +33,7 @@ public class SettingsTool extends Tool {
 		boolean b = true;
 		while (b) {
 			try {
-				String[] newB = ScreenResolutionDialogue.show().split("x");/*JOptionPane.showInputDialog(
-						"New Screen Size (RESxRES)").split("x");*/
+				String[] newB = ScreenResolutionDialogue.show().split("x");
 				StateList.BUILD.getState().setBounds(Integer.valueOf(newB[0]),
 						Integer.valueOf(newB[1]));
 				b = false;

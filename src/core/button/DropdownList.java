@@ -22,16 +22,14 @@ import core.image.DefaultImage;
  * @deprecated has yet to see implementation
  */
 public enum DropdownList {
-	RESOLUTION(null, 
-			null, 
-			5);
+	RESOLUTION(null, null, 5);
 	/**
 	 * The List items for the dropdown list
 	 */
 	private String[] items;
 	/**
-	 * The background image used as a frame for the list items.
-	 * This will loop according to amount of list items.
+	 * The background image used as a frame for the list items. This will loop
+	 * according to amount of list items.
 	 */
 	//private final StandardButton[] listBg;
 	

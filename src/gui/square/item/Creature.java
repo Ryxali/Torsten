@@ -20,42 +20,53 @@ import gui.square.Square;
  */
 public class Creature extends SquareItem {
 	/**
-	 * Creates a new creature to exist in either a square or as a sample
-	 * piece.
-	 * @param name the name of this Creature.
-	 * @param image the image representing this creature.
-	 * @param info the information associated with this creature.
+	 * Creates a new creature to exist in either a square or as a sample piece.
+	 * 
+	 * @param name
+	 *            the name of this Creature.
+	 * @param image
+	 *            the image representing this creature.
+	 * @param info
+	 *            the information associated with this creature.
 	 */
 	public Creature(String name, Image image, String info) {
 		super(name, image, info);
 	}
+
 	/**
-	 * Creates a new creature using a string as image reference rather than
-	 * an actual image.
-	 * @param name the name of this Creature.
-	 * @param imgRef the path of the image for this Creature.
-	 * @param info the information associated with this Creature.
+	 * Creates a new creature using a string as image reference rather than an
+	 * actual image.
+	 * 
+	 * @param name
+	 *            the name of this Creature.
+	 * @param imgRef
+	 *            the path of the image for this Creature.
+	 * @param info
+	 *            the information associated with this Creature.
 	 */
 	public Creature(String name, String imgRef, String info) {
 		super(name, imgRef, info);
 	}
+
 	/**
 	 * Draws this creature onto the screen at the specified point.
-	 * @param g the current graphics context
-	 * @param x the x position to draw at
-	 * @param y the y position to draw at
+	 * 
+	 * @param g
+	 *            the current graphics context
+	 * @param x
+	 *            the x position to draw at
+	 * @param y
+	 *            the y position to draw at
 	 */
 	@Override
 	public void draw(Graphics g, int x, int y) {
 		image.draw(x, y);
 
 	}
-	
+
 	@Override
 	public String getType() {
 		return Sample.TYPE_CREATURE;
 	}
-
-	
 
 }

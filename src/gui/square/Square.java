@@ -131,11 +131,16 @@ public class Square extends StandardButton {
 		this.loot = loot;
 		this.obstacle = obstacle;
 	}
+
 	/**
 	 * Creates a square based on the savefile information provided.
-	 * @param squareInfo the savefile information representing this square
-	 * @param x the x position of this square
-	 * @param y the y positoin of this square
+	 * 
+	 * @param squareInfo
+	 *            the savefile information representing this square
+	 * @param x
+	 *            the x position of this square
+	 * @param y
+	 *            the y positoin of this square
 	 */
 	public Square(String[] squareInfo, int x, int y) {
 		super(DefaultImage.TILE_MARKER_IDLE, DefaultImage.TILE_MARKER_HOVER,
@@ -164,10 +169,14 @@ public class Square extends StandardButton {
 		setLoot(squareInfo[3], loot);
 
 	}
+
 	/**
 	 * Determine the loot that should be added to the loot pile
-	 * @param lootInfo the information representing the loot of this square.
-	 * @param loot this square's loot pile
+	 * 
+	 * @param lootInfo
+	 *            the information representing the loot of this square.
+	 * @param loot
+	 *            this square's loot pile
 	 */
 	private static void setLoot(String lootInfo, LootPile loot) {
 		lootInfo = lootInfo.replace("{", "").replace("}", "");
@@ -178,9 +187,13 @@ public class Square extends StandardButton {
 			}
 		}
 	}
+
 	/**
 	 * Get a specific item based on save file information provided.
-	 * @param itemInfo the information representing a single item in the loot pile of this square.
+	 * 
+	 * @param itemInfo
+	 *            the information representing a single item in the loot pile of
+	 *            this square.
 	 * @return a new item based on the itemInfo provided.
 	 */
 	private static Item getLoot(String itemInfo) {
@@ -189,8 +202,11 @@ public class Square extends StandardButton {
 		}
 		return new Item(i[0], i[1], i[3]);
 	}
+
 	/**
-	 * Compacts this square into a line of string usable by the save file format.
+	 * Compacts this square into a line of string usable by the save file
+	 * format.
+	 * 
 	 * @return a string representing this square and all its content
 	 */
 	public String toPrintable() {
@@ -245,7 +261,8 @@ public class Square extends StandardButton {
 	}
 
 	/**
-	 * Draws all of the info text of the square items into a box at the bottommost part of the screen.
+	 * Draws all of the info text of the square items into a box at the
+	 * bottommost part of the screen.
 	 * 
 	 * @param g
 	 *            the current graphics context
@@ -278,28 +295,36 @@ public class Square extends StandardButton {
 			obstacle = (Obstacle) sample;
 		}
 	}
+
 	/**
-	 * Clears this squares of all instances of creatures, obstacles and loot, creating a fresh pile of loot in the process.
+	 * Clears this squares of all instances of creatures, obstacles and loot,
+	 * creating a fresh pile of loot in the process.
 	 */
 	public void clear() {
 		creature = null;
 		loot = new LootPile("Loot:", null, "");
 		obstacle = null;
 	}
+
 	/**
-	 * An override to the button's update method as we don't want it to check button
-	 * states automatically.
+	 * An override to the button's update method as we don't want it to check
+	 * button states automatically.
 	 */
 	@Override
 	protected void update(Graphics g, int x, int y, int width, int height,
 			Input input) {
 		onClick(input);
 	}
+
 	/**
 	 * Checks if this square should change state based on user input.
-	 * @param baseX the base x position of the grid containing this square.
-	 * @param baseY the base y position of the grid containing this square.
-	 * @param input the current user input.
+	 * 
+	 * @param baseX
+	 *            the base x position of the grid containing this square.
+	 * @param baseY
+	 *            the base y position of the grid containing this square.
+	 * @param input
+	 *            the current user input.
 	 */
 	public void buttonStateCheck(int baseX, int baseY, Input input) {
 		super.buttonStateCheck(x + baseX, y + baseY, input);

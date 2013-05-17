@@ -7,10 +7,12 @@ import org.newdawn.slick.Input;
 
 import core.button.GButton;
 import core.button.TextGButton;
+
 /**
  * A basic Tool to be used in Toolbars.
+ * 
  * @author Niklas L
- *
+ * 
  */
 public abstract class Tool extends TextGButton implements Placeable {
 	/**
@@ -47,6 +49,7 @@ public abstract class Tool extends TextGButton implements Placeable {
 	public void draw(Graphics g, int x, int y, Input input) {
 		super.draw(g, x, y, WIDTH, HEIGHT, input);
 	}
+
 	/**
 	 * This draws the tool itself (not the button) at the specified point.
 	 */

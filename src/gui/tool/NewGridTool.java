@@ -12,16 +12,21 @@ import org.xml.sax.SAXException;
 import core.xml.QueryXML;
 import gui.dialogue.MultipleInputDialogue;
 import gui.square.Square;
+
 /**
- * This tool will, when selected, create a new Grid by the size specified by user prompt.
+ * This tool will, when selected, create a new Grid by the size specified by
+ * user prompt.
+ * 
  * @author Niklas L
  * @see Tool
  * @see gui.square.Grid
  */
-public class NewGridTool extends Tool{
+public class NewGridTool extends Tool {
 	/**
 	 * Creates a new Tool with the specified title
-	 * @param text the string to be displayed on top of the button.
+	 * 
+	 * @param text
+	 *            the string to be displayed on top of the button.
 	 */
 	public NewGridTool(String text) {
 		super(text);
@@ -29,8 +34,9 @@ public class NewGridTool extends Tool{
 
 	@Override
 	public Tool getTool() {
-		//TODO add double input window here for grid rows/cols
-		//MultipleInputDialogue.get().showMultipleInputDialogue("Text", "texteds");
+		// TODO add double input window here for grid rows/cols
+		// MultipleInputDialogue.get().showMultipleInputDialogue("Text",
+		// "texteds");
 		QueryXML x = new QueryXML();
 		try {
 			x.query();
@@ -53,13 +59,13 @@ public class NewGridTool extends Tool{
 	@Override
 	public void onUse(Square square) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void draw(Graphics g, int x, int y) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

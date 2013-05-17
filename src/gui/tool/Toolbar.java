@@ -76,10 +76,14 @@ public class Toolbar {
 	 * Draws this Toolbar and its Tools at the specified point and updates the
 	 * Tools based on this point.
 	 * 
-	 * @param g the current Graphics context.
-	 * @param x the x position to draw this Toolbar at.
-	 * @param y the y position to draw this Toolbar at.
-	 * @param input the current user input.
+	 * @param g
+	 *            the current Graphics context.
+	 * @param x
+	 *            the x position to draw this Toolbar at.
+	 * @param y
+	 *            the y position to draw this Toolbar at.
+	 * @param input
+	 *            the current user input.
 	 */
 	public void draw(Graphics g, int x, int y, Input input) {
 		g.setColor(Color.lightGray);
@@ -101,10 +105,14 @@ public class Toolbar {
 		}
 
 	}
+
 	/**
 	 * Checks if any tools have been selected since the last loop.
-	 * @param pObject the current Placeable object held by the user.
-	 * @return either the old pObject, or a new one should a Tool have been selected.
+	 * 
+	 * @param pObject
+	 *            the current Placeable object held by the user.
+	 * @return either the old pObject, or a new one should a Tool have been
+	 *         selected.
 	 */
 	public Placeable checkToolPickup(Placeable pObject) {
 		for (int i = 0; i < tools.length; i++) {
@@ -114,8 +122,10 @@ public class Toolbar {
 		}
 		return pObject;
 	}
+
 	/**
 	 * Get the y position of this Toolbar.
+	 * 
 	 * @return y, the y position of this Toolbar.
 	 */
 	public int getY() {

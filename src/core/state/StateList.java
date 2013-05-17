@@ -22,7 +22,7 @@ public enum StateList {
 		this.state = state;
 		this.id = id;
 	}
-	
+
 	public BasicState getState(){
 		return state;
 	}

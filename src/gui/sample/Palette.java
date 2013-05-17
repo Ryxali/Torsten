@@ -160,7 +160,8 @@ public class Palette {
 	 * Checks all the samples of this palette and fetches a sample from one of
 	 * them if the current user input dictates as such.
 	 * 
-	 * @param pAble the current placeable object
+	 * @param pAble
+	 *            the current placeable object
 	 * @return either the old sample or a new sample, depending on user input.
 	 */
 	public Placeable getClickedSample(Placeable pAble) {
@@ -173,33 +174,41 @@ public class Palette {
 		}
 		return pAble;
 	}
+
 	/**
 	 * get the name of the Palette
+	 * 
 	 * @return name, the Palette name
 	 */
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * get the sample array of this palette
+	 * 
 	 * @return samples, this Palette's sample array
 	 */
 	public Sample[] getSamples() {
 		// TODO Auto-generated method stub
 		return samples;
 	}
+
 	/**
 	 * Get a sample from the list
-	 * @param i the index of the sample in the list
+	 * 
+	 * @param i
+	 *            the index of the sample in the list
 	 * @return a sample in the specified index
 	 */
 	public Sample getSample(int i) {
-		if(i > sampleIndex){
+		if (i > sampleIndex) {
 			throw new ArrayIndexOutOfBoundsException();
 		}
 		// TODO Auto-generated method stub
 		return samples[i];
 	}
+
 	/**
 	 * 
 	 * @deprecated sillygoose method is redundant...
@@ -207,9 +216,13 @@ public class Palette {
 	public int getWidth() {
 		return WIDTH;
 	}
+
 	/**
-	 * Compacts this Palette's name and sample info to a format compatible with saves
-	 * @return a string containing a savefile compatible palette and sample info.
+	 * Compacts this Palette's name and sample info to a format compatible with
+	 * saves
+	 * 
+	 * @return a string containing a savefile compatible palette and sample
+	 *         info.
 	 */
 	public String toPrintable() {
 		String samps = "";

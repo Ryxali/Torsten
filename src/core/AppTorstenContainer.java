@@ -9,7 +9,7 @@ import core.file.UserFileReader;
 /**
  * A simple extension of the AppGameContainer that overrides the start() method.
  * 
- * @author freetimer
+ * @author Niklas Lindblad
  * @see AppGameContainer
  */
 public class AppTorstenContainer extends AppGameContainer {

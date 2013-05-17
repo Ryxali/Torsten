@@ -36,7 +36,7 @@ public class FileReader {
 				return null;
 			}
 		}
-		
+
 		return s.replace("/", "").replace("\\", "") + ".grd";
 	}
 	/**
