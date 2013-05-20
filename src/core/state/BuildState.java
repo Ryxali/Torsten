@@ -2,6 +2,7 @@ package core.state;
 
 import java.util.ArrayList;
 
+import gui.HeldItem;
 import gui.sample.PaletteStore;
 import gui.sample.Sample;
 import gui.square.Grid;
@@ -24,10 +25,12 @@ import core.file.FileReader;
 import core.file.FileSaver;
 import core.file.UserFileReader;
 import core.image.DefaultImage;
+
 /**
  * The state for creating worlds
+ * 
  * @author Niklas Lindblad
- *
+ * 
  */
 public class BuildState extends BasicState {
 	/**
@@ -37,6 +40,7 @@ public class BuildState extends BasicState {
 
 	/**
 	 * A list of advanced Edits screen.
+	 * 
 	 * @see gui.AdvancedEdit
 	 */
 	private ArrayList<Thread> advEdits = new ArrayList<Thread>();
@@ -61,15 +65,10 @@ public class BuildState extends BasicState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-		boolean doRender = false;
-		g.drawRect(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 100,
-				100);
 		Grid.get().draw(g, width, height, gc.getInput());
 		PaletteStore.get().draw(g, width, height, gc.getInput());
-		if (curPlaceable != null) {
-			curPlaceable.draw(g, gc.getInput().getMouseX(), gc.getInput()
-					.getMouseY());
-		}
+		HeldItem.get().draw(g, gc.getInput().getMouseX(),
+				gc.getInput().getMouseY());
 		Toolbars.draw(g, width, height, gc.getInput());
 		// saveB.draw(g);
 		// loadB.draw(g);
@@ -78,61 +77,75 @@ public class BuildState extends BasicState {
 	public void addWindow(Thread t) {
 		advEdits.add(t);
 	}
+
 	/**
 	 * Checks the Grid, Toolbars and Palettes for changes.
-	 * @param gc the GameContainer
-	 * @param sbg the StateBasedGame
-	 * @param delta the time that passed since last loop
+	 * 
+	 * @param gc
+	 *            the GameContainer
+	 * @param sbg
+	 *            the StateBasedGame
+	 * @param delta
+	 *            the time that passed since last loop
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		
-		if(screenSizeChange){
+
+		if (screenSizeChange) {
 			Main.setBounds(width, height);
+			Grid.get().forceRenderNext();
 			screenSizeChange = false;
 		}
 		// gc.getInput().setScale((float)zoom, (float)zoom);
 		PaletteStore.get().update(gc.getInput());
-		curPlaceable = getCurrentPlaceable(curPlaceable);
-				
-				
+		HeldItem.get().setItem(getCurrentPlaceable(HeldItem.get().getItem()));
 
 		if (gc.getInput().isMouseButtonDown(Input.MOUSE_RIGHT_BUTTON)) {
-			curPlaceable = null;
+			HeldItem.get().setItem(null);
 		}
-		Grid.get().update(gc.getInput(), curPlaceable, width, height, advEdits);
+		Grid.get().update(gc.getInput(), HeldItem.get(), width, height, advEdits);
 
-		//Toolbars.update(gc.getInput());
+		// Toolbars.update(gc.getInput());
 	}
+
 	/**
 	 * Check for a new Placeable object
-	 * @param p the current placeable object
-	 * @return null, a new placeable object, or the previous object if no change has occured.
+	 * 
+	 * @param p
+	 *            the current placeable object
+	 * @return null, a new placeable object, or the previous object if no change
+	 *         has occured.
 	 */
-	private Placeable getCurrentPlaceable(Placeable p){
-		p = PaletteStore.get().getActivePalette()
-		.getClickedSample(p);
+	private Placeable getCurrentPlaceable(Placeable p) {
+		p = PaletteStore.get().getActivePalette().getClickedSample(p);
 		p = Toolbars.getCurrentTool(p);
 		return p;
 	}
+
 	/**
 	 * Get the current placeable object
+	 * 
 	 * @return curPlaceable, the current placeable object.
 	 */
 	public Placeable getCurrentPlaceable() {
 		return curPlaceable;
 	}
+
 	/**
 	 * Sets a new window width and height for the game.
-	 * @param width the new screen width.
-	 * @param height the new screen height.
+	 * 
+	 * @param width
+	 *            the new screen width.
+	 * @param height
+	 *            the new screen height.
 	 */
-	public void setBounds(int width, int height){
+	public void setBounds(int width, int height) {
 		screenSizeChange = true;
 		this.width = width;
 		this.height = height;
 	}
+
 	/**
 	 * Fetch the id of this state.
 	 */

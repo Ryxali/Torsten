@@ -45,7 +45,7 @@ public class Sample extends StandardButton implements Placeable {
 	 * The matching value for the squareItem type for obstacles.
 	 */
 	public static final String TYPE_OBSTACLE = "obstacle";
-
+	
 	/**
 	 * Creates a new Sample with a placeable object
 	 * 

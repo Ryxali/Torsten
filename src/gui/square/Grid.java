@@ -3,6 +3,7 @@ package gui.square;
 import java.util.ArrayList;
 
 import gui.AdvancedEdit;
+import gui.HeldItem;
 import gui.Tooltip;
 import gui.sample.Palette;
 import gui.sample.PaletteStore;
@@ -52,12 +53,12 @@ public class Grid {
 	 * The x position on the grid that is stored when the user is dragging the
 	 * mouse
 	 */
-	private int mouseHoldX;
+	private int mouseHoldX = 0;
 	/**
 	 * The y position on the grid that is stored when the user is dragging the
 	 * mouse
 	 */
-	private int mouseHoldY;
+	private int mouseHoldY = 0;
 	/**
 	 * Remembers whether we are currently dragging the grid or not.
 	 */
@@ -97,12 +98,29 @@ public class Grid {
 	 *            the current user input
 	 */
 	public void draw(Graphics g, int screenWidth, int screenHeight, Input input) {
+		// determineSquaresToDraw(g, screenWidth, screenHeight, input);
 		try {
 			drawRows(g, screenWidth, screenHeight, input);
 			squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
 					.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
 					.drawTooltip(g, screenWidth, screenHeight, input);
 		} catch (ArrayIndexOutOfBoundsException e) {
+		}
+	}
+
+	private void determineSquaresToDraw(Graphics g, int screenWidth,
+			int screenHeight, Input input) {
+		for (int x = (input.getMouseX() + baseX) / Square.SQUARE_DIMENSION - 2; x < (input
+				.getMouseX() + baseX) / Square.SQUARE_DIMENSION + 1; x++) {
+			for (int y = (input.getMouseY() + baseY) / Square.SQUARE_DIMENSION
+					- 2; y < (input.getMouseY() + baseY)
+					/ Square.SQUARE_DIMENSION + 1; y++) {
+				try {
+					squares[x][y].setShouldRender(true);
+				} catch (ArrayIndexOutOfBoundsException ex) {
+
+				}
+			}
 		}
 	}
 
@@ -144,9 +162,20 @@ public class Grid {
 	private void drawSquares(Graphics g, int x, int screenHeight, Input input) {
 		for (int y = getDrawIndexY(); y < squares[x].length
 				&& y * Square.SQUARE_DIMENSION + baseY < screenHeight; y++) {
-
+			// if(baseX != 0 || baseY != 0){
+			squares[x][y].setShouldRender(dragging
+					|| squares[x][y].shouldRender());
+			// }
 			squares[x][y].draw(g, baseX, baseY, input);
 			// System.out.println(y + " y " + baseY);
+		}
+	}
+
+	public void forceRenderNext() {
+		for (int x = 0; x < squares.length; x++) {
+			for (int y = 0; y < squares[x].length; y++) {
+				squares[x][y].setShouldRender(true);
+			}
 		}
 	}
 
@@ -168,7 +197,7 @@ public class Grid {
 	 * 
 	 * @param input
 	 *            the current user input
-	 * @param sample
+	 * @param heldItem
 	 *            the current sample the user is wielding
 	 * @param screenWidth
 	 *            the current screen width
@@ -177,13 +206,14 @@ public class Grid {
 	 * @param editWins
 	 *            the active advanced editor windows
 	 */
-	public void update(Input input, Placeable sample, int screenWidth,
+	public void update(Input input, HeldItem heldItem, int screenWidth,
 			int screenHeight, ArrayList<Thread> editWins) {
 		try {
 			/*
 			 * input.getMouseX() > Palette.X_POS || input.getMouseY() >
 			 * screenWidth-Tooltip.HEIGHT)
 			 */
+			checkSquareRenderNeccessity(heldItem);
 			if (mouseOccupied(screenWidth, screenHeight, input)) {
 				resetSquareStates(screenWidth, screenHeight);
 				return;
@@ -193,7 +223,8 @@ public class Grid {
 				drag(input);
 			}
 			checkSquareStates(screenWidth, screenHeight, input);
-			checkSquareInterraction(input, sample, editWins);
+			checkSquareInterraction(input, heldItem, editWins);
+			
 		} catch (ArrayIndexOutOfBoundsException e) {
 
 		}
@@ -357,46 +388,70 @@ public class Grid {
 	 * 
 	 * @param input
 	 *            the current user input.
-	 * @param placeable
+	 * @param heldItem
 	 *            the currently held placeable object
 	 * @param editWins
 	 *            the list of AdvancedEdit windows currently active
 	 */
-	private void checkSquareInterraction(Input input, Placeable placeable,
+	private void checkSquareInterraction(Input input, HeldItem heldItem,
 			ArrayList<Thread> editWins) {
-		if (squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
-				.getMouseY() - baseY) / Square.SQUARE_DIMENSION]
-					.hasBeenClicked() == Button.PRESSED_TRUE) {
-			if (placeable == null && input.isKeyDown(Input.KEY_LALT)) {
-				editWins.add(AdvancedEdit.getNew(squares[(input.getMouseX() - baseX)
-						/ Square.SQUARE_DIMENSION][(input.getMouseY() - baseY)
-						/ Square.SQUARE_DIMENSION]));
+		int squareX = (input.getMouseX() - baseX) / Square.SQUARE_DIMENSION;
+		int squareY = (input.getMouseY() - baseY) / Square.SQUARE_DIMENSION;
+		if (squares[squareX][squareY].hasBeenClicked() == Button.PRESSED_TRUE) {
+			if (heldItem == null && input.isKeyDown(Input.KEY_LALT)) {
+				editWins.add(AdvancedEdit.getNew(squares[squareX][squareY]));
 				editWins.get(editWins.size() - 1).start();
 			}
-			checkPlaceableAction(placeable, squares[(input.getMouseX() - baseX)
-					/ Square.SQUARE_DIMENSION][(input.getMouseY() - baseY)
-					/ Square.SQUARE_DIMENSION]);
+			checkPlaceableAction(heldItem, squares[squareX][squareY]);
 			/*
 			 * squares[(input.getMouseX() - baseX) /
 			 * Square.SQUARE_DIMENSION][(input .getMouseY() - baseY) /
 			 * Square.SQUARE_DIMENSION] .put(sample);
 			 */
 		}
+		/*for (int x = -2; x < 3; x++) {
+			for (int y = -2; y < 3; y++) {
+				try {
+					squares[squareX - x][squareY - y].setShouldRender(true);
+				} catch (ArrayIndexOutOfBoundsException ex) {
+
+				}
+			}
+		}*/
+		
+	}
+	/**
+	 * This method will check if the held item has interfered with visible squares and if they need a rerender.
+	 * @param heldItem the currently held item.
+	 */
+	private void checkSquareRenderNeccessity(HeldItem heldItem){
+		if(heldItem.getItem() == null){
+			return;
+		}
+		for (int x = -2; x < 3; x++) {
+			for (int y = -2; y < 3; y++) {
+				try {
+					squares[(heldItem.getLastX()-baseX)/Square.SQUARE_DIMENSION - x][(heldItem.getLastY()-baseY)/Square.SQUARE_DIMENSION - y].setShouldRender(true);
+				} catch (ArrayIndexOutOfBoundsException ex) {
+
+				}
+			}
+		}
 	}
 
 	/**
 	 * Called when we want to use a placeable object (if any) on a square.
 	 * 
-	 * @param placeable
+	 * @param heldItem
 	 *            the current placeable object.
 	 * @param square
 	 *            the square to use it on.
 	 */
-	private void checkPlaceableAction(Placeable placeable, Square square) {
-		if (placeable == null) {
+	private void checkPlaceableAction(HeldItem heldItem, Square square) {
+		if (heldItem == null) {
 			return;
 		}
-		placeable.onUse(square);
+		heldItem.onUse(square);
 		/*
 		 * if(placeable instanceof Sample){ System.out.println();
 		 * square.put(((Sample)placeable).getSquareItem()); return; }

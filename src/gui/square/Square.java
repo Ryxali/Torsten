@@ -72,6 +72,10 @@ public class Square extends StandardButton {
 	 * The x position of the square
 	 */
 	private final int y;
+	/**
+	 * An indication whether this square needs to be rendered this frame.
+	 */
+	private boolean shouldRender;
 
 	// p v SquareIMG
 	// p v SquareMOB
@@ -94,6 +98,7 @@ public class Square extends StandardButton {
 		this.y = y;
 		this.squareImg = squareImg.getImage();
 		loot = new LootPile("Loot Pile", null, "");
+		shouldRender = true;
 	}
 
 	/*
@@ -130,6 +135,7 @@ public class Square extends StandardButton {
 		this.creature = creature;
 		this.loot = loot;
 		this.obstacle = obstacle;
+		shouldRender = true;
 	}
 
 	/**
@@ -167,7 +173,19 @@ public class Square extends StandardButton {
 		}
 		loot = new LootPile("Lootus", null, "");
 		setLoot(squareInfo[3], loot);
-
+		shouldRender = true;
+	}
+	@Override
+	public void setState(int state) {
+		shouldRender |= state != getState();
+		super.setState(state);
+	}
+	/**
+	 * Set whether this button should be rendered during next render() call.
+	 * @param shouldRender indication whether this button should be rendered.
+	 */
+	public void setShouldRender(boolean shouldRender){
+		this.shouldRender = shouldRender;
 	}
 
 	/**
@@ -245,6 +263,9 @@ public class Square extends StandardButton {
 	 * </ol>
 	 */
 	public void draw(Graphics g, int baseX, int baseY, Input input) {
+		if (!shouldRender){
+			return;
+		}
 		squareImg.draw(baseX + x, baseY + y);
 		if (obstacle != null) {
 			obstacle.draw(g, baseX + x, baseY + y);
@@ -257,9 +278,9 @@ public class Square extends StandardButton {
 		}
 		super.draw(g, x + baseX, y + baseY, input);
 		// getStoredImage().draw(baseX + x, baseY + y);
-
+		shouldRender = false;
 	}
-
+	
 	/**
 	 * Draws all of the info text of the square items into a box at the
 	 * bottommost part of the screen.
@@ -328,5 +349,9 @@ public class Square extends StandardButton {
 	 */
 	public void buttonStateCheck(int baseX, int baseY, Input input) {
 		super.buttonStateCheck(x + baseX, y + baseY, input);
+	}
+
+	public boolean shouldRender() {
+		return shouldRender;
 	}
 }
