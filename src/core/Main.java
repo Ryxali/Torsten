@@ -1,5 +1,6 @@
 package core;
 
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -61,7 +62,7 @@ public class Main extends StateBasedGame {
 	public static void main(String[] args) {
 		try {
 			apptc = new AppTorstenContainer(new Main("TorstenFTW"));
-			apptc.setTargetFrameRate(60);
+			//
 			apptc.setDisplayMode(800, 600, false);
 			apptc.setForceExit(false);
 			apptc.setClearEachFrame(false);

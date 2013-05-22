@@ -99,6 +99,9 @@ public class Grid {
 	 */
 	public void draw(Graphics g, int screenWidth, int screenHeight, Input input) {
 		// determineSquaresToDraw(g, screenWidth, screenHeight, input);
+		if(dragging){
+			g.fillRect(0, 0, screenWidth, screenHeight);
+		}
 		try {
 			drawRows(g, screenWidth, screenHeight, input);
 			squares[(input.getMouseX() - baseX) / Square.SQUARE_DIMENSION][(input
