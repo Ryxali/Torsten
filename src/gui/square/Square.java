@@ -264,7 +264,7 @@ public class Square extends StandardButton {
 	 */
 	public void draw(Graphics g, int baseX, int baseY, Input input) {
 		if (!shouldRender){
-			return;
+		//	return;
 		}
 		squareImg.draw(baseX + x, baseY + y);
 		if (obstacle != null) {

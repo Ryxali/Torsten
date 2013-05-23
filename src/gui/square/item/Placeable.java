@@ -23,5 +23,9 @@ public interface Placeable extends DrawableXY {
 	 *            the square to use this object on.
 	 */
 	public void onUse(Square square);
-
+	/**
+	 * Draws this placeable's tool image at the given point.
+	 */
+	@Override
+	public void draw(Graphics g, int x, int y);
 }

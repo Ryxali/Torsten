@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import gui.AdvancedEdit;
 import gui.HeldItem;
 import gui.Tooltip;
+import gui.brush.Brush;
+import gui.brush.BrushInfo;
 import gui.sample.Palette;
 import gui.sample.PaletteStore;
 import gui.sample.Sample;
@@ -63,6 +65,8 @@ public class Grid {
 	 * Remembers whether we are currently dragging the grid or not.
 	 */
 	private boolean dragging = false;
+	
+	private Brush curBrush;
 
 	/**
 	 * Creates a 50x50 grid filled with plain tiles.
@@ -70,6 +74,7 @@ public class Grid {
 	private Grid() {
 		squares = new Square[50][50];
 		fillTiles();
+		curBrush = new Brush(1, BrushInfo.SHAPE_SQUARE);
 	}
 
 	/**
@@ -549,6 +554,10 @@ public class Grid {
 	 */
 	public int getBaseY() {
 		return baseY;
+	}
+
+	public void setBrush(Brush brush) {
+		curBrush = brush;
 	}
 
 }
