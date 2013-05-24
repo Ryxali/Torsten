@@ -7,6 +7,7 @@ import gui.HeldItem;
 import gui.Tooltip;
 import gui.brush.Brush;
 import gui.brush.BrushInfo;
+import gui.brush.Brushes;
 import gui.sample.Palette;
 import gui.sample.PaletteStore;
 import gui.sample.Sample;
@@ -65,7 +66,13 @@ public class Grid {
 	 * Remembers whether we are currently dragging the grid or not.
 	 */
 	private boolean dragging = false;
-	
+	/**
+	 * An indicator that we're currently placing squareItems.
+	 */
+	private boolean placing = false;
+	/**
+	 * The currently used brush
+	 */
 	private Brush curBrush;
 
 	/**
@@ -74,7 +81,7 @@ public class Grid {
 	private Grid() {
 		squares = new Square[50][50];
 		fillTiles();
-		curBrush = new Brush(1, BrushInfo.SHAPE_SQUARE);
+		curBrush = Brushes.SQUARE_1.getBrush();
 	}
 
 	/**
@@ -104,7 +111,7 @@ public class Grid {
 	 */
 	public void draw(Graphics g, int screenWidth, int screenHeight, Input input) {
 		// determineSquaresToDraw(g, screenWidth, screenHeight, input);
-		if(dragging){
+		if (dragging) {
 			g.fillRect(0, 0, screenWidth, screenHeight);
 		}
 		try {
@@ -114,6 +121,10 @@ public class Grid {
 					.drawTooltip(g, screenWidth, screenHeight, input);
 		} catch (ArrayIndexOutOfBoundsException e) {
 		}
+		g.drawRect(input.getMouseX(), input.getMouseY(), curBrush
+				.getBrushDetails().getSize() * Square.SQUARE_DIMENSION,
+				curBrush.getBrushDetails().getSize() * Square.SQUARE_DIMENSION);
+
 	}
 
 	private void determineSquaresToDraw(Graphics g, int screenWidth,
@@ -179,6 +190,9 @@ public class Grid {
 		}
 	}
 
+	/**
+	 * Force the grid to render everything during it's next draw() call.
+	 */
 	public void forceRenderNext() {
 		for (int x = 0; x < squares.length; x++) {
 			for (int y = 0; y < squares[x].length; y++) {
@@ -231,8 +245,9 @@ public class Grid {
 				drag(input);
 			}
 			checkSquareStates(screenWidth, screenHeight, input);
-			checkSquareInterraction(input, heldItem, editWins);
-			
+			checkSquareInterraction(input, heldItem, screenWidth,
+					screenHeight, editWins);
+
 		} catch (ArrayIndexOutOfBoundsException e) {
 
 		}
@@ -397,49 +412,85 @@ public class Grid {
 	 * @param input
 	 *            the current user input.
 	 * @param heldItem
-	 *            the currently held placeable object
+	 *            the currently held placeable object.
 	 * @param editWins
-	 *            the list of AdvancedEdit windows currently active
+	 *            the list of AdvancedEdit windows currently active.
+	 * @param screenWidth
+	 *            the current screen width.
+	 * @param screenHeight
+	 *            the current screen height.
 	 */
 	private void checkSquareInterraction(Input input, HeldItem heldItem,
-			ArrayList<Thread> editWins) {
+			int screenWidth, int screenHeight, ArrayList<Thread> editWins) {
 		int squareX = (input.getMouseX() - baseX) / Square.SQUARE_DIMENSION;
 		int squareY = (input.getMouseY() - baseY) / Square.SQUARE_DIMENSION;
-		if (squares[squareX][squareY].hasBeenClicked() == Button.PRESSED_TRUE) {
-			if (heldItem == null && input.isKeyDown(Input.KEY_LALT)) {
-				editWins.add(AdvancedEdit.getNew(squares[squareX][squareY]));
-				editWins.get(editWins.size() - 1).start();
-			}
-			checkPlaceableAction(heldItem, squares[squareX][squareY]);
-			/*
-			 * squares[(input.getMouseX() - baseX) /
-			 * Square.SQUARE_DIMENSION][(input .getMouseY() - baseY) /
-			 * Square.SQUARE_DIMENSION] .put(sample);
-			 */
+		if (squares[squareX][squareY].hasBeenClicked() == Button.PRESSED_TRUE
+				&& heldItem == null && input.isKeyDown(Input.KEY_LALT)) {
+			editWins.add(AdvancedEdit.getNew(squares[squareX][squareY]));
+			editWins.get(editWins.size() - 1).start();
 		}
-		/*for (int x = -2; x < 3; x++) {
-			for (int y = -2; y < 3; y++) {
-				try {
-					squares[squareX - x][squareY - y].setShouldRender(true);
-				} catch (ArrayIndexOutOfBoundsException ex) {
-
+		if (squares[squareX][squareY].getState() == Button.STATE_PRESSED) {
+			placing = true;
+			for (int x = squareX - curBrush.getBrushDetails().getSize() / 2 - 3; x < squareX
+					+ curBrush.getBrushDetails().getSize() + 3 / 2; x++) {
+				for (int y = squareY - curBrush.getBrushDetails().getSize() - 3
+						/ 2; y < squareY + curBrush.getBrushDetails().getSize()
+						+ 3 / 2; y++) {
+					if (x >= 0 && y >= 0) {
+						if (squares[x][y].intersects(baseX, baseY, curBrush,
+								input)) {
+							checkPlaceableAction(heldItem, squares[x][y]);
+						}
+					}
 				}
 			}
-		}*/
-		
+
+		} else {
+			if (placing) {
+				resetSquareBeingPlaced(screenWidth, screenHeight);
+				placing = false;
+			}
+		}
+
 	}
+
 	/**
-	 * This method will check if the held item has interfered with visible squares and if they need a rerender.
-	 * @param heldItem the currently held item.
+	 * Reset all visible squares, making it possible for them to accept square
+	 * items again.
+	 * 
+	 * @param screenWidth
+	 *            the current screen width.
+	 * @param screenHeight
+	 *            the current screen height.
 	 */
-	private void checkSquareRenderNeccessity(HeldItem heldItem){
-		if(heldItem.getItem() == null){
+	private void resetSquareBeingPlaced(int screenWidth, int screenHeight) {
+		for (int x = getDrawIndexX(); x < squares.length
+				&& x * Square.SQUARE_DIMENSION + baseX < screenWidth; x++) {
+			for (int y = getDrawIndexY(); y < squares[x].length
+					&& y * Square.SQUARE_DIMENSION + baseY < screenHeight; y++) {
+				squares[x][y].resetBeenPlaced();
+			}
+		}
+	}
+
+	/**
+	 * This method will check if the held item has interfered with visible
+	 * squares and if they need a rerender.
+	 * 
+	 * @param heldItem
+	 *            the currently held item.
+	 */
+	private void checkSquareRenderNeccessity(HeldItem heldItem) {
+		if (heldItem.getItem() == null) {
 			return;
 		}
 		for (int x = -2; x < 3; x++) {
 			for (int y = -2; y < 3; y++) {
 				try {
-					squares[(heldItem.getLastX()-baseX)/Square.SQUARE_DIMENSION - x][(heldItem.getLastY()-baseY)/Square.SQUARE_DIMENSION - y].setShouldRender(true);
+					squares[(heldItem.getLastX() - baseX)
+							/ Square.SQUARE_DIMENSION - x][(heldItem.getLastY() - baseY)
+							/ Square.SQUARE_DIMENSION - y]
+							.setShouldRender(true);
 				} catch (ArrayIndexOutOfBoundsException ex) {
 
 				}
@@ -460,11 +511,6 @@ public class Grid {
 			return;
 		}
 		heldItem.onUse(square);
-		/*
-		 * if(placeable instanceof Sample){ System.out.println();
-		 * square.put(((Sample)placeable).getSquareItem()); return; }
-		 * if(placeable instanceof Tool){ ((Tool)placeable).onUse(square); }
-		 */
 	}
 
 	/**
@@ -556,6 +602,12 @@ public class Grid {
 		return baseY;
 	}
 
+	/**
+	 * Set the current brush used in this grid to specified brush.
+	 * 
+	 * @param brush
+	 *            the new brush to use.
+	 */
 	public void setBrush(Brush brush) {
 		curBrush = brush;
 	}

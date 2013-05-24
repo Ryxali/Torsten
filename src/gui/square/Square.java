@@ -14,6 +14,7 @@ import core.image.DefaultImage;
 import core.image.ImageStore;
 
 import gui.Tooltip;
+import gui.brush.Brush;
 import gui.sample.Sample;
 import gui.square.item.Creature;
 import gui.square.item.Item;
@@ -72,6 +73,12 @@ public class Square extends StandardButton {
 	 * The x position of the square
 	 */
 	private final int y;
+	/**
+	 * An indicator that this square has already got an item placed in it this
+	 * time.
+	 */
+	private boolean beenPlaced = false;
+
 	/**
 	 * An indication whether this square needs to be rendered this frame.
 	 */
@@ -175,16 +182,20 @@ public class Square extends StandardButton {
 		setLoot(squareInfo[3], loot);
 		shouldRender = true;
 	}
+
 	@Override
 	public void setState(int state) {
 		shouldRender |= state != getState();
 		super.setState(state);
 	}
+
 	/**
 	 * Set whether this button should be rendered during next render() call.
-	 * @param shouldRender indication whether this button should be rendered.
+	 * 
+	 * @param shouldRender
+	 *            indication whether this button should be rendered.
 	 */
-	public void setShouldRender(boolean shouldRender){
+	public void setShouldRender(boolean shouldRender) {
 		this.shouldRender = shouldRender;
 	}
 
@@ -263,8 +274,8 @@ public class Square extends StandardButton {
 	 * </ol>
 	 */
 	public void draw(Graphics g, int baseX, int baseY, Input input) {
-		if (!shouldRender){
-		//	return;
+		if (!shouldRender) {
+			// return;
 		}
 		squareImg.draw(baseX + x, baseY + y);
 		if (obstacle != null) {
@@ -280,10 +291,10 @@ public class Square extends StandardButton {
 		// getStoredImage().draw(baseX + x, baseY + y);
 		shouldRender = false;
 	}
-	
+
 	/**
-	 * Draws all of the info text of the square items into a box at the
-	 * bottommost part of the screen.
+	 * Draws all of the info text of the square items into a box at the bottom
+	 * most part of the screen.
 	 * 
 	 * @param g
 	 *            the current graphics context
@@ -307,6 +318,10 @@ public class Square extends StandardButton {
 	 *            the sample provided.
 	 */
 	public void put(SquareItem sample) {
+		if (beenPlaced) {
+			return;
+		}
+		beenPlaced = true;
 		if (sample instanceof Creature) {
 			creature = (Creature) sample;
 			return;
@@ -315,6 +330,14 @@ public class Square extends StandardButton {
 		} else if (sample instanceof Obstacle) {
 			obstacle = (Obstacle) sample;
 		}
+
+	}
+
+	/**
+	 * Make this Square accept squareitems once more.
+	 */
+	public void resetBeenPlaced() {
+		beenPlaced = false;
 	}
 
 	/**
@@ -348,10 +371,29 @@ public class Square extends StandardButton {
 	 *            the current user input.
 	 */
 	public void buttonStateCheck(int baseX, int baseY, Input input) {
-		super.buttonStateCheck(x + baseX, y + baseY, input);
+		if (contains(input.getMouseX(), input.getMouseY(), baseX + x,
+				baseY + y, baseX + x + SQUARE_DIMENSION, baseY + y
+						+ SQUARE_DIMENSION)) {
+
+			if (getState() == STATE_IDLE) {
+				setState(STATE_HOVER);
+			}
+			if (getState() == STATE_HOVER
+					&& input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+				setState(STATE_PRESSED);
+			}
+		} else {
+			setState(STATE_IDLE);
+		}
+		// super.buttonStateCheck(x + baseX, y + baseY, input);
 	}
 
 	public boolean shouldRender() {
 		return shouldRender;
+	}
+
+	public boolean intersects(int baseX, int baseY, Brush curBrush, Input input) {
+		return curBrush.intersects(x + baseX, y + baseY, getProperImage()
+				.getWidth(), getProperImage().getHeight(), input);
 	}
 }
